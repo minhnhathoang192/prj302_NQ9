@@ -59,7 +59,7 @@ public class UniversityDAO {
         ArrayList<UniversityDTO> result= new ArrayList<>();
         try {
             Connection conn= DbUtils.getConnection();
-            String sql= "SELECT * FROM tblUniversity WHERE " + colum + " LIKE ?" ;
+            String sql= "SELECT * FROM tblUniversity WHERE status=1 AND " + colum + " LIKE ?" ;
             PreparedStatement pst= conn.prepareStatement(sql);
             pst.setString(1, "%" +value+ "%");
             ResultSet rs= pst.executeQuery();
