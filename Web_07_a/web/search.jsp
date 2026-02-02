@@ -18,7 +18,7 @@
     <body>
         <jsp:include page="welcome.jsp"/>
 
-        <c:if test="empty user">
+        <c:if test="${empty user}">
             <c:redirect url="login.jsp"/>
         </c:if>
 
@@ -42,11 +42,11 @@
             <th></th>
         </thead>
         <c:choose>
-            <c:when test="empty List">
+            <c:when test="${empty List}">
                 No data matching the search criteria found!
             </c:when>
             <c:otherwise>
-                <c:forEach items="${list}" var="u">
+                <c:forEach items="${List}" var="u">
                     <tr>
                         <td>${u.id}</td>
                         <td>${u.name}</td>
