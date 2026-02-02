@@ -59,15 +59,15 @@ public class UniversityDAO {
         ArrayList<UniversityDTO> result= new ArrayList<>();
         try {
             Connection conn= DbUtils.getConnection();
-            String sql= "SELECT * FROM tblUniversity WHERE " + colum + "LIKE =?";
+            String sql= "SELECT * FROM tblUniversity WHERE " + colum + " LIKE ?" ;
             PreparedStatement pst= conn.prepareStatement(sql);
-            pst.setString(1, "%"+value+"%");
+            pst.setString(1, "%" +value+ "%");
             ResultSet rs= pst.executeQuery();
             while (rs.next()) {                
                 String id= rs.getString("id");
                 String name= rs.getString("name");
                 String shortName= rs.getString("shortName");
-                String description= rs.getString("description");
+                String description= rs.getString("description"); 
                 int foundedYear= rs.getInt("foundedYear");
                 String address= rs.getString("address");
                 String city= rs.getString("city");

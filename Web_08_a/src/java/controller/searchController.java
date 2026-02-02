@@ -47,6 +47,7 @@ public class searchController extends HttpServlet {
             list=udao.filterbyName(keywords);
         }
         request.setAttribute("list", list);
+        request.setAttribute("keywords", keywords);
         String url="search.jsp";
         RequestDispatcher rd= request.getRequestDispatcher(url);
         rd.forward(request, response);

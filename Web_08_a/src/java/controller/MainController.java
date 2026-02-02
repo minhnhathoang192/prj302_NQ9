@@ -32,7 +32,7 @@ public class MainController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
-        String action= request.getParameter("action");
+        String action= request.getParameter("action") + "";
         String url= "login";
         
         if(action.equals("login")){
