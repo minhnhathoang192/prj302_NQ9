@@ -26,7 +26,7 @@
             type: <input type="text" name="type" value="${u.type}"/> <br/>
             total Students: <input type="number" step="1" min="0" name="totalStudents" value="${u.totalStudents}"/> <br/>
             total Faculties: <input type="number" step="1" min="0" name="totalFaculties" value="${u.totalFaculties}"/> <br/>
-            isDraft: <input type="checkbox" name="isDraft" checked="${u.isDraft}"/> <br/>
+            isDraft: <input type="checkbox" name="isDraft"  value="true" ${u.isDraft ? "checked" : ""} /> <br/>
             <input type="submit" value="Add"/>
             
         </form>

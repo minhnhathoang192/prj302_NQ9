@@ -108,7 +108,9 @@ public class UniversityDAO {
         int result=0;
         try {
             Connection conn= DbUtils.getConnection();
-            String sql="INSERT into tblUniversity value(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql="INSERT into tblUniversity(id,name,shortName,description,foundedYear,address, city, region,"
+                    + " type, totalStudents, totalFaculties, isDraft, status)"
+                    + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps= conn.prepareStatement(sql);
             ps.setString(1, u.getId());
             ps.setString(2, u.getName());
@@ -126,6 +128,7 @@ public class UniversityDAO {
             result= ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return result>0;
     }

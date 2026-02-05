@@ -48,7 +48,7 @@ public class AddUniversityController extends HttpServlet {
             String type = request.getParameter("type");
             String s_totalStudents = request.getParameter("totalStudents");
             String s_totalFaculties = request.getParameter("totalFaculties");
-            String s_isDraft = request.getParameter("isDraft");
+            boolean isDraft = request.getParameter("isDraft")!=null;
 
             id = id.trim();
             if (id.isEmpty()) {
@@ -63,10 +63,7 @@ public class AddUniversityController extends HttpServlet {
             if (shortName.isEmpty()) {
                 error += ("chua nhap shortName <br/>");
             }
-            description = description.trim();
-            if (description.isEmpty()) {
-                error += ("chua nhap mo ta <br/>");
-            }
+            
             s_foundedYear = s_foundedYear.trim();
             if (s_foundedYear.isEmpty()) {
                 error += ("chua nhap chua nhap nam <br/>");
@@ -130,7 +127,6 @@ public class AddUniversityController extends HttpServlet {
                 error += ("SO sinh vien phai la so nguyen duong");
             }
 
-            boolean isDraft = (s_isDraft.equals("1")) ? true : false;
 
             if (error.isEmpty()) {
                 u = new UniversityDTO(id, name, shortName, description, foundedYear, address, city, region, type, totalStudents, totalFaculties, isDraft);
