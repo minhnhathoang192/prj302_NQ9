@@ -44,6 +44,7 @@ public class loginController extends HttpServlet {
 
             userDAO udao = new userDAO();
             userDTO user = udao.login(txtUserName, txtPassword);
+            System.out.println(user);
             if(user!=null){
                 if(user.isStatus()){
                     url= "welcome.jsp";
@@ -53,7 +54,7 @@ public class loginController extends HttpServlet {
                 }
             }else{
                 url="login.jsp";
-                session.setAttribute("message", "Invalid userName or incorrect password");
+                request.setAttribute("message", "Invalid userName or incorrect password");
             }
         }else{
             url="welcome.jsp";

@@ -20,6 +20,10 @@
         <servlet-name>deleteUniversityController</servlet-name>
         <servlet-class>controller.deleteUniversityController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddUniversityController</servlet-name>
+        <servlet-class>controller.AddUniversityController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>deleteUniversityController</servlet-name>
         <url-pattern>/deleteUniversityController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUniversityController</servlet-name>
+        <url-pattern>/AddUniversityController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

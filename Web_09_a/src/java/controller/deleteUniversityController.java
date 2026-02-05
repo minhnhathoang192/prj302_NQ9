@@ -50,7 +50,12 @@ public class deleteUniversityController extends HttpServlet {
         UniversityDAO udao= new UniversityDAO();
         
         if(!id.isEmpty()){
-            udao.softDelete(id);
+            boolean check= udao.softDelete(id);
+            if(check){
+                request.setAttribute("msg", "Deleted!");
+            }else{
+                request.setAttribute("msg", "Error, can not delete: "+id);
+            }
         }
         
         ArrayList<UniversityDTO> list= new ArrayList<>();

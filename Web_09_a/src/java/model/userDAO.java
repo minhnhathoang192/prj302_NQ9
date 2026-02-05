@@ -36,9 +36,11 @@ public class userDAO {
                 String fullName= rs.getString("fullName");
                 String password= rs.getString("password");
                 String roleID= rs.getString("roleID");
-                boolean isDraft= rs.getBoolean("isDraft");
-                user= new userDTO(userID, fullName, password, roleID, isDraft);
+                boolean isStatus= rs.getBoolean("status");
+                user= new userDTO(userID, fullName, password, roleID, isStatus);
             }
+            
+            System.out.println(user);
         } catch (Exception e) {
             return null;
         }

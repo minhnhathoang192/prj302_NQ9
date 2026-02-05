@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.userDTO"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,19 +15,17 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <c:choose>
-            <c:when test="${not empty message}">
+            <c:if test="${not empty user}">
                 <h1>
                     WELCOME, ${user.fullName}
                 </h1>
 
                 <a href="MainController?action=logout">Logout</a><br/>
                 <a href="searchController">Search</a>
-            </c:when>
+            </c:if>
 
-            <c:otherwise>
-                <c:redirect url="login.jsp"/>
-            </c:otherwise>
-        </c:choose>
+                <c:if test="${empty user}">
+                    <c:redirect url="login.jsp"/>
+                </c:if>
     </body>
 </html>

@@ -15,8 +15,12 @@ import utils.DbUtils;
  * @author NQ9
  */
 public class UniversityDAO {
-    public ArrayList<UniversityDTO> searchbyID(String id){
-        return searchbyColumn("id", id);
+    public UniversityDTO searchbyID(String id){
+        ArrayList<UniversityDTO> a= searchbyColumn("id", id);
+        if(a.size()>0){
+            return a.get(0);
+        }
+        return null;
     }
     public ArrayList<UniversityDTO> searchbyName(String name){
         return searchbyColumn("name", name);
@@ -98,5 +102,31 @@ public class UniversityDAO {
             System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    public boolean add(UniversityDTO u) {
+        int result=0;
+        try {
+            Connection conn= DbUtils.getConnection();
+            String sql="INSERT into tblUniversity value(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps= conn.prepareStatement(sql);
+            ps.setString(1, u.getId());
+            ps.setString(2, u.getName());
+            ps.setString(3, u.getShortName());
+            ps.setString(4, u.getDescription());
+            ps.setInt(5, u.getFoundedYear());
+            ps.setString(6, u.getAddress());
+            ps.setString(7, u.getCity());
+            ps.setString(8, u.getRegion());
+            ps.setString(9, u.getType());
+            ps.setInt(10, u.getTotalStudents());
+            ps.setInt(11, u.getTotalFaculties());
+            ps.setBoolean(12, u.isIsDraft());
+            ps.setBoolean(13, true);
+            result= ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return result>0;
     }
 }

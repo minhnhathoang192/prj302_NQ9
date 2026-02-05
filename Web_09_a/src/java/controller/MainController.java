@@ -32,10 +32,12 @@ public class MainController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
-        String action= request.getParameter("action") + "";
+        String action= request.getParameter("action");
         String url= "login.jsp";
         
-        if(action.equals("login")){
+        if(action ==null){
+            url="login.jsp";
+        }else if(action.equals("login")){
             url="loginController";
         }else if(action.equals("logout")){
             url="logoutController";
@@ -43,6 +45,8 @@ public class MainController extends HttpServlet {
             url="searchController";
         }else if(action.equals("deleteUniversity")){
             url="deleteUniversityController";
+        }else if(action.equals("addUniversity")){
+            url="AddUniversityController";
         }
         
         RequestDispatcher rd= request.getRequestDispatcher(url);

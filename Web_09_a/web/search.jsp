@@ -17,7 +17,8 @@
         <c:if test="${empty user}">
             <c:redirect url="login.jsp"/>
         </c:if>
-
+        
+        <a href="University-form.jsp">add</a> <br/>
         <form action="MainController" method="post">
             <input type="hidden" name="action" value="search"/>
             Input Name: <input type="text" name="keywords" value="${keywords}"/><br/> 
@@ -55,7 +56,7 @@
                         <td>${u.region}</td>
                         <td>${u.type}</td>
                         <td>${u.foundedYear}</td>
-                        <td>${u.totalStudent}</td>
+                        <td>${u.totalStudents}</td>
                         <td>${u.totalFaculties}</td>
                         <td>
                             <c:if test="${u.isDraft}">
