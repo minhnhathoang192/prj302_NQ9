@@ -21,7 +21,7 @@
                 </h1>
 
                 <a href="MainController?action=logout">Logout</a><br/>
-                <a href="searchController">Search</a>
+                <a href="MainController?action=search">Search</a><br/>
             </c:if>
 
                 <c:if test="${empty user}">

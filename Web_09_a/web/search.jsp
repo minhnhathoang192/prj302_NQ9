@@ -19,6 +19,7 @@
         </c:if>
         
         <a href="University-form.jsp">add</a> <br/>
+        
         <form action="MainController" method="post">
             <input type="hidden" name="action" value="search"/>
             Input Name: <input type="text" name="keywords" value="${keywords}"/><br/> 
