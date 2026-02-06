@@ -1,17 +1,43 @@
-<%-- 
-    Document   : index
-    Created on : Jan 30, 2026, 8:55:08 AM
-    Author     : NQ9
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="UTF-8">
+        <title>Home</title>
+        <link rel="stylesheet" href="assets/css/style.css"/>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <jsp:include page="components/header.jsp"/>
+
+        <div class="app">
+            <aside class="sidebar">
+                <jsp:include page="components/navbar.jsp"/>
+            </aside>
+
+            <main class="main">
+                <div id="mainContent">
+
+                    <div id="page-home" class="page active">
+                        <jsp:include page="components/home-content.jsp"/>
+                    </div>
+
+                    <div id="page-for-you" class="page">
+                        <jsp:include page="components/for-you-content.jsp"/>
+                    </div>
+
+                    <div id="page-profile" class="page">
+                        <jsp:include page="components/profile-content.jsp"/>
+                    </div>
+
+                </div>
+            </main>
+
+        </div>
+
+        <jsp:include page="components/footer.jsp"/>
+        <jsp:include page="components/login-modal.jsp"/>
+        <jsp:include page="components/forgot-modal.jsp"/>
+
+
     </body>
 </html>
