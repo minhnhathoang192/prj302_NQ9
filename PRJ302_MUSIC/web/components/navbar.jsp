@@ -25,6 +25,22 @@
             <span>Của Tui</span>
         </li>
     </ul>
+    
+    
+    <div class="nav-section">
+        MY LIBRARY
+    </div>
+    
+    <ul class="nav-menu">
+        <li class="nav-item" onclick="showPage('favorite', this)">
+            <span class="icon">❤</span>
+            <span>Yêu thích</span>
+        </li>
+        <li class="nav-item" onclick="showPage('recent', this)">
+            <span class="icon">🕒</span>
+            <span>Nghe gần đây</span>
+        </li>
+    </ul>
 
     <!-- LOGIN -->
     <div class="nav-login">

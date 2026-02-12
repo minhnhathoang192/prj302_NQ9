@@ -29,6 +29,19 @@
                         <jsp:include page="components/profile-content.jsp"/>
                     </div>
 
+                    <div id="page-favorite" class="page">
+                        <jsp:include page="components/favorite-content.jsp"/>
+                    </div>
+
+                    <div id="page-recent" class="page">
+                        <jsp:include page="components/recent-content.jsp"/>
+                    </div>
+                    
+                    <div id="page-vip" class="page">
+                        <jsp:include page="components/vip-content.jsp"/>
+                    </div>
+
+
                 </div>
             </main>
 
@@ -37,6 +50,7 @@
         <jsp:include page="components/footer.jsp"/>
         <jsp:include page="components/login-modal.jsp"/>
         <jsp:include page="components/forgot-modal.jsp"/>
+        <script src="assets/js/app.js"></script>
 
 
     </body>

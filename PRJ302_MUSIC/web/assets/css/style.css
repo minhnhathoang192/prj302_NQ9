@@ -1028,8 +1028,8 @@ body {
 /* cover */
 .for-you-cover {
     position: relative;
-    width: 800px;          /* TO HƠN */
-    height: 800px;
+    width: 760px;          /* TO HƠN */
+    height: 760px;
     margin: auto;
 }
 
@@ -1068,8 +1068,8 @@ body {
 .music-wave span:nth-child(5){animation-delay:.4s}
 
 @keyframes wave {
-    0%,100% { height: 16px; }
-    50% { height: 56px; }
+    15%,80% { height: 18px; }
+    50% { height: 15px; }
 }
 
 /* info */
@@ -1135,3 +1135,464 @@ body {
     100% { transform: scale(1); }
 }
 
+
+.nav-section {
+    margin-top: 25px;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    color: #cbd5e1;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.05);
+    color: white;
+}
+
+.nav-item.active {
+    background: linear-gradient(90deg,#22d3ee20,#22d3ee10);
+    color: #22d3ee;
+}
+
+
+.nav-item .icon {
+    width: 22px;
+    text-align: center;
+    font-size: 16px;
+}
+
+
+.nav-login {
+    margin-top: 30px;
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.login-btn-nav {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background: linear-gradient(90deg,#22d3ee,#38bdf8);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*/* ===============================
+   FAVORITE PAGE (Clean Version)
+=================================*/
+
+.favorite-page {
+  padding: 40px 60px;
+  color: #fff;
+}
+
+/* ===== HEADER ===== */
+
+.favorite-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+/* Cover */
+
+.favorite-cover {
+  width: 260px;
+  height: 260px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ff5c8a, #ff7aa8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+}
+
+.favorite-cover .heart-icon {
+  font-size: 90px;
+}
+
+/* Info */
+
+.favorite-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-label {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+.favorite-info h1 {
+  font-size: 48px;
+  margin: 0 0 10px 0;
+}
+
+.favorite-info p {
+  opacity: 0.6;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+
+.favorite-actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.favorite-btn {
+  padding: 12px 26px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.favorite-btn:hover {
+  background: #22d3ee;
+  color: black;
+  transform: translateY(-2px);
+}
+
+/* ===== EMPTY STATE ===== */
+
+.favorite-empty {
+  margin-top: 100px;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.favorite-empty .empty-icon {
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
+.favorite-empty h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.favorite-empty p {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.btn-add {
+  margin-top: 20px;
+  padding: 12px 30px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn-add:hover {
+  background: #22d3ee;
+  color: black;
+}
+
+/* ===============================
+   RECENT PAGE
+=================================*/
+
+.recent-wrapper {
+  padding: 40px 60px;
+  width: 100%;
+  color: #fff;
+}
+
+/* ===== TITLE ===== */
+
+.recent-title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* ===== TABS ===== */
+
+.recent-tabs {
+  display: flex;
+  gap: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 40px;
+}
+
+.tab {
+  padding-bottom: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.6;
+  position: relative;
+  transition: 0.2s ease;
+}
+
+.tab:hover {
+  opacity: 1;
+}
+
+.tab.active {
+  opacity: 1;
+  color: #22d3ee;
+}
+
+.tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #22d3ee;
+  border-radius: 3px;
+}
+
+/* ===== EMPTY STATE ===== */
+
+.recent-empty {
+  margin-top: 120px;
+  text-align: center;
+  opacity: 0.75;
+}
+
+.recent-empty .empty-icon {
+  font-size: 70px;
+  margin-bottom: 15px;
+}
+
+.recent-empty h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.recent-empty p {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* ===== TABLE ===== */
+
+.recent-table {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.recent-row {
+  display: grid;
+  grid-template-columns: 60px 3fr 2fr 2fr 100px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: 0.2s ease;
+}
+
+.recent-row.header {
+  opacity: 0.5;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.recent-row:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.song-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.song-title img {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* ===============================
+   VIP SUPPORT PAGE
+=================================*/
+
+.vip-page {
+    position: relative;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    overflow: hidden;
+}
+
+/* Background gradient animation */
+.vip-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0ea5e9, #8b5cf6, #ec4899);
+    background-size: 400% 400%;
+    animation: vipGradient 12s ease infinite;
+    opacity: 0.15;
+}
+
+@keyframes vipGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Glass card */
+.vip-card {
+    position: relative;
+    z-index: 2;
+    width: 500px;
+    max-width: 95%;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+
+.vip-card h1 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.vip-desc {
+    opacity: 0.8;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* QR */
+.vip-qr {
+    margin: 20px auto;
+    width: 220px;
+    height: 220px;
+    border-radius: 20px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.vip-qr img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Info */
+.vip-info {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* Back button */
+.vip-back-btn {
+    margin-top: 30px;
+    padding: 12px 30px;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(90deg,#22d3ee,#38bdf8);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.vip-back-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(34,211,238,0.5);
+}
+/* ===============================
+   SETTINGS DROPDOWN
+=================================*/
+
+.settings-wrapper {
+    position: relative;
+}
+
+/* Menu box */
+.settings-menu {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    width: 260px;
+    background: rgba(30,41,59,0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    padding: 10px 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: 0.25s ease;
+    z-index: 200;
+}
+
+.settings-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Items */
+.settings-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.2s;
+    color: #e2e8f0;
+}
+
+.settings-item:hover {
+    background: rgba(255,255,255,0.06);
+}
+
+.settings-item .arrow {
+    margin-left: auto;
+    opacity: 0.6;
+}
+
+/* Divider line */
+.settings-item + .settings-item {
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
