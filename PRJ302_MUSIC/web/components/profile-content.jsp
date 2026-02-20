@@ -1,16 +1,30 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <section class="profile-page">
 
     <!-- ===== HEADER PROFILE ===== -->
     <div class="profile-header">
         <div class="profile-avatar">
-            ${sessionScope.user != null ? sessionScope.user.username.charAt(0) : "U"}
+            <c:choose>
+                <c:when test="${not empty sessionScope.user and not empty sessionScope.user.userName}">
+                    ${sessionScope.user.userName.substring(0,1)}
+                </c:when>
+                <c:otherwise>
+                    U
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <div class="profile-info">
             <div class="profile-name">
-                ${sessionScope.user != null ? sessionScope.user.username : "User"}
+                <c:choose>
+                    <c:when test="${not empty sessionScope.user and not empty sessionScope.user.userName}">
+                        ${sessionScope.user.userName}
+                    </c:when>
+                    <c:otherwise>
+                        User
+                    </c:otherwise>
+                </c:choose>
                 <span class="profile-badge">Miễn phí</span>
             </div>
 

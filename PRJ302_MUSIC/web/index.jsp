@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -6,7 +7,7 @@
         <title>Home</title>
         <link rel="stylesheet" href="assets/css/style.css"/>
     </head>
-    <body>
+    <body data-logged-in="${not empty sessionScope.user}">
         <jsp:include page="components/header.jsp"/>
 
         <div class="app">
@@ -36,7 +37,7 @@
                     <div id="page-recent" class="page">
                         <jsp:include page="components/recent-content.jsp"/>
                     </div>
-                    
+
                     <div id="page-vip" class="page">
                         <jsp:include page="components/vip-content.jsp"/>
                     </div>
@@ -52,6 +53,12 @@
         <jsp:include page="components/forgot-modal.jsp"/>
         <script src="assets/js/app.js"></script>
 
-
+        <c:if test="${not empty message}">
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    openLogin();
+                });
+            </script>
+        </c:if>
     </body>
 </html>

@@ -121,3 +121,53 @@ document.addEventListener("click", function (e) {
         menu.classList.remove("active");
     }
 });
+
+
+function loginSuccess(username) {
+
+    // Lưu trạng thái
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("username", username);
+
+    // Ẩn nút login
+    document.getElementById("loginBtn").style.display = "none";
+
+    // Hiện avatar
+    var avatar = document.getElementById("userAvatar");
+    avatar.style.display = "flex";
+
+    // Lấy chữ cái đầu
+    avatar.innerText = username.charAt(0).toUpperCase();
+}
+
+window.addEventListener("load", function () {
+
+    var loggedIn = localStorage.getItem("loggedIn");
+
+    if (loggedIn === "true") {
+
+        var username = localStorage.getItem("username");
+
+        document.getElementById("loginBtn").style.display = "none";
+
+        var avatar = document.getElementById("userAvatar");
+        avatar.style.display = "flex";
+        avatar.innerText = username.charAt(0).toUpperCase();
+    }
+});
+
+function handleProfileClick(page, el) {
+
+    var isLoggedIn = document.body.getAttribute("data-logged-in");
+
+    if (isLoggedIn === "true") {
+        showPage(page, el);
+    } else {
+        openLogin();
+    }
+}
+
+function toggleUserMenu() {
+    var menu = document.getElementById("userDropdown");
+    menu.classList.toggle("active");
+}
