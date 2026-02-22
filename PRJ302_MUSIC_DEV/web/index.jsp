@@ -6,9 +6,6 @@
         <meta charset="UTF-8">
         <title>Home</title>
         <link rel="stylesheet" href="assets/css/style.css"/>
-        <c:if test="${activePage == 'search'}">
-            <link rel="stylesheet" href="assets/css/search.css"/>
-        </c:if>
     </head>
     <body data-logged-in="${not empty sessionScope.user}">
         <jsp:include page="components/header.jsp"/>
@@ -21,8 +18,7 @@
             <main class="main">
                 <div id="mainContent">
 
-                    <div id="page-home" class="page
-                         ${activePage ==null || activePage== 'home' ? 'active' : ''}">
+                    <div id="page-home" class="page ${empty activePage ? 'active' : ''}">
                         <jsp:include page="components/home-content.jsp"/>
                     </div>
 
@@ -45,9 +41,8 @@
                     <div id="page-vip" class="page">
                         <jsp:include page="components/vip-content.jsp"/>
                     </div>
-                    
-                    <div id="page-search" class="page 
-                         ${activePage == 'search' ? 'active' : ''}">
+
+                    <div id="page-search" class="page ${activePage == 'search' ? 'active' : ''}">
                         <jsp:include page="components/search-content.jsp"/>
                     </div>
 

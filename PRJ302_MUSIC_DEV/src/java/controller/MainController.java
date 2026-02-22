@@ -8,10 +8,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024,
+    maxFileSize = 1024 * 1024 * 50,
+    maxRequestSize = 1024 * 1024 * 100
+)
 /**
  *
  * @author NQ9
@@ -44,6 +51,8 @@ public class MainController extends HttpServlet {
             url="logoutController";
         }else if(action.equals("search")){
             url="searchSongController";
+        }else if(action.equals("addSong")){
+            url="addSongController";
         }
         
         RequestDispatcher rd= request.getRequestDispatcher(url);

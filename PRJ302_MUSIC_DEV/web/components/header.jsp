@@ -15,23 +15,41 @@
     </div>
 
     <!-- CENTER SEARCH -->
-    <div class="header-center">
-        <form action="MainController#search" method="GET">
+    <div class="search-box">
+
+        <form action="MainController#search" method="GET" class="search-form">
+
             <input type="hidden" name="action" value="search">
-            <input type="text"
-                   name="keyword"
-                   placeholder="Bạn muốn nghe nhạc gì?"
-                   value="${keyword}">
-            
-            <input type="submit" hidden>
+
+            <div class="search-input-wrapper">
+
+                <span class="search-icon">🔍</span>
+
+                <input type="text"
+                       name="keyword"
+                       placeholder="Bạn muốn nghe nhạc gì?"
+                       value="${keyword}"
+                       autocomplete="off">
+
+                <button type="submit" class="search-btn">
+                    Tìm
+                </button>
+
+            </div>
+
         </form>
-        
-        
+
     </div>
 
     <!-- RIGHT -->
     <div class="header-right">
-        <button class="vip-btn" onclick="showPage('vip')">FREE VIP</button>
+        <button class="addSong-btn" 
+                onclick="window.location = 'upload-content.jsp'">
+            ⬆ Đăng tải nhạc
+        </button>
+        <button class="vip-btn" onclick="showPage('vip')">
+            FREE VIP
+        </button>
         <div id="authArea">
 
             <c:choose>

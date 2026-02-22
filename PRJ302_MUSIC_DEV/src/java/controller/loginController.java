@@ -11,12 +11,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+import model.userDAO;
+import model.userDTO;
 
 /**
  *
  * @author NQ9
  */
-public class MainController extends HttpServlet {
+public class loginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,22 +36,30 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
-        String action= request.getParameter("action");
-        String url="index.jsp";
-        
-        if(action==null){
-            url="index.jsp";
-        }else if(action.equals("login")){
-            url="loginController";
-        }else if(action.equals("logout")){
-            url="logoutController";
-        }else if(action.equals("search")){
-            url="searchSongController";
+        String url="";
+        HttpSession session= request.getSession();
+        if(session.getAttribute("user")==null){
+            String txtUserName= request.getParameter("username");
+            String txtPassword= request.getParameter("password");
+            
+            userDAO udao= new userDAO();
+            userDTO user= udao.login(txtUserName, txtPassword);
+            System.out.println(user);
+            if(user!=null){
+                if(user.getStatus()==1){
+                    request.getSession().setAttribute("user", user);
+                    response.sendRedirect("index.jsp");
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+            }else{
+                request.setAttribute("message", "Invalid username or incorrect password!");
+                RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+            }
+        }else{
+            response.sendRedirect("index.jsp");
         }
-        
-        RequestDispatcher rd= request.getRequestDispatcher(url);
-        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

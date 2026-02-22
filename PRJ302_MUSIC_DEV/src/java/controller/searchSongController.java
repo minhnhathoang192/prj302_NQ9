@@ -6,17 +6,21 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.SongDAO;
+import model.SongDTO;
+import model.userDAO;
 
 /**
  *
  * @author NQ9
  */
-public class MainController extends HttpServlet {
+public class searchSongController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,20 +37,16 @@ public class MainController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
-        String action= request.getParameter("action");
-        String url="index.jsp";
+        String keyword = request.getParameter("keyword");
         
-        if(action==null){
-            url="index.jsp";
-        }else if(action.equals("login")){
-            url="loginController";
-        }else if(action.equals("logout")){
-            url="logoutController";
-        }else if(action.equals("search")){
-            url="searchSongController";
-        }
+        SongDAO sdao= new SongDAO();
+        List<SongDTO> list= sdao.searchSongs(keyword);
         
-        RequestDispatcher rd= request.getRequestDispatcher(url);
+        request.setAttribute("searchResult", list);
+        request.setAttribute("keyword", keyword);
+        request.setAttribute("activePage", "search");
+        
+        RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
         rd.forward(request, response);
     }
 

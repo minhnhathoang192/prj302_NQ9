@@ -4,9 +4,11 @@
  */
 package controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.nio.file.Files;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author NQ9
  */
-public class MainController extends HttpServlet {
+public class StreamServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,25 +31,30 @@ public class MainController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
-        String action= request.getParameter("action");
-        String url="index.jsp";
+        String file= request.getParameter("file");
+        String type= request.getParameter("type");
         
-        if(action==null){
-            url="index.jsp";
-        }else if(action.equals("login")){
-            url="loginController";
-        }else if(action.equals("logout")){
-            url="logoutController";
-        }else if(action.equals("search")){
-            url="searchSongController";
+        String basePath= "C:/Users/NQ9/Documents/GitHub/PRJ302_MUSIC/music_uploads";
+        
+        File f= new File(basePath + "/" + type + "/" + file);
+        
+        if(!f.exists()){
+            response.sendError(404);
+            return;
         }
         
-        RequestDispatcher rd= request.getRequestDispatcher(url);
-        rd.forward(request, response);
+        if(type.equals("audio")){
+            response.setContentType("audio/mpeg");
+        }else{
+            response.setContentType("image/jpeg");
+        }
+        
+        OutputStream out= response.getOutputStream();
+        Files.copy(f.toPath(), out);
+        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
