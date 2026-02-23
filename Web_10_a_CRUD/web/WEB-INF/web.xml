@@ -13,8 +13,20 @@
         <servlet-class>controller.logoutController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SongDTO</servlet-name>
-        <servlet-class>model.SongDTO</servlet-class>
+        <servlet-name>searchController</servlet-name>
+        <servlet-class>controller.searchController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteUniversityController</servlet-name>
+        <servlet-class>controller.deleteUniversityController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddUniversityController</servlet-name>
+        <servlet-class>controller.AddUniversityController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateUniversityController</servlet-name>
+        <servlet-class>controller.UpdateUniversityController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
@@ -29,8 +41,20 @@
         <url-pattern>/logoutController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SongDTO</servlet-name>
-        <url-pattern>/SongDTO</url-pattern>
+        <servlet-name>searchController</servlet-name>
+        <url-pattern>/searchController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteUniversityController</servlet-name>
+        <url-pattern>/deleteUniversityController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddUniversityController</servlet-name>
+        <url-pattern>/AddUniversityController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateUniversityController</servlet-name>
+        <url-pattern>/UpdateUniversityController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -39,5 +63,6 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
