@@ -12,6 +12,38 @@
         <servlet-name>logoutController</servlet-name>
         <servlet-class>controller.logoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>adminController</servlet-name>
+        <servlet-class>controller.adminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>manageUserController</servlet-name>
+        <servlet-class>controller.manageUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteUserController</servlet-name>
+        <servlet-class>controller.deleteUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUserController</servlet-name>
+        <servlet-class>controller.EditUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addUserController</servlet-name>
+        <servlet-class>controller.addUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>manageSongController</servlet-name>
+        <servlet-class>controller.manageSongController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteSongController</servlet-name>
+        <servlet-class>controller.deleteSongController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditSongController</servlet-name>
+        <servlet-class>controller.EditSongController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -23,6 +55,38 @@
     <servlet-mapping>
         <servlet-name>logoutController</servlet-name>
         <url-pattern>/logoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adminController</servlet-name>
+        <url-pattern>/adminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageUserController</servlet-name>
+        <url-pattern>/manageUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteUserController</servlet-name>
+        <url-pattern>/deleteUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserController</servlet-name>
+        <url-pattern>/EditUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addUserController</servlet-name>
+        <url-pattern>/addUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageSongController</servlet-name>
+        <url-pattern>/manageSongController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteSongController</servlet-name>
+        <url-pattern>/deleteSongController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditSongController</servlet-name>
+        <url-pattern>/EditSongController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

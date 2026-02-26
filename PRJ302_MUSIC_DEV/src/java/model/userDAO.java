@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.List;
 import utils.DbUtils;
 
 /**
@@ -84,6 +85,10 @@ public class userDAO {
         }
         return user;
     }
+    
+    public List<userDTO> filterByName(String name){
+        return filterByName("name", name);
+    }
 
     private boolean createUser(userDTO user) {
         try {
@@ -151,5 +156,9 @@ public class userDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private List<userDTO> filterByName(String name, String name0) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

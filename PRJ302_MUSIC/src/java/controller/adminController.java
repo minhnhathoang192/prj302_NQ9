@@ -8,22 +8,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.userDTO;
 
-
-@MultipartConfig(
-    fileSizeThreshold = 1024 * 1024,
-    maxFileSize = 1024 * 1024 * 50,
-    maxRequestSize = 1024 * 1024 * 100
-)
 /**
  *
  * @author NQ9
  */
-public class MainController extends HttpServlet {
+public class adminController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,44 +32,17 @@ public class MainController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String url= "index.jsp";
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
-        String action= request.getParameter("action");
-        String url="index.jsp";
-        
-        if(action==null){
-            url="index.jsp";
-        }else if(action.equals("login")){
-            url="loginController";
-        }else if(action.equals("logout")){
-            url="logoutController";
-        }else if(action.equals("search")){
-            url="searchSongController";
-        }else if(action.equals("adminDashboard")){
-            url="adminController";
-        }else if(action.equals("manage_user")){
-            url="manageUserController";
-        }else if(action.equals("manage_song")){
-            url="manageSongController";
-        }else if(action.equals("manage_album")){
-            url="manageAlbumController";
-        }else if(action.equals("manage_artist")){
-            url="manageAtistController";
-        }else if(action.equals("manage_comment")){
-            url="manageCommentController";
-        }else if(action.equals("deleteUser")){
-            url="deleteUserController";
-        }else if(action.equals("editUser") || action.equals("saveUser")){
-            url="EditUserController";
-        }else if(action.equals("registerUser")){
-            url="addUserController";
-        }else if(action.equals("deleteSong")){
-            url="deleteSongController";
-        }else if(action.equals("editSong") || action.equals("saveSong")){
-            url="EditSongController";
-        }else if(action.equals("addSong")){
-            url="/addSongController";
+        HttpSession session= request.getSession(false);
+        if(session!=null){
+            userDTO user=(userDTO) session.getAttribute("user");
+            
+            if(user!=null && user.getRoleID() == 1){
+                url="admin.jsp";
+            }
         }
         
         RequestDispatcher rd= request.getRequestDispatcher(url);

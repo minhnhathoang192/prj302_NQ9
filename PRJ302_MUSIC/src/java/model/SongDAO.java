@@ -77,13 +77,23 @@ public class SongDAO {
         return song;
     }
 
-    public List<SongDTO> getAllSongs() {
+    public List<SongDTO> getAllSongs(String keyword) {
         List<SongDTO> song = new ArrayList<>();
         try {
             Connection conn = DbUtils.getConnection();
             String sql = "SELECT songID, title, duration, audioURL, lyric, releaseDate, coverImage, isActive"
                     + " FROM SONG";
+
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                sql += " WHERE title LIKE ?";
+            }
+
             PreparedStatement ps = conn.prepareStatement(sql);
+
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                ps.setString(1, "%" + keyword + "%");
+            }
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int songID = rs.getInt("songID");
@@ -143,7 +153,7 @@ public class SongDAO {
             ps.setString(4, song.getLyric());
             ps.setDate(5, song.getReleaseDate());
             ps.setString(6, song.getCoverImage());
-            ps.setBoolean(7, song.isIsActive());
+            ps.setInt(7, song.isIsActive() ? 1 : 0);
 
             int rows = ps.executeUpdate();
 
@@ -154,9 +164,9 @@ public class SongDAO {
         }
         return false;
     }
-    
-    public List<SongDTO> searchSongs(String keyword){
-        if(keyword==null || keyword.trim().isEmpty()){
+
+    public List<SongDTO> searchSongs(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
             return getAllActiveSongs();
         }
         return searchSongsByTitle(keyword);
@@ -187,5 +197,47 @@ public class SongDAO {
             e.printStackTrace();
         }
         return song;
+    }
+
+    public int softDeleteSong(String songID) {
+        
+        try {
+            Connection conn = DbUtils.getConnection();
+            String sql = "UPDATE SONG SET isActive=0 WHERE songID = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, songID);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public boolean updateSong(SongDTO s) {
+        int result= 0;
+        try {
+            Connection conn = DbUtils.getConnection();
+
+            String sql = "UPDATE SONG SET "
+                    + "title=?, duration=?, audioURL=?, lyric=?, "
+                    + "releaseDate=?, coverImage=? "
+                    + "WHERE songID=?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, s.getTitle());
+            ps.setInt(2, s.getDuration());
+            ps.setString(3, s.getAudioURL());
+            ps.setString(4, s.getLyric());
+            ps.setDate(5, s.getReleaseDate());
+            ps.setString(6, s.getCoverImage());
+            ps.setInt(7, s.getSongID());
+
+            result = ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result > 0;
     }
 }

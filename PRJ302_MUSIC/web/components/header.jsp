@@ -22,11 +22,11 @@
                    name="keyword"
                    placeholder="Bạn muốn nghe nhạc gì?"
                    value="${keyword}">
-            
+
             <input type="submit" hidden>
         </form>
-        
-        
+
+
     </div>
 
     <!-- RIGHT -->
@@ -59,6 +59,13 @@
                              onclick="showPage('profile', document.querySelector('[data-page=profile]'))">
                             👤 Hồ sơ
                         </div>
+
+                        <c:if test="${sessionScope.user.roleID == 1}">
+                            <div class="dropdown-item"
+                                 onclick="window.location = 'MainController?action=adminDashboard'">
+                                ⚙ Quản lý
+                            </div>
+                        </c:if>
 
                         <div class="dropdown-item"
                              onclick="window.location = 'MainController?action=logout'">
