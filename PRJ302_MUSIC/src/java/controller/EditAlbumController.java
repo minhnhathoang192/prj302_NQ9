@@ -6,23 +6,20 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.AlbumDAO;
+import model.AlbumDTO;
 
-@MultipartConfig(
-        fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024 * 1024 * 50,
-        maxRequestSize = 1024 * 1024 * 100
-)
 /**
  *
  * @author NQ9
  */
-public class MainController extends HttpServlet {
+public class EditAlbumController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,46 +37,61 @@ public class MainController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
-        String url = "index.jsp";
+        String s_albumID = request.getParameter("albumID");
 
-        if (action == null) {
-            url = "index.jsp";
-        } else if (action.equals("login")) {
-            url = "loginController";
-        } else if (action.equals("logout")) {
-            url = "logoutController";
-        } else if (action.equals("search")) {
-            url = "searchSongController";
-        } else if (action.equals("adminDashboard")) {
-            url = "adminController";
-        } else if (action.equals("manage_user")) {
-            url = "manageUserController";
-        } else if (action.equals("manage_song")) {
-            url = "manageSongController";
-        } else if (action.equals("manage_album")) {
-            url = "manageAlbumController";
-        } else if (action.equals("manage_artist")) {
-            url = "manageAtistController";
-        } else if (action.equals("manage_comment")) {
-            url = "manageCommentController";
-        } else if (action.equals("deleteUser")) {
-            url = "deleteUserController";
-        } else if (action.equals("editUser") || action.equals("saveUser")) {
-            url = "EditUserController";
-        } else if (action.equals("registerUser")) {
-            url = "addUserController";
-        } else if (action.equals("deleteSong")) {
-            url = "deleteSongController";
-        } else if (action.equals("editSong") || action.equals("saveSong")) {
-            url = "EditSongController";
-        } else if (action.equals("addSong")) {
-            url = "/addSongController";
-        } else if (action.equals("deleteAlbum")) {
-            url = "deleteAlbumController";
-        } else if (action.equals("addAlbum")) {
-            url = "addAlbumController";
-        } else if (action.equals("editAlbum") || action.equals("saveAlbum")) {
-            url = "EditAlbumController";
+        int albumID = Integer.parseInt(s_albumID);
+
+        AlbumDAO adao = new AlbumDAO();
+        AlbumDTO album = adao.getAlbumByID(albumID);
+
+        String url = "";
+
+        if (action.equals("editAlbum")) {
+            request.setAttribute("a", album);
+            request.setAttribute("mode", "edit");
+            url = "album-form.jsp";
+        } else if (action.equals("saveAlbum")) {
+
+            String msg = "";
+            String error = "";
+            try {
+                String albumName = request.getParameter("albumName");
+                String coverImage = request.getParameter("coverImage");
+                String s_releaseDate = request.getParameter("releaseDate");
+                String s_isActive = request.getParameter("isActive");
+                
+                boolean isActive = "1".equals(s_isActive);
+
+                albumName = albumName.trim();
+                if (albumName.isEmpty()) {
+                    error += "chua nhap albumName";
+                }
+                Date releaseDate = null;
+                try {
+                    releaseDate = Date.valueOf(s_releaseDate);
+                } catch (Exception e) {
+                    error += "Ngay khong hop le";
+                }
+
+                if (error.isEmpty()) {
+                    album = new AlbumDTO(albumID, albumName, coverImage, releaseDate, isActive);
+
+                    if (adao.updateAlbum(album)) {
+                        msg += "update album thanh cong";
+                    } else {
+                        error += "update khong thanh cong";
+                        request.setAttribute("a", album);
+                    }
+                    request.setAttribute("msg", msg);
+                }
+                request.setAttribute("mode", "edit");
+                request.setAttribute("error", error);
+                url = "album-form.jsp";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);
