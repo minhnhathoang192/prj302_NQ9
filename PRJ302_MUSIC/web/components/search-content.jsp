@@ -111,10 +111,8 @@
 
 </div>
 
-<!-- AUDIO -->
-<audio id="audioPlayer"></audio>
 
-<script>
+<script >
 
     window.switchTab = function (tab, el) {
 
@@ -127,21 +125,4 @@
         if (el)
             el.classList.add("active");
     };
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var audioPlayer = document.getElementById("audioPlayer");
-
-        window.playSong = function (src) {
-            if (!audioPlayer)
-                return;
-
-            if (audioPlayer.src.includes(src) && !audioPlayer.paused) {
-                audioPlayer.pause();
-                return;
-            }
-
-            audioPlayer.src = src;
-            audioPlayer.play();
-        };
-    });
 </script>

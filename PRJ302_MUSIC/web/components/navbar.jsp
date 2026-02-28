@@ -17,7 +17,7 @@
             <span class="icon">🎵</span>
             <span>Khám Phá</span>
         </li>
-        <li class="nav-item" onclick="showPage('for-you', this)">
+        <li class="nav-item" onclick="loadForYou(this)">
             <span class="icon">📊</span>
             <span>Dành Cho Bạn</span>
         </li>

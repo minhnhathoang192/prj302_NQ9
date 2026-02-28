@@ -10,7 +10,7 @@
             <link rel="stylesheet" href="assets/css/search.css"/>
         </c:if>
     </head>
-    <body data-logged-in="${not empty sessionScope.user}">
+    <body data-logged-in="${not empty sessionScope.user}" data-context="${pageContext.request.contextPath}">
         <jsp:include page="components/header.jsp"/>
 
         <div class="app">
@@ -69,5 +69,7 @@
                 });
             </script>
         </c:if>
+            
+            <script src="assets/js/player.js"></script>
     </body>
 </html>

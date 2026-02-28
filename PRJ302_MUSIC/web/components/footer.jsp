@@ -20,19 +20,16 @@
     <!-- CENTER: controls -->
     <div class="player-center">
         <button onclick="prevSong()">⏮</button>
-        <button onclick="togglePlay()">▶</button>
+        <button onclick="togglePlay()" class="btn-play">▶</button>
         <button onclick="nextSong()">⏭</button>
     </div>
     
     <audio id="audio-player"></audio>
-
+    
     <!-- RIGHT: volume -->
     <div class="player-right">
         🔊
     </div>
-
-    <!-- AUDIO -->
-    <audio id="audio-player"></audio>
 
 </div>
 
@@ -42,7 +39,6 @@
 <script src="assets/js/slider.js"></script>
 <script src="assets/js/login.js"></script>
 <script src="assets/js/forgot.js"></script>
-<script src="assets/js/for-you.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/player.js"></script>
 

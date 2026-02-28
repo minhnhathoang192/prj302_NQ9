@@ -76,6 +76,10 @@
         <servlet-name>EditArtistController</servlet-name>
         <servlet-class>controller.EditArtistController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RamdomSongController</servlet-name>
+        <servlet-class>controller.RamdomSongController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -151,6 +155,10 @@
     <servlet-mapping>
         <servlet-name>EditArtistController</servlet-name>
         <url-pattern>/EditArtistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RamdomSongController</servlet-name>
+        <url-pattern>/RamdomSongController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -200,7 +200,7 @@ public class SongDAO {
     }
 
     public int softDeleteSong(String songID) {
-        
+
         try {
             Connection conn = DbUtils.getConnection();
             String sql = "UPDATE SONG SET isActive=0 WHERE songID = ?";
@@ -214,7 +214,7 @@ public class SongDAO {
     }
 
     public boolean updateSong(SongDTO s) {
-        int result= 0;
+        int result = 0;
         try {
             Connection conn = DbUtils.getConnection();
 
@@ -239,5 +239,34 @@ public class SongDAO {
             e.printStackTrace();
         }
         return result > 0;
+    }
+
+    public List<SongDTO> getRandomSongs(int limit) {
+        List<SongDTO> list = new ArrayList<>();
+        try {
+            Connection conn = DbUtils.getConnection();
+
+            String sql = "SELECT TOP " + limit + " * FROM SONG WHERE isActive=1 ORDER BY NEWID()";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int songID = rs.getInt("songID");
+                String title = rs.getString("title");
+                int duration = rs.getInt("duration");
+                String audioURL = rs.getString("audioURL");
+                String lyric = rs.getString("lyric");
+                Date releaseDate = rs.getDate("releaseDate");
+                String coverImage = rs.getString("coverImage");
+                boolean isActive = rs.getBoolean("isActive");
+                SongDTO s = new SongDTO(songID, title, duration, audioURL, lyric, releaseDate, coverImage, isActive);
+                list.add(s);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

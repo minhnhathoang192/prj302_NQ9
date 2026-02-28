@@ -171,3 +171,44 @@ function toggleUserMenu() {
     var menu = document.getElementById("userDropdown");
     menu.classList.toggle("active");
 }
+
+function loadForYou(el) {
+
+    // đổi UI tab
+    showPage('for-you', el);
+
+    fetch('MainController?action=getRandomPlaylist')
+        .then(res => res.json())
+        .then(list => {
+
+            console.log("Playlist:", list);
+
+            if (!list || list.length === 0) {
+                alert("Không có bài hát!");
+                return;
+            }
+
+            let contextPath = document.body.dataset.context;
+
+            playlist = list.map(song => ({
+                audioURL: contextPath + "/StreamServlet?type=audio&file=" + song.audioURL,
+                title: song.title,
+                coverURL: contextPath + "/StreamServlet?type=cover&file=" + song.coverImage
+            }));
+
+            currentIndex = 0;
+
+            let s = playlist[currentIndex];
+
+            document.getElementById("fyTitle").innerText = s.title;
+            document.getElementById("fyCover").src = s.coverURL;
+            document.getElementById("fyBgCover").src = s.coverURL;
+
+            // ✅ PLAY LUÔN (QUAN TRỌNG)
+            playSong(s.audioURL, s.title, s.coverURL);
+
+        })
+        .catch(err => {
+            console.error("Lỗi loadForYou:", err);
+        });
+}

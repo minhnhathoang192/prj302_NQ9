@@ -80,12 +80,14 @@ public class MainController extends HttpServlet {
             url = "addAlbumController";
         } else if (action.equals("editAlbum") || action.equals("saveAlbum")) {
             url = "EditAlbumController";
-        }else if(action.equals("deleteArtist")){
-             url = "deleteArtistController";
-        }else if(action.equals("editArtist") || action.equals("saveArtist")){
+        } else if (action.equals("deleteArtist")) {
+            url = "deleteArtistController";
+        } else if (action.equals("editArtist") || action.equals("saveArtist")) {
             url = "EditArtistController";
-        }else if(action.equals("addArtist")){
-            url= "AddArtistController";
+        } else if (action.equals("addArtist")) {
+            url = "AddArtistController";
+        } else if (action.equals("getRandomPlaylist")) {
+            url = "RamdomSongController";
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);
