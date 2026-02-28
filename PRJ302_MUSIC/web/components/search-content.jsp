@@ -31,7 +31,11 @@
                     <div class="song-thumb">
                         <img src="${pageContext.request.contextPath}/StreamServlet?type=cover&file=${s.coverImage}">
                         <div class="play-btn"
-                             onclick="playSong('${pageContext.request.contextPath}/StreamServlet?type=audio&file=${s.audioURL}')">
+                             onclick="playSong(
+                                             '${pageContext.request.contextPath}/StreamServlet?type=audio&file=${s.audioURL}',
+                                                             '${s.title}',
+                                                             '${pageContext.request.contextPath}/StreamServlet?type=cover&file=${s.coverImage}'
+                                                                             )">
                             ▶
                         </div>
                     </div>

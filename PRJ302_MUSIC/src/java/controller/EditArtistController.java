@@ -6,23 +6,20 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ArtistDAO;
+import model.ArtistDTO;
 
-@MultipartConfig(
-        fileSizeThreshold = 1024 * 1024,
-        maxFileSize = 1024 * 1024 * 50,
-        maxRequestSize = 1024 * 1024 * 100
-)
 /**
  *
  * @author NQ9
  */
-public class MainController extends HttpServlet {
+public class EditArtistController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,54 +37,63 @@ public class MainController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
-        String url = "index.jsp";
+        String s_artistID = request.getParameter("artistID");
 
-        if (action == null) {
-            url = "index.jsp";
-        } else if (action.equals("login")) {
-            url = "loginController";
-        } else if (action.equals("logout")) {
-            url = "logoutController";
-        } else if (action.equals("search")) {
-            url = "searchSongController";
-        } else if (action.equals("adminDashboard")) {
-            url = "adminController";
-        } else if (action.equals("manage_user")) {
-            url = "manageUserController";
-        } else if (action.equals("manage_song")) {
-            url = "manageSongController";
-        } else if (action.equals("manage_album")) {
-            url = "manageAlbumController";
-        } else if (action.equals("manage_artist")) {
-            url = "manageAtistController";
-        } else if (action.equals("manage_comment")) {
-            url = "manageCommentController";
-        } else if (action.equals("deleteUser")) {
-            url = "deleteUserController";
-        } else if (action.equals("editUser") || action.equals("saveUser")) {
-            url = "EditUserController";
-        } else if (action.equals("registerUser")) {
-            url = "addUserController";
-        } else if (action.equals("deleteSong")) {
-            url = "deleteSongController";
-        } else if (action.equals("editSong") || action.equals("saveSong")) {
-            url = "EditSongController";
-        } else if (action.equals("addSong")) {
-            url = "/addSongController";
-        } else if (action.equals("deleteAlbum")) {
-            url = "deleteAlbumController";
-        } else if (action.equals("addAlbum")) {
-            url = "addAlbumController";
-        } else if (action.equals("editAlbum") || action.equals("saveAlbum")) {
-            url = "EditAlbumController";
-        }else if(action.equals("deleteArtist")){
-             url = "deleteArtistController";
-        }else if(action.equals("editArtist") || action.equals("saveArtist")){
-            url = "EditArtistController";
-        }else if(action.equals("addArtist")){
-            url= "AddArtistController";
+        int artistID = Integer.parseInt(s_artistID);
+
+        ArtistDAO artistDao = new ArtistDAO();
+        ArtistDTO artist = artistDao.getArtistByID(artistID);
+
+        String url = "";
+
+        if (action.equals("editArtist")) {
+            request.setAttribute("mode", "edit");
+            request.setAttribute("a", artist);
+            url = "artist-form.jsp";
+        } else if (action.equals("saveArtist")) {
+            String msg = "";
+            String error = "";
+            try {
+                String artistName = request.getParameter("artistName");
+                String avatarURL = request.getParameter("avatarURL");
+                String description = request.getParameter("description");
+                String s_debutDate = request.getParameter("debutDate");
+                String s_isActive = request.getParameter("isActive");
+
+                boolean isActive = "1".equals(s_isActive);
+
+                artistName = artistName.trim();
+                if (artistName.isEmpty()) {
+                    error += "Chua nhap tenn tac gia";
+                }
+
+                Date debutDate = null;
+                try {
+                    debutDate = Date.valueOf(s_debutDate);
+                } catch (Exception e) {
+                    error += "Khong hop le debutDate";
+                }
+
+                if (error.isEmpty()) {
+                    artist = new ArtistDTO(artistID, artistName, avatarURL, description, debutDate, isActive);
+
+                    if (artistDao.updateArtist(artist)) {
+                        msg += "Update tac gia thanh cong!";
+                    } else {
+                        error += "Update tac gia that bai!";
+                        request.setAttribute("a", artist);
+                    }
+                    request.setAttribute("msg", msg);
+                }
+                request.setAttribute("mode", "edit");
+                request.setAttribute("error", error);
+                url = "artist-form.jsp";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
-
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request, response);
     }

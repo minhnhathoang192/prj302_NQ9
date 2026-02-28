@@ -6,20 +6,17 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.AlbumDAO;
-import model.AlbumDTO;
+import model.ArtistDAO;
 
 /**
  *
  * @author NQ9
  */
-public class addAlbumController extends HttpServlet {
+public class deleteArtistController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,44 +33,25 @@ public class addAlbumController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         
-        String url="album-form.jsp";
-        String msg="";
-        String error="";
+        String s_AristID= request.getParameter("artistID");
+        
+        
         try {
-            String albumName= request.getParameter("albumName");
-            String coverImage= request.getParameter("coverImage");
-            String s_releaseDate= request.getParameter("releaseDate");
+            int artistID = Integer.parseInt(s_AristID);
             
-            albumName= albumName.trim();
-            if(albumName.isEmpty()){
-                error+="chua nhap albumName";
+            ArtistDAO artistDao= new ArtistDAO();
+            boolean result= artistDao.updateArtistStatus(artistID, 0);
+            
+            
+            if(result){
+                System.out.println("Xoa thanh cong");
+            }else{
+                System.out.println("Xoa khong thanh cong");
             }
-            Date releaseDate=null;
-            try {
-                releaseDate = Date.valueOf(s_releaseDate);
-            } catch (Exception e) {
-                error+="Ngay khong hop le";
-            }
-            AlbumDAO adao= new AlbumDAO();
-            if(error.isEmpty()){
-                AlbumDTO album= new AlbumDTO(0, albumName, coverImage, releaseDate, true);
-                
-                if(adao.createAlbum(album)){
-                    msg+="Tao album thanh cong";
-                }else{
-                    error+="tao khong thanh cong";
-                    request.setAttribute("a", album);
-                }
-                request.setAttribute("msg", msg);
-            }
-            request.setAttribute("error", error);
-            url = "album-form.jsp";
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        RequestDispatcher rd = request.getRequestDispatcher(url);
-        rd.forward(request, response);
+        response.sendRedirect("MainController?action=manage_artist");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

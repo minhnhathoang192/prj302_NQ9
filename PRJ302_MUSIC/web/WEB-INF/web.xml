@@ -60,6 +60,22 @@
         <servlet-name>EditAlbumController</servlet-name>
         <servlet-class>controller.EditAlbumController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>manageAtistController</servlet-name>
+        <servlet-class>controller.manageAtistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteArtistController</servlet-name>
+        <servlet-class>controller.deleteArtistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddArtistController</servlet-name>
+        <servlet-class>controller.AddArtistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditArtistController</servlet-name>
+        <servlet-class>controller.EditArtistController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -119,6 +135,22 @@
     <servlet-mapping>
         <servlet-name>EditAlbumController</servlet-name>
         <url-pattern>/EditAlbumController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageAtistController</servlet-name>
+        <url-pattern>/manageAtistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteArtistController</servlet-name>
+        <url-pattern>/deleteArtistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddArtistController</servlet-name>
+        <url-pattern>/AddArtistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditArtistController</servlet-name>
+        <url-pattern>/EditArtistController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
