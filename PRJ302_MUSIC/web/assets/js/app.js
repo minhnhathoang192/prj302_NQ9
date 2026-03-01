@@ -1,6 +1,6 @@
 /* =========================
-   SIMPLE SPA NAVIGATION
-========================= */
+ SIMPLE SPA NAVIGATION
+ ========================= */
 
 function showPage(page, el, addToHistory) {
 
@@ -41,8 +41,8 @@ function showPage(page, el, addToHistory) {
 
 
 /* =========================
-   HASH CHANGE LISTENER
-========================= */
+ HASH CHANGE LISTENER
+ ========================= */
 
 window.onhashchange = function () {
 
@@ -57,8 +57,8 @@ window.onhashchange = function () {
 
 
 /* =========================
-   FIRST LOAD
-========================= */
+ FIRST LOAD
+ ========================= */
 
 window.onload = function () {
 
@@ -73,8 +73,8 @@ window.onload = function () {
 
 
 /* =========================
-   RECENT TAB SWITCH
-========================= */
+ RECENT TAB SWITCH
+ ========================= */
 
 function switchRecent(el, type) {
 
@@ -88,17 +88,17 @@ function switchRecent(el, type) {
     var container = document.getElementById("recentList");
 
     container.innerHTML =
-        '<div class="recent-empty">' +
-        '<div class="empty-icon">📂</div>' +
-        '<h3>Chưa có ' + type + '</h3>' +
-        '<p>Khi bạn sử dụng ' + type + ', nó sẽ xuất hiện ở đây</p>' +
-        '</div>';
+            '<div class="recent-empty">' +
+            '<div class="empty-icon">📂</div>' +
+            '<h3>Chưa có ' + type + '</h3>' +
+            '<p>Khi bạn sử dụng ' + type + ', nó sẽ xuất hiện ở đây</p>' +
+            '</div>';
 }
 
 
 /* =========================
-   HEADER NAV BUTTONS
-========================= */
+ HEADER NAV BUTTONS
+ ========================= */
 
 function goBack() {
     window.history.back();
@@ -178,37 +178,119 @@ function loadForYou(el) {
     showPage('for-you', el);
 
     fetch('MainController?action=getRandomPlaylist')
-        .then(res => res.json())
-        .then(list => {
+            .then(res => res.json())
+            .then(list => {
 
-            console.log("Playlist:", list);
+                console.log("Playlist:", list);
 
-            if (!list || list.length === 0) {
-                alert("Không có bài hát!");
-                return;
-            }
+                if (!list || list.length === 0) {
+                    alert("Không có bài hát!");
+                    return;
+                }
 
-            let contextPath = document.body.dataset.context;
+                let contextPath = document.body.dataset.context;
 
-            playlist = list.map(song => ({
-                audioURL: contextPath + "/StreamServlet?type=audio&file=" + song.audioURL,
-                title: song.title,
-                coverURL: contextPath + "/StreamServlet?type=cover&file=" + song.coverImage
-            }));
+                playlist = list.map(song => ({
+                        audioURL: contextPath + "/StreamServlet?type=audio&file=" + song.audioURL,
+                        title: song.title,
+                        coverURL: contextPath + "/StreamServlet?type=cover&file=" + song.coverImage
+                    }));
 
-            currentIndex = 0;
+                currentIndex = 0;
 
-            let s = playlist[currentIndex];
+                let s = playlist[currentIndex];
 
-            document.getElementById("fyTitle").innerText = s.title;
-            document.getElementById("fyCover").src = s.coverURL;
-            document.getElementById("fyBgCover").src = s.coverURL;
+                document.getElementById("fyTitle").innerText = s.title;
+                document.getElementById("fyCover").src = s.coverURL;
+                document.getElementById("fyBgCover").src = s.coverURL;
 
-            // ✅ PLAY LUÔN (QUAN TRỌNG)
-            playSong(s.audioURL, s.title, s.coverURL);
+                // ✅ PLAY LUÔN (QUAN TRỌNG)
+                playSong(s.audioURL, s.title, s.coverURL);
 
-        })
-        .catch(err => {
-            console.error("Lỗi loadForYou:", err);
-        });
+            })
+            .catch(err => {
+                console.error("Lỗi loadForYou:", err);
+            });
 }
+
+
+//Topic-Page
+
+function showTopicPage(el) {
+
+    const topicID = el.getAttribute("data-topic-id");
+
+    console.log("CLICK topicID:", topicID); // 👈 check
+
+    if (!topicID) {
+        alert("Thiếu topicID!");
+        return;
+    }
+
+    const page = "topic-" + topicID;
+
+    showPage(page, el);
+
+    let container = document.getElementById("page-" + page);
+
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "page-" + page;
+        container.className = "page";
+        document.getElementById("mainContent").appendChild(container);
+    }
+
+    const context = document.body.dataset.context;
+
+    container.innerHTML = "Loading...";
+
+    fetch(context + "/MainController?action=loadTopic&topicID=" + topicID)
+            .then(res => res.text())
+            .then(html => {
+                container.innerHTML = html;
+            });
+}
+
+function showMorePage(el) {
+    showPage('more', el);
+
+    const container = document.getElementById("page-more");
+    const context = document.body.dataset.context;
+
+    container.innerHTML = "Loading...";
+
+    fetch(context + "/MainController?action=loadMore")
+            .then(res => res.text())
+            .then(html => {
+                container.innerHTML = html;
+            });
+}
+
+const topicImages = {
+    1: "chillout.jpg",
+    13: "tiktok.jpg",
+    6: "nhactre.jpg",
+    5: "nhachoa.jpg",
+    4: "cafesang.jpg",
+    9: "remix.jpg",
+    2: "bolero.jpg",
+    8: "rapviet.jpg",
+    11: "vuinhon.jpg",
+    3: "buon.jpg",
+    7: "pop.jpg",
+    10: "tinhyeu.jpg"
+};
+
+document.querySelectorAll(".topic-card").forEach(card => {
+    const id = card.getAttribute("data-topic-id");
+    const file = topicImages[id];
+
+    if (file) {
+        const url = document.body.dataset.context + 
+            "/StreamServlet?type=cover&file=" + file;
+
+        card.style.backgroundImage = `url('${url}')`;
+        card.style.backgroundSize = "cover";
+        card.style.backgroundPosition = "center";
+    }
+});

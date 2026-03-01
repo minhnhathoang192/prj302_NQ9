@@ -4,23 +4,24 @@
  */
 package controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.SongDTO;
+import model.TopicDAO;
+import model.TopicDTO;
+import model.TopicSongDAO;
+import model.TopicSongDTO;
 
-@WebServlet("/StreamServlet")
 /**
  *
  * @author NQ9
  */
-public class StreamServlet extends HttpServlet {
+public class loadTopicController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,30 +34,30 @@ public class StreamServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        String file = request.getParameter("file");
-        String type = request.getParameter("type");
+        String s_topicID = request.getParameter("topicID");
 
-        String basePath = "C:/Users/NQ9/Documents/GitHub/PRJ302_MUSIC/music_uploads";
-
-        File f = new File(basePath + "/" + type + "/" + file);
-
-        if (!f.exists()) {
-            response.sendError(404);
+        if (s_topicID == null || s_topicID.trim().isEmpty()) {
+            response.sendError(400, "topicID is missing!");
             return;
         }
 
-        if (type.equals("audio")) {
-            response.setContentType("audio/mpeg");
-        } else if (type.equals("cover") || type.equals("topic")) {
-            response.setContentType("image/jpeg");
-        }
+        int topicID = Integer.parseInt(s_topicID);
 
-        OutputStream out = response.getOutputStream();
-        Files.copy(f.toPath(), out);
-        out.flush();
+        TopicSongDAO tsdao = new TopicSongDAO();
+        List<SongDTO> song = tsdao.getSongsByTopic(topicID);
+
+        TopicDAO tdao = new TopicDAO();
+        TopicDTO topic = tdao.getTopicByID(topicID);
+
+        request.setAttribute("songs", song);
+        request.setAttribute("topicName", topic.getTopicName());
+
+        request.getRequestDispatcher("components/ChuDe/topic-content.jsp")
+                .forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

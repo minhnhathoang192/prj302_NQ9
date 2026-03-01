@@ -3,58 +3,58 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Album Form</title>
-</head>
-<body>
+    <head>
+        <title>Album Form</title>
+    </head>
+    <body>
 
-<h2>${mode == 'edit' ? 'Edit Album' : ' Add Album'}</h2>
+        <h2>${mode == 'edit' ? 'Edit Album' : ' Add Album'}</h2>
 
-<form action="MainController" method="post">
+        <form action="MainController" method="post">
 
-    <!-- action -->
-    <input type="hidden" name="action"
-           value="${mode == 'edit' ? 'saveAlbum' : 'addAlbum'}"/>
+            <!-- action -->
+            <input type="hidden" name="action"
+                   value="${mode == 'edit' ? 'saveAlbum' : 'addAlbum'}"/>
 
-    <!-- ID -->
-    <c:if test="${mode == 'edit'}">
-        ID:
-        <input type="text" name="albumID" value="${a.albumID}" readonly/> <br/>
-    </c:if>
+            <!-- ID -->
+            <c:if test="${mode == 'edit'}">
+                ID:
+                <input type="text" name="albumID" value="${a.albumID}" readonly/> <br/>
+            </c:if>
 
-    <!-- Album Name -->
-    Album Name:
-    <input type="text" name="albumName" value="${a.albumName}" required/> <br/>
+            <!-- Album Name -->
+            Album Name:
+            <input type="text" name="albumName" value="${a.albumName}" required/> <br/>
 
-    <!-- Release Date -->
-    Release Date:
-    <input type="date" name="releaseDate" value="${a.releaseDate}" required/> <br/>
+            <!-- Release Date -->
+            Release Date:
+            <input type="date" name="releaseDate" value="${a.releaseDate}" required/> <br/>
 
-    <!-- Cover Image -->
-    Cover Image (URL):
-    <input type="text" name="coverImage" value="${a.coverImage}"/> <br/>
+            <!-- Cover Image -->
+            Cover Image (URL):
+            <input type="text" name="coverImage" value="${a.coverImage}"/> <br/>
 
-    <!-- Status (chỉ admin edit mới thấy) -->
-    <c:if test="${mode == 'edit'}">
-        Status:
-        <select name="isActive">
-            <option value="1" ${a.isActive ? 'selected' : ''}>Active</option>
-            <option value="0" ${!a.isActive ? 'selected' : ''}>Hidden</option>
-        </select>
-        <br/>
-    </c:if>
+            <!-- Status (chỉ admin edit mới thấy) -->
+            <c:if test="${mode == 'edit'}">
+                Status:
+                <select name="isActive">
+                    <option value="1" ${a.isActive ? 'selected' : ''}>Active</option>
+                    <option value="0" ${!a.isActive ? 'selected' : ''}>Hidden</option>
+                </select>
+                <br/>
+            </c:if>
 
-    <br/>
+            <br/>
 
-    <!-- Submit -->
-    <input type="submit"
-           value="${mode == 'edit' ? 'Update' : 'Add'}"/>
+            <!-- Submit -->
+            <input type="submit"
+                   value="${mode == 'edit' ? 'Update' : 'Add'}"/>
 
-</form>
+        </form>
 
-<!-- Message -->
-<p style="color: green">${msg}</p>
-<p style="color: red">${error}</p>
+        <!-- Message -->
+        <p style="color: green">${msg}</p>
+        <p style="color: red">${error}</p>
 
-</body>
+    </body>
 </html>

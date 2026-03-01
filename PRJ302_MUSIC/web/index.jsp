@@ -50,8 +50,10 @@
                          ${activePage == 'search' ? 'active' : ''}">
                         <jsp:include page="components/search-content.jsp"/>
                     </div>
-
-
+                    
+                    
+                    <div id="page-more" class="page">
+                    </div>
                 </div>
             </main>
 
@@ -61,6 +63,7 @@
         <jsp:include page="components/login-modal.jsp"/>
         <jsp:include page="components/forgot-modal.jsp"/>
         <script src="assets/js/app.js"></script>
+        <script src="assets/js/silder.js"></script>
 
         <c:if test="${not empty message}">
             <script>

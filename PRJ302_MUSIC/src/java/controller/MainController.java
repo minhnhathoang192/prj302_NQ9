@@ -60,6 +60,8 @@ public class MainController extends HttpServlet {
             url = "manageAlbumController";
         } else if (action.equals("manage_artist")) {
             url = "manageAtistController";
+        }else if (action.equals("manage_topic")) {
+            url = "manageTopicController";
         } else if (action.equals("manage_comment")) {
             url = "manageCommentController";
         } else if (action.equals("deleteUser")) {
@@ -88,6 +90,16 @@ public class MainController extends HttpServlet {
             url = "AddArtistController";
         } else if (action.equals("getRandomPlaylist")) {
             url = "RamdomSongController";
+        }else if(action.equals("addTopic")){
+            url = "addTopicController";
+        } else if(action.equals("editTopic") || action.equals("saveTopic")){
+            url = "EditTopicController";
+        } else if(action.equals("addSongToTopic")){
+            url = "addSongToTopicController";
+        } else if(action.equals("loadTopic")){
+            url = "loadTopicController";
+        }else if(action.equals("loadMore")){
+            url = "loadMoreController";
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);

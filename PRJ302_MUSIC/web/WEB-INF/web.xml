@@ -80,6 +80,30 @@
         <servlet-name>RamdomSongController</servlet-name>
         <servlet-class>controller.RamdomSongController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>manageTopicController</servlet-name>
+        <servlet-class>controller.manageTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addTopicController</servlet-name>
+        <servlet-class>controller.addTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditTopicController</servlet-name>
+        <servlet-class>controller.EditTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addSongToTopicController</servlet-name>
+        <servlet-class>controller.addSongToTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loadTopicController</servlet-name>
+        <servlet-class>controller.loadTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>loadMoreController</servlet-name>
+        <servlet-class>controller.loadMoreController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -159,6 +183,30 @@
     <servlet-mapping>
         <servlet-name>RamdomSongController</servlet-name>
         <url-pattern>/RamdomSongController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>manageTopicController</servlet-name>
+        <url-pattern>/manageTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addTopicController</servlet-name>
+        <url-pattern>/addTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditTopicController</servlet-name>
+        <url-pattern>/EditTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addSongToTopicController</servlet-name>
+        <url-pattern>/addSongToTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadTopicController</servlet-name>
+        <url-pattern>/loadTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loadMoreController</servlet-name>
+        <url-pattern>/loadMoreController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

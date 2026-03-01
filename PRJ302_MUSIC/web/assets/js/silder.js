@@ -1,22 +1,64 @@
-let index = 0;
-const track = document.querySelector('.banner-track');
-const total = track.children.length;
+document.addEventListener("DOMContentLoaded", () => {
 
-function slideTo(i) {
-  track.style.transform = `translateX(-${i * 100}%)`;
-}
+    const track = document.querySelector('.banner-track');
+    const slides = document.querySelectorAll('.banner-track img');
+    const prevBtn = document.querySelector('.slide-btn.left');
+    const nextBtn = document.querySelector('.slide-btn.right');
+    const slider = document.querySelector('.banner-slider');
 
-document.querySelector('.slide-btn.right').onclick = () => {
-  index = (index + 1) % total;
-  slideTo(index);
-};
+    let index = 0;
+    let interval;
+    const delay = 4000;
 
-document.querySelector('.slide-btn.left').onclick = () => {
-  index = (index - 1 + total) % total;
-  slideTo(index);
-};
+    let isSliding = false;
 
-setInterval(() => {
-  index = (index + 1) % total;
-  slideTo(index);
-}, 5000);
+    function updateSlide() {
+        if (isSliding)
+            return;
+        isSliding = true;
+
+        track.style.transform = `translateX(-${index * 100}%)`;
+
+        setTimeout(() => {
+            isSliding = false;
+        }, 600);
+    }
+
+    function nextSlide() {
+        index = (index + 1) % slides.length;
+        updateSlide();
+    }
+
+    function prevSlide() {
+        index = (index - 1 + slides.length) % slides.length;
+        updateSlide();
+    }
+
+    function startAutoSlide() {
+        stopAutoSlide();
+        interval = setInterval(nextSlide, delay);
+    }
+
+    function stopAutoSlide() {
+        clearInterval(interval);
+    }
+
+    function resetAuto() {
+        startAutoSlide();
+    }
+
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetAuto();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetAuto();
+    });
+
+    slider.addEventListener('mouseenter', stopAutoSlide);
+    slider.addEventListener('mouseleave', startAutoSlide);
+
+    startAutoSlide();
+});

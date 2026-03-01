@@ -45,6 +45,7 @@
 
     <div onclick="loadPage('user')">👤 Users</div>
     <div onclick="loadPage('song')">🎵 Songs</div>
+    <div onclick="loadPage('topic')">Topic</div>
     <div onclick="loadPage('album')">💿 Albums</div>
     <div onclick="loadPage('artist')">🎤 Artists</div>
     <div onclick="loadPage('comment')">💬 Comments</div>

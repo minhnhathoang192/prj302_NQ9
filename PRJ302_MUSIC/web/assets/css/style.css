@@ -488,65 +488,180 @@ body {
     cursor: pointer;
 }
 
-/* ===== BANNER ===== */
 .banner-slider {
     position: relative;
     overflow: hidden;
-    border-radius: 14px;
+    border-radius: 18px;
     margin-bottom: 30px;
 }
 
 .banner-track {
     display: flex;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s ease-in-out;
 }
 
 .banner-track img {
     width: 100%;
     min-width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
 }
 
+/* BUTTON */
 .slide-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,0.4);
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+
     color: white;
     border: none;
-    font-size: 28px;
-    width: 40px;
-    height: 40px;
+    font-size: 26px;
+
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
+
     cursor: pointer;
+    opacity: 0.6;
+
+    transition: all 0.3s ease;
 }
 
+/* hover sáng lên */
+.slide-btn:hover {
+    opacity: 1;
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* vị trí */
 .slide-btn.left {
-    left: 10px;
+    left: 12px;
 }
 .slide-btn.right {
-    right: 10px;
+    right: 12px;
 }
 
-/* ===== CHỦ ĐỀ ===== */
+.slide-btn {
+    z-index: 10;
+}
+
+.banner-track {
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+/* ===== GRID ===== */
 .topic-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 15px;
+    gap: 18px;
 }
 
+/* ===== CARD ===== */
 .topic-card {
-    height: 110px;
-    background: #1e293b;
-    border-radius: 12px;
+    position: relative;
+    height: 120px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+
+    padding: 15px;
     display: flex;
     align-items: flex-start;
-    padding: 12px;
-    font-weight: bold;
-    cursor: pointer;
+
+    transition: all 0.3s ease;
 }
 
+/* ===== HOVER ===== */
+.topic-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+/* ===== IMAGE (FULL BACKGROUND) ===== */
+.topic-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    opacity: 1;
+    filter: brightness(1.1) contrast(1.1);
+
+    transition: 0.4s;
+}
+
+/* ===== HOVER IMAGE ===== */
+.topic-card:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* ===== OVERLAY ===== */
+.topic-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.55),
+        rgba(0,0,0,0.15)
+        );
+}
+
+/* ===== TEXT ===== */
+.topic-name {
+    position: relative;
+    z-index: 2;
+
+    font-weight: 700;
+    font-size: 18px;
+
+    color: #fff;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,0.9),
+        0 0 4px rgba(0,0,0,0.6);
+}
+
+/* ===== COLOR FALLBACK ===== */
+.topic-card:nth-child(6n+1) {
+    background: linear-gradient(135deg, #509bf5, #1e3a8a);
+}
+.topic-card:nth-child(6n+2) {
+    background: linear-gradient(135deg, #e8115b, #7f1d1d);
+}
+.topic-card:nth-child(6n+3) {
+    background: linear-gradient(135deg, #1db954, #064e3b);
+}
+.topic-card:nth-child(6n+4) {
+    background: linear-gradient(135deg, #ff8c00, #7c2d12);
+}
+.topic-card:nth-child(6n+5) {
+    background: linear-gradient(135deg, #8b5cf6, #312e81);
+}
+.topic-card:nth-child(6n+6) {
+    background: linear-gradient(135deg, #14b8a6, #134e4a);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    .topic-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .topic-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 /* ===== RANKING ===== */
 .ranking-row {
     display: flex;
@@ -1787,7 +1902,7 @@ body {
         rgba(31, 58, 76, 0.95),
         rgba(31, 58, 76, 0.6),
         transparent
-    );
+        );
 
     backdrop-filter: blur(12px);
 
@@ -1895,4 +2010,231 @@ body {
     font-size: 20px;
     margin: 0 10px;
     cursor: pointer;
+}
+
+/* ===== TOPIC PAGE ===== */
+/* ===== TOPIC PAGE ===== */
+.topic-container {
+    padding: 20px;
+    color: white;
+}
+
+/* TITLE */
+.topic-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* GRID: tối đa 6 card */
+.song-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+}
+
+/* CARD */
+.song-card {
+    background: #181818;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+/* HOVER sáng lên */
+.song-card:hover {
+    background: #282828;
+    transform: translateY(-5px);
+}
+
+/* COVER */
+.song-cover {
+    position: relative;
+}
+
+.song-cover img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* PLAY BUTTON */
+.play-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 45px;
+    height: 45px;
+    background: #1ed760;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 18px;
+
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+}
+
+/* hover mới hiện */
+.song-card:hover .play-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* TITLE */
+.song-title {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* META */
+.song-meta {
+    font-size: 12px;
+    color: #b3b3b3;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .song-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .song-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ===== CONTAINER ===== */
+.more-container {
+    padding: 24px;
+    color: white;
+}
+
+/* TITLE */
+.more-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* SECTION */
+.more-section h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+/* ===== GRID ===== */
+.more-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+}
+
+/* ===== CARD ===== */
+.more-card.horizontal {
+    position: relative;
+    height: 120px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 15px;
+    display: flex;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+}
+
+/* HOVER */
+.more-card:hover {
+    transform: scale(1.06);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
+
+/* ===== IMAGE (FULL BACKGROUND) ===== */
+.more-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    filter: brightness(1.1) contrast(1.1);
+    transition: 0.4s;
+}
+
+/* HOVER ZOOM */
+.more-card:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+/* ===== OVERLAY ===== */
+.more-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.55),
+        rgba(0,0,0,0.15)
+        );
+}
+
+/* ===== TEXT ===== */
+.card-text {
+    position: relative;
+    z-index: 2;
+
+    font-weight: 700;
+    font-size: 18px;
+
+    color: #fff;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,0.9),
+        0 0 4px rgba(0,0,0,0.6);
+}
+
+/* ===== COLOR FALLBACK (nếu ảnh fail) ===== */
+.more-card:nth-child(6n+1) {
+    background: linear-gradient(135deg, #509bf5, #1e3a8a);
+}
+.more-card:nth-child(6n+2) {
+    background: linear-gradient(135deg, #e8115b, #7f1d1d);
+}
+.more-card:nth-child(6n+3) {
+    background: linear-gradient(135deg, #1db954, #064e3b);
+}
+.more-card:nth-child(6n+4) {
+    background: linear-gradient(135deg, #ff8c00, #7c2d12);
+}
+.more-card:nth-child(6n+5) {
+    background: linear-gradient(135deg, #8b5cf6, #312e81);
+}
+.more-card:nth-child(6n+6) {
+    background: linear-gradient(135deg, #14b8a6, #134e4a);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+    .more-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .more-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
