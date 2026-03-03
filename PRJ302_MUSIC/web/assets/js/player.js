@@ -8,18 +8,19 @@ function playSong(url, title, cover) {
     audio.src = url;
     audio.play();
 
+    // LƯU STATE
+    currentSong = {
+        audioURL: url,
+        title: title,
+        coverURL: cover
+    };
+
     // footer
     document.getElementById("player-title").innerText = title;
     document.getElementById("player-cover").src = cover;
 
-    // for-you
-    let fyTitle = document.getElementById("fyTitle");
-    let fyCover = document.getElementById("fyCover");
-    let fyBg = document.getElementById("fyBgCover");
-
-    if (fyTitle) fyTitle.innerText = title;
-    if (fyCover) fyCover.src = cover;
-    if (fyBg) fyBg.src = cover;
+    // update for-you
+    updateForYouUI();
 }
 
 function togglePlay() {
@@ -37,13 +38,15 @@ function togglePlay() {
         audio.play();
 
         buttons.forEach(btn => btn.innerText = "⏸");
-        if (wave) wave.classList.add("playing");
+        if (wave)
+            wave.classList.add("playing");
 
     } else {
         audio.pause();
 
         buttons.forEach(btn => btn.innerText = "▶");
-        if (wave) wave.classList.remove("playing");
+        if (wave)
+            wave.classList.remove("playing");
     }
 }
 
@@ -54,7 +57,8 @@ audio.addEventListener("play", () => {
     let wave = document.querySelector(".music-wave");
 
     buttons.forEach(btn => btn.innerText = "⏸");
-    if (wave) wave.classList.add("playing");
+    if (wave)
+        wave.classList.add("playing");
 });
 
 audio.addEventListener("pause", () => {
@@ -62,14 +66,16 @@ audio.addEventListener("pause", () => {
     let wave = document.querySelector(".music-wave");
 
     buttons.forEach(btn => btn.innerText = "▶");
-    if (wave) wave.classList.remove("playing");
+    if (wave)
+        wave.classList.remove("playing");
 });
 
 let playlist = [];
 let currentIndex = -1;
 
 function nextSong() {
-    if (playlist.length === 0) return;
+    if (playlist.length === 0)
+        return;
 
     currentIndex = (currentIndex + 1) % playlist.length;
 
@@ -79,7 +85,8 @@ function nextSong() {
 
 
 function prevSong() {
-    if (playlist.length === 0) return;
+    if (playlist.length === 0)
+        return;
 
     currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
 
@@ -90,3 +97,16 @@ function prevSong() {
 getAudio().addEventListener("ended", () => {
     nextSong();
 });
+
+function updateForYouUI() {
+
+    if (!currentSong) return;
+
+    let fyTitle = document.getElementById("fyTitle");
+    let fyCover = document.getElementById("fyCover");
+    let fyBg = document.getElementById("fyBgCover");
+
+    if (fyTitle) fyTitle.innerText = currentSong.title;
+    if (fyCover) fyCover.src = currentSong.coverURL;
+    if (fyBg) fyBg.src = currentSong.coverURL;
+}

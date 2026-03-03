@@ -101,4 +101,54 @@ public class TopicSongDAO {
         }
         return list;
     }
+
+    public List<SongDTO> getSongsByMultipleTopics(String ids) {
+        List<SongDTO> list = new ArrayList<>();
+
+        try {
+            Connection conn = DbUtils.getConnection();
+
+            String[] arr = ids.split(",");
+
+            StringBuilder sql = new StringBuilder(
+                    "SELECT TOP 30 s.* "
+                    + "FROM SONG s "
+                    + "JOIN TOPIC_SONG ts ON s.songID = ts.songID "
+                    + "WHERE ts.topicID IN ("
+            );
+
+            for (int i = 0; i < arr.length; i++) {
+                sql.append("?");
+                if (i < arr.length - 1) {
+                    sql.append(",");
+                }
+            }
+
+            sql.append(") AND s.isActive = 1 ORDER BY NEWID()");
+
+            PreparedStatement ps = conn.prepareStatement(sql.toString());
+
+            for (int i = 0; i < arr.length; i++) {
+                ps.setInt(i + 1, Integer.parseInt(arr[i]));
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                SongDTO song = new SongDTO();
+
+                song.setSongID(rs.getInt("songID"));
+                song.setTitle(rs.getString("title"));
+                song.setAudioURL(rs.getString("audioURL"));
+                song.setCoverImage(rs.getString("coverImage"));
+
+                list.add(song);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }

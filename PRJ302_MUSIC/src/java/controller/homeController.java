@@ -1,31 +1,25 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package controller;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.SongDAO;
-import model.SongDTO;
-import model.userDAO;
-
-@WebServlet(name = "searchSongController", urlPatterns = {"/searchSongController"})
+import model.TopicDAO;
+import model.TopicDTO;
 
 /**
  *
  * @author NQ9
  */
-public class searchSongController extends HttpServlet {
+public class homeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,24 +32,17 @@ public class searchSongController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
-        String keyword = request.getParameter("keyword");
-
-        SongDAO sdao = new SongDAO();
-//        PlaylistDAO pdao = new PlaylistDAO();
-//        ArtistDAO adao = new ArtistDAO();
-//        AlbumDAO aldao = new AlbumDAO();
-
-        List<SongDTO> songs= sdao.searchSongs(keyword);
-//        request.setAttribute("playlists", pdao.search(keyword));
-//        request.setAttribute("artists", adao.search(keyword));
-//        request.setAttribute("albums", aldao.search(keyword));
-
-        Gson gson= new Gson();
-        response.getWriter().write(gson.toJson(songs));
+        
+        TopicDAO tdao= new TopicDAO();
+        List<TopicDTO> topics= tdao.getAllTopic(null);
+        
+        request.setAttribute("topics", topics);
+        
+        RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

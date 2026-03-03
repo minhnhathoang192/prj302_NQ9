@@ -37,7 +37,7 @@ public class RamdomSongController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         
         SongDAO sdao= new SongDAO();
-        List<SongDTO> list = sdao.getRandomSongs(10);
+        List<SongDTO> list = sdao.getRandomSongs(50);
         
         Gson gson= new Gson();
         String json = gson.toJson(list);

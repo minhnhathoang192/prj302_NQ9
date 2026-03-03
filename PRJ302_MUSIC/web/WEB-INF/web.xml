@@ -104,6 +104,22 @@
         <servlet-name>loadMoreController</servlet-name>
         <servlet-class>controller.loadMoreController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getSongsByTopicController</servlet-name>
+        <servlet-class>controller.getSongsByTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>homeController</servlet-name>
+        <servlet-class>controller.homeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getRandomTopicController</servlet-name>
+        <servlet-class>controller.getRandomTopicController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getSongsByMultipleTopicsController</servlet-name>
+        <servlet-class>controller.getSongsByMultipleTopicsController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -208,12 +224,28 @@
         <servlet-name>loadMoreController</servlet-name>
         <url-pattern>/loadMoreController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getSongsByTopicController</servlet-name>
+        <url-pattern>/getSongsByTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>homeController</servlet-name>
+        <url-pattern>/homeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getRandomTopicController</servlet-name>
+        <url-pattern>/getRandomTopicController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getSongsByMultipleTopicsController</servlet-name>
+        <url-pattern>/getSongsByMultipleTopicsController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>MainController</welcome-file>
     </welcome-file-list>
 </web-app>

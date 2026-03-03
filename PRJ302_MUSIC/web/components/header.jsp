@@ -16,7 +16,7 @@
 
     <!-- CENTER SEARCH -->
     <div class="header-center">
-        <form action="MainController#search" method="GET">
+        <form id="searchForm">
             <input type="hidden" name="action" value="search">
             <input type="text"
                    name="keyword"

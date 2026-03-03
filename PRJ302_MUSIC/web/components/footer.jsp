@@ -41,4 +41,5 @@
 <script src="assets/js/forgot.js"></script>
 <script src="assets/js/app.js"></script>
 <script src="assets/js/player.js"></script>
+<script src="assets/js/topic-modal.js"></script>
 

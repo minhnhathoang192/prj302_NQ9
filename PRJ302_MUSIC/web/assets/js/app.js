@@ -176,37 +176,33 @@ function loadForYou(el) {
 
     // đổi UI tab
     showPage('for-you', el);
+    
+    let savedTopics= sessionStorage.getItem("userTopics");
+    
+    if(savedTopics){
+        let topicIDs= JSON.parse(savedTopics);
+        
+        loadPlaylistByTopics(topicIDs);
+        return;
+    }
+    
+    if (currentSong) {
+        updateForYouUI();
+        return;
+    }
+    
 
     fetch('MainController?action=getRandomPlaylist')
             .then(res => res.json())
             .then(list => {
-
-                console.log("Playlist:", list);
 
                 if (!list || list.length === 0) {
                     alert("Không có bài hát!");
                     return;
                 }
 
-                let contextPath = document.body.dataset.context;
-
-                playlist = list.map(song => ({
-                        audioURL: contextPath + "/StreamServlet?type=audio&file=" + song.audioURL,
-                        title: song.title,
-                        coverURL: contextPath + "/StreamServlet?type=cover&file=" + song.coverImage
-                    }));
-
-                currentIndex = 0;
-
-                let s = playlist[currentIndex];
-
-                document.getElementById("fyTitle").innerText = s.title;
-                document.getElementById("fyCover").src = s.coverURL;
-                document.getElementById("fyBgCover").src = s.coverURL;
-
-                // ✅ PLAY LUÔN (QUAN TRỌNG)
-                playSong(s.audioURL, s.title, s.coverURL);
-
+                buildAndLoadPlayer(list);
+                
             })
             .catch(err => {
                 console.error("Lỗi loadForYou:", err);
@@ -266,31 +262,69 @@ function showMorePage(el) {
             });
 }
 
-const topicImages = {
-    1: "chillout.jpg",
-    13: "tiktok.jpg",
-    6: "nhactre.jpg",
-    5: "nhachoa.jpg",
-    4: "cafesang.jpg",
-    9: "remix.jpg",
-    2: "bolero.jpg",
-    8: "rapviet.jpg",
-    11: "vuinhon.jpg",
-    3: "buon.jpg",
-    7: "pop.jpg",
-    10: "tinhyeu.jpg"
-};
+//search song
+document.getElementById("searchForm").addEventListener("submit", function (e) {
 
-document.querySelectorAll(".topic-card").forEach(card => {
-    const id = card.getAttribute("data-topic-id");
-    const file = topicImages[id];
+    e.preventDefault(); // 🚨 chặn reload
 
-    if (file) {
-        const url = document.body.dataset.context + 
-            "/StreamServlet?type=cover&file=" + file;
+    let keyword = document.querySelector("input[name='keyword']").value.trim();
 
-        card.style.backgroundImage = `url('${url}')`;
-        card.style.backgroundSize = "cover";
-        card.style.backgroundPosition = "center";
-    }
+    if (!keyword) return;
+
+    fetch("MainController?action=searchAjax&keyword=" + encodeURIComponent(keyword))
+        .then(res => res.json())
+        .then(data => {
+
+            renderSearchResult(data);
+            showPage("search");
+
+        })
+        .catch(err => console.error("Search error:", err));
 });
+
+function renderSearchResult(list) {
+
+    let container = document.getElementById("searchResultContainer");
+    container.innerHTML = "";
+
+    if (!list || list.length === 0) {
+        container.innerHTML = "<p>Không tìm thấy bài hát</p>";
+        return;
+    }
+
+    list.forEach((s, index) => {
+
+        let item = document.createElement("div");
+        item.className = "song-item";
+
+        item.innerHTML = `
+            <div class="song-thumb">
+                <img src="StreamServlet?type=cover&file=${encodeURIComponent(s.coverImage)}">
+                <div class="play-btn">▶</div>
+            </div>
+            <div class="song-info">
+                <div class="song-title">${s.title}</div>
+            </div>
+        `;
+
+        item.onclick = () => {
+
+            // build playlist từ search
+            playlist = list.map(song => ({
+                audioURL: "StreamServlet?type=audio&file=" + encodeURIComponent(song.audioURL),
+                title: song.title,
+                coverURL: "StreamServlet?type=cover&file=" + encodeURIComponent(song.coverImage)
+            }));
+
+            currentIndex = index;
+
+            playSong(
+                playlist[currentIndex].audioURL,
+                playlist[currentIndex].title,
+                playlist[currentIndex].coverURL
+            );
+        };
+
+        container.appendChild(item);
+    });
+}

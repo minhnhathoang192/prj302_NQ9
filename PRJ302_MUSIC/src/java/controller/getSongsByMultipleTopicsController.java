@@ -1,4 +1,3 @@
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -9,23 +8,18 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.SongDAO;
 import model.SongDTO;
-import model.userDAO;
-
-@WebServlet(name = "searchSongController", urlPatterns = {"/searchSongController"})
+import model.TopicSongDAO;
 
 /**
  *
  * @author NQ9
  */
-public class searchSongController extends HttpServlet {
+public class getSongsByMultipleTopicsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,20 +36,22 @@ public class searchSongController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        String keyword = request.getParameter("keyword");
+        try {
+            String ids = request.getParameter("topicIds");
+            System.out.println("👉 IDS nhận được: " + ids);
 
-        SongDAO sdao = new SongDAO();
-//        PlaylistDAO pdao = new PlaylistDAO();
-//        ArtistDAO adao = new ArtistDAO();
-//        AlbumDAO aldao = new AlbumDAO();
+            TopicSongDAO dao = new TopicSongDAO();
+            List<SongDTO> list = dao.getSongsByMultipleTopics(ids);
+            
+            System.out.println("👉 LIST SIZE: " + list.size());
 
-        List<SongDTO> songs= sdao.searchSongs(keyword);
-//        request.setAttribute("playlists", pdao.search(keyword));
-//        request.setAttribute("artists", adao.search(keyword));
-//        request.setAttribute("albums", aldao.search(keyword));
+            Gson gson = new Gson();
+            response.getWriter().write(gson.toJson(list));
 
-        Gson gson= new Gson();
-        response.getWriter().write(gson.toJson(songs));
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("[]");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

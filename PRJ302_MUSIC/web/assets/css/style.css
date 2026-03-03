@@ -2238,3 +2238,178 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+
+
+/* ===== MODAL ===== */
+.tm-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 9999;
+}
+
+.tm-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* overlay */
+.tm-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+}
+
+/* ===== BOX ===== */
+.tm-container {
+    position: relative;
+    width: 900px;
+    max-height: 80vh;
+    background: #181818;
+    border-radius: 12px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* ===== HEADER ===== */
+.tm-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.tm-subtitle {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+/* ===== GRID (QUAN TRỌNG NHẤT) ===== */
+.tm-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+/* CARD */
+.tm-card {
+    position: relative;
+    height: 140px; /* tăng nhẹ cho đẹp */
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.25s;
+    background: black; /* fallback khi ảnh load chậm */
+}
+
+/* hover */
+.tm-card:hover {
+    transform: scale(1.05);
+}
+
+.tm-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.2),
+        rgba(0,0,0,0.4)
+    );
+}
+
+/* NAME */
+.tm-name {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    z-index: 2;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+/* ===== IMAGE (xoay góc như Spotify) ===== */
+/* IMAGE FULL */
+.tm-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    filter: brightness(1.1) contrast(1.05);
+}
+
+/* ===== CHECK ===== */
+.tm-check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 22px;
+    height: 22px;
+    background: white;
+    color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+
+    opacity: 0;
+    transform: scale(0.5);
+    transition: 0.2s;
+}
+
+/* active */
+.tm-card.active {
+    outline: 3px solid white;
+}
+
+.tm-card.active .tm-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.tm-card:hover .tm-img {
+    filter: brightness(1.2) contrast(1.1);
+}
+
+/* ===== BUTTON ===== */
+.tm-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.tm-submit {
+    background: #1db954;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tm-submit:hover {
+    background: #1ed760;
+}
+
+.tm-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    font-size: 18px;
+    color: #aaa;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.2s;
+}
+
+.tm-close:hover {
+    color: white;
+    transform: scale(1.2);
+}

@@ -6,12 +6,15 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.TopicDAO;
+import model.TopicDTO;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024,
@@ -43,12 +46,12 @@ public class MainController extends HttpServlet {
         String url = "index.jsp";
 
         if (action == null) {
-            url = "index.jsp";
+            url = "homeController";
         } else if (action.equals("login")) {
             url = "loginController";
         } else if (action.equals("logout")) {
             url = "logoutController";
-        } else if (action.equals("search")) {
+        } else if (action.equals("searchAjax")) {
             url = "searchSongController";
         } else if (action.equals("adminDashboard")) {
             url = "adminController";
@@ -60,7 +63,7 @@ public class MainController extends HttpServlet {
             url = "manageAlbumController";
         } else if (action.equals("manage_artist")) {
             url = "manageAtistController";
-        }else if (action.equals("manage_topic")) {
+        } else if (action.equals("manage_topic")) {
             url = "manageTopicController";
         } else if (action.equals("manage_comment")) {
             url = "manageCommentController";
@@ -90,16 +93,22 @@ public class MainController extends HttpServlet {
             url = "AddArtistController";
         } else if (action.equals("getRandomPlaylist")) {
             url = "RamdomSongController";
-        }else if(action.equals("addTopic")){
+        } else if (action.equals("addTopic")) {
             url = "addTopicController";
-        } else if(action.equals("editTopic") || action.equals("saveTopic")){
+        } else if (action.equals("editTopic") || action.equals("saveTopic")) {
             url = "EditTopicController";
-        } else if(action.equals("addSongToTopic")){
+        } else if (action.equals("addSongToTopic")) {
             url = "addSongToTopicController";
-        } else if(action.equals("loadTopic")){
+        } else if (action.equals("loadTopic")) {
             url = "loadTopicController";
-        }else if(action.equals("loadMore")){
+        } else if (action.equals("loadMore")) {
             url = "loadMoreController";
+        } else if (action.equals("getSongsByTopic")) {
+            url = "getSongsByTopicController";
+        } else if (action.equals("getRandomTopic")) {
+            url = "getRandomTopicController";
+        } else if (action.equals("getSongsByMultipleTopics")) {
+            url = "getSongsByMultipleTopicsController";
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);

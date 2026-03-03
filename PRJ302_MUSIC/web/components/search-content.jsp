@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <div class="search-container">
@@ -19,110 +18,46 @@
 
         <!-- SONG -->
         <h3>Bài hát</h3>
-        <div class="songs-grid">
-            <c:if test="${empty songs}">
-                <p class="empty-msg">
-                    Không có playlist
-                </p>
-            </c:if>
-
-            <c:forEach var="s" items="${songs}">
-                <div class="song-item">
-                    <div class="song-thumb">
-                        <img src="${pageContext.request.contextPath}/StreamServlet?type=cover&file=${s.coverImage}">
-                        <div class="play-btn"
-                             onclick="playSong(
-                                             '${pageContext.request.contextPath}/StreamServlet?type=audio&file=${s.audioURL}',
-                                                             '${s.title}',
-                                                             '${pageContext.request.contextPath}/StreamServlet?type=cover&file=${s.coverImage}'
-                                                                             )">
-                            ▶
-                        </div>
-                    </div>
-                    <div class="song-info">
-                        <div class="song-title">${s.title}</div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="songs-grid" id="searchResultContainer">
+            <!-- JS sẽ render kết quả ở đây -->
         </div>
 
         <!-- PLAYLIST -->
         <h3>Playlist</h3>
-        <div class="songs-grid">
-            <c:if test="${empty playlists}">
-                <p class="empty-msg">
-                    Không có playlist
-                </p>
-            </c:if>
-
-            <c:forEach var="p" items="${playlists}">
-                <div class="song-item">
-                    <div class="song-thumb">
-                        <img src="${pageContext.request.contextPath}/StreamServlet?type=cover&file=${p.coverImage}">
-                    </div>
-                    <div class="song-info">
-                        <div class="song-title">${p.name}</div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="songs-grid" id="searchPlaylistContainer">
+            <!-- Nâng cấp sau -->
         </div>
 
         <!-- ARTIST -->
         <h3>Nghệ sĩ</h3>
-        <div class="songs-grid">
-
-            <c:if test="${empty artists}">
-                <p class="empty-msg">Không có nghệ sĩ</p>
-            </c:if>
-
-            <c:forEach var="a" items="${artists}">
-                <div class="song-item">
-                    <div class="song-thumb">
-                        <img src="${pageContext.request.contextPath}/StreamServlet?type=avatar&file=${a.avatar}">
-                    </div>
-                    <div class="song-info">
-                        <div class="song-title">${a.name}</div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="songs-grid" id="searchArtistContainer">
+            <!-- Nâng cấp sau -->
         </div>
 
         <!-- ALBUM -->
         <h3>Album</h3>
-        <div class="songs-grid">
-
-            <c:if test="${empty albums}">
-                <p class="empty-msg">Không có album</p>
-            </c:if>
-
-            <c:forEach var="al" items="${albums}">
-                <div class="song-item">
-                    <div class="song-thumb">
-                        <img src="${pageContext.request.contextPath}/StreamServlet?type=cover&file=${al.coverImage}">
-                    </div>
-                    <div class="song-info">
-                        <div class="song-title">${al.name}</div>
-                    </div>
-                </div>
-            </c:forEach>
+        <div class="songs-grid" id="searchAlbumContainer">
+            <!-- Nâng cấp sau -->
         </div>
 
     </div>
 
 </div>
 
+<script>
 
-<script >
+window.switchTab = function (tab, el) {
 
-    window.switchTab = function (tab, el) {
+    // Không cần hash nữa nếu muốn SPA thuần
+    // window.location.hash = "search-" + tab;
 
-        window.location.hash = "search-" + tab;
+    document.querySelectorAll(".tab-content").forEach(e => e.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(e => e.classList.remove("active"));
 
-        document.querySelectorAll(".tab-content").forEach(e => e.classList.remove("active"));
-        document.querySelectorAll(".tab").forEach(e => e.classList.remove("active"));
+    let target = document.getElementById("tab-" + tab);
+    if (target) target.classList.add("active");
 
-        document.getElementById("tab-" + tab).classList.add("active");
-        if (el)
-            el.classList.add("active");
-    };
+    if (el) el.classList.add("active");
+};
+
 </script>

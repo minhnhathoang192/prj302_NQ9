@@ -139,4 +139,27 @@ public class TopicDAO {
         }
         return false;
     }
+
+    public TopicDTO getRamdomTopic() {
+        TopicDTO topic= null;
+        try {
+            Connection conn= DbUtils.getConnection();
+            String sql = "SELECT TOP 1 * FROM TOPIC WHERE isActive = 1 ORDER BY NEWID()";
+            PreparedStatement ps= conn.prepareStatement(sql);
+            ResultSet rs= ps.executeQuery();
+            
+            if(rs.next()){
+                int topicID = rs.getInt("topicID");
+                String topicName = rs.getString("topicName");
+                String description = rs.getString("description");
+                String coverImage = rs.getString("coverImage");
+                boolean isActive = rs.getBoolean("isActive");
+                Timestamp createdAt = rs.getTimestamp("createdAt");
+                topic= new TopicDTO(topicID, topicName, description, coverImage, isActive, createdAt);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return topic;
+    }
 }
