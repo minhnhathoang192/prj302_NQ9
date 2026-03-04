@@ -52,7 +52,7 @@
                                 No Image
                             </c:when>
                             <c:otherwise>
-                                <img src="${a.avatarURL}" width="60"/>
+                                <img src="${pageContext.request.contextPath}/StreamServlet?type=artist&file=${a.avatarURL}" width="60"/>
                             </c:otherwise>
                         </c:choose>
                     </td>

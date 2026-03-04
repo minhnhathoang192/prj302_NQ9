@@ -5,60 +5,139 @@
 <html>
     <head>
         <title>Artist Form</title>
+        <link rel="stylesheet" href="assets/css/style.css"/>
     </head>
     <body>
 
-        <h2>${mode == 'edit' ? ' Edit Artist' : 'Add Artist'}</h2>
+        <div class="upload-page">
 
-        <form action="MainController" method="post">
+            <form action="MainController" method="post" class="upload-form" enctype="multipart/form-data">
 
-            <!-- action -->
-            <input type="hidden" name="action"
-                   value="${mode == 'edit' ? 'saveArtist' : 'addArtist'}"/>
+                <!-- ACTION -->
+                <input type="hidden" name="action"
+                       value="${mode == 'edit' ? 'saveArtist' : 'addArtist'}"/>
 
-            <!-- ID (chỉ edit mới có) -->
-            <c:if test="${mode == 'edit'}">
-                ID:
-                <input type="text" name="artistID" value="${a.artistID}" readonly/> <br/>
-            </c:if>
+                <div class="upload-card">
 
-            <!-- Name -->
-            Artist Name:
-            <input type="text" name="artistName" value="${a.artistName}" required/> <br/>
+                    <!-- LEFT: Avatar preview -->
+                    <div class="upload-left">
 
-            <!-- Avatar -->
-            Avatar URL:
-            <input type="text" name="avatarURL" value="${a.avatarURL}"/> <br/>
+                        <div class="cover-preview" id="avatarPreview">
+                            <c:choose>
+                                <c:when test="${not empty a.avatarURL}">
+                                    <img src="${a.avatarURL}" />
+                                </c:when>
+                                <c:otherwise>
+                                    <span>Chọn ảnh nghệ sĩ</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
 
-            <!-- Description -->
-            Description:
-            <textarea name="description">${a.description}</textarea> <br/>
+                        <input type="file" name="avatarURL"
+                               id="avatarInput"
+                               accept="image/*" hidden>
 
-            <!-- Debut Date -->
-            Debut Date:
-            <input type="date" name="debutDate" value="${a.debutDate}" required/> <br/>
+                        <button type="button" class="cover-btn"
+                                onclick="document.getElementById('avatarInput').click()">
+                            Chọn ảnh
+                        </button>
 
-            <!-- Status (chỉ edit mới hiện) -->
-            <c:if test="${mode == 'edit'}">
-                Status:
-                <select name="isActive">
-                    <option value="1" ${a.isActive ? 'selected' : ''}>Active</option>
-                    <option value="0" ${!a.isActive ? 'selected' : ''}>Hidden</option>
-                </select>
-                <br/>
-            </c:if>
+                    </div>
 
-            <br/>
+                    <!-- RIGHT: Info -->
+                    <div class="upload-right">
 
-            <!-- Submit -->
-            <input type="submit"
-                   value="${mode == 'edit' ? 'Update' : 'Add'}"/>
+                        <h2>
+                            <c:choose>
+                                <c:when test="${mode == 'edit'}">
+                                    🎤 Edit Artist
+                                </c:when>
+                                <c:otherwise>
+                                    🎤 Add Artist
+                                </c:otherwise>
+                            </c:choose>
+                        </h2>
 
-        </form>
+                        <!-- ID chỉ hiện khi edit -->
+                        <c:if test="${mode == 'edit'}">
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input type="text" value="${a.artistID}" readonly>
+                                <input type="hidden" name="artistID" value="${a.artistID}">
+                            </div>
+                        </c:if>
 
-        <!-- Message -->
-        <p style="color: green">${msg}</p>
-        <p style="color: red">${error}</p>
+                        <!-- Artist Name -->
+                        <div class="form-group">
+                            <label>Artist Name</label>
+                            <input type="text" name="artistName"
+                                   value="${a.artistName}" required>
+                        </div>
+
+                        <!-- Debut Date -->
+                        <div class="form-group">
+                            <label>Debut Date</label>
+                            <input type="date" name="debutDate"
+                                   value="${a.debutDate}" required>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description">${a.description}</textarea>
+                        </div>
+
+                        <!-- Status chỉ hiện khi edit -->
+                        <c:if test="${mode == 'edit'}">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select name="isActive">
+                                    <option value="1"
+                                            ${a.isActive ? 'selected' : ''}>
+                                        Active
+                                    </option>
+                                    <option value="0"
+                                            ${!a.isActive ? 'selected' : ''}>
+                                        Hidden
+                                    </option>
+                                </select>
+                            </div>
+                        </c:if>
+
+                        <!-- Submit -->
+                        <button type="submit" class="upload-btn">
+                            <c:choose>
+                                <c:when test="${mode == 'edit'}">
+                                    💾 Update Artist
+                                </c:when>
+                                <c:otherwise>
+                                    ➕ Add Artist
+                                </c:otherwise>
+                            </c:choose>
+                        </button>
+
+                        <p class="success-msg">${msg}</p>
+                        <p class="error-msg">${error}</p>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById("avatarInput").addEventListener("change", function (e) {
+                const file = e.target.files[0];
+                if (!file)
+                    return;
+
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    document.getElementById("avatarPreview").innerHTML =
+                            "<img src='" + event.target.result + "'>";
+                };
+                reader.readAsDataURL(file);
+            });
+        </script>
 
     </body>
 </html>

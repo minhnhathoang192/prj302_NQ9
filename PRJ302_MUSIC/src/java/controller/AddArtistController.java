@@ -4,14 +4,17 @@
  */
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import model.ArtistDAO;
 import model.ArtistDTO;
 
@@ -19,6 +22,13 @@ import model.ArtistDTO;
  *
  * @author NQ9
  */
+
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024,
+    maxFileSize = 1024 * 1024 * 20,
+    maxRequestSize = 1024 * 1024 * 50
+)
+
 public class AddArtistController extends HttpServlet {
 
     /**
@@ -41,7 +51,6 @@ public class AddArtistController extends HttpServlet {
         String error="";
         try {
             String artistName = request.getParameter("artistName");
-            String avatarURL = request.getParameter("avatarURL");
             String description = request.getParameter("description");
             String s_debutDate = request.getParameter("debutDate");
             
@@ -57,9 +66,32 @@ public class AddArtistController extends HttpServlet {
                 error+="Khong hop le debutDate";
             }
             
+            Part coverPart= request.getPart("avatarURL");
+            String coverFileName = null;
+            
+            String basePath = "C:/Users/NQ9/Documents/GitHub/PRJ302_MUSIC/music_uploads/artist";
+            
+            File dir= new File(basePath);
+            if(!dir.exists()){
+                dir.mkdirs();
+            }
+            
+            if(coverPart == null || coverPart.getSize() == 0){
+                error+="Chua chon Hinh Anh";
+            }else{
+                String originalName = coverPart.getSubmittedFileName();
+                
+                if(!originalName.toLowerCase().matches(".*\\.(jpg|jpeg|png|webp)$")){
+                    error+= "Chi chap nhan file anh (jpg, png, webp)<br/>";
+                }else{
+                    coverFileName = System.currentTimeMillis() + "_" + originalName;
+                    coverPart.write(basePath + File.separator + coverFileName);
+                }
+            }
+            
             ArtistDAO artistDao= new ArtistDAO();
             if(error.isEmpty()){
-                ArtistDTO artist= new ArtistDTO(0, artistName, avatarURL, description, debutDate, true);
+                ArtistDTO artist= new ArtistDTO(0, artistName, coverFileName, description, debutDate, true);
                 
                 if(artistDao.createArtist(artist)){
                     msg+="Them tac gia thanh cong!";

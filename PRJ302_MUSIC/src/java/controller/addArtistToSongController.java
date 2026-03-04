@@ -4,23 +4,20 @@
  */
 package controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ArtistSongDAO;
 
-@WebServlet("/StreamServlet")
 /**
  *
  * @author NQ9
  */
-public class StreamServlet extends HttpServlet {
+public class addArtistToSongController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,31 +30,32 @@ public class StreamServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        String file = request.getParameter("file");
-        String type = request.getParameter("type");
+        String msg = "";
+        String error = "";
+        int songID = Integer.parseInt(request.getParameter("songID"));
+        int artistID = Integer.parseInt(request.getParameter("artistID"));
 
-        String basePath = "C:/Users/NQ9/Documents/GitHub/PRJ302_MUSIC/music_uploads";
+        ArtistSongDAO asDao = new ArtistSongDAO();
 
-        File f = new File(basePath + "/" + type + "/" + file);
-
-        if (!f.exists()) {
-            response.sendError(404);
-            return;
+        if (!asDao.exists(songID, artistID)) {
+            boolean result = asDao.addArtistToSong(songID, artistID);
+            if (result) {
+                msg += "Them Thanh Cong Tac gia";
+            } else {
+                error += "Them tac gia that bai";
+            }
+        } else {
+            error += "Tac gia da gop mat trong bai nhac";
         }
 
-        if (type.equals("audio")) {
-            response.setContentType("audio/mpeg");
-        } else if (type.equals("cover") || type.equals("topic") || type.equals("artist")) {
-            String mime = Files.probeContentType(f.toPath());
-            response.setContentType(mime);
-        }
+        request.getSession().setAttribute("msg", msg);
+        request.getSession().setAttribute("error", error);
 
-        OutputStream out = response.getOutputStream();
-        Files.copy(f.toPath(), out);
-        out.flush();
+        response.sendRedirect("MainController?action=manage_song");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

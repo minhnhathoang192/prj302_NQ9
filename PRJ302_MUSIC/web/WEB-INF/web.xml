@@ -120,6 +120,14 @@
         <servlet-name>getSongsByMultipleTopicsController</servlet-name>
         <servlet-class>controller.getSongsByMultipleTopicsController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addArtistToSongController</servlet-name>
+        <servlet-class>controller.addArtistToSongController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addAlbumToSongController</servlet-name>
+        <servlet-class>controller.addAlbumToSongController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -239,6 +247,14 @@
     <servlet-mapping>
         <servlet-name>getSongsByMultipleTopicsController</servlet-name>
         <url-pattern>/getSongsByMultipleTopicsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addArtistToSongController</servlet-name>
+        <url-pattern>/addArtistToSongController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addAlbumToSongController</servlet-name>
+        <url-pattern>/addAlbumToSongController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

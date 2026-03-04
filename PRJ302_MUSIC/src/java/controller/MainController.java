@@ -109,6 +109,10 @@ public class MainController extends HttpServlet {
             url = "getRandomTopicController";
         } else if (action.equals("getSongsByMultipleTopics")) {
             url = "getSongsByMultipleTopicsController";
+        } else if (action.equals("addArtistToSong")) {
+            url = "addArtistToSongController";
+        } else if (action.equals("addAlbumToSong")) {
+            url = "addAlbumToSongController";
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);

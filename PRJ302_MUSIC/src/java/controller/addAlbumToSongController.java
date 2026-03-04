@@ -4,23 +4,19 @@
  */
 package controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.AlbumSongDAO;
 
-@WebServlet("/StreamServlet")
 /**
  *
  * @author NQ9
  */
-public class StreamServlet extends HttpServlet {
+public class addAlbumToSongController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,31 +29,29 @@ public class StreamServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        String file = request.getParameter("file");
-        String type = request.getParameter("type");
-
-        String basePath = "C:/Users/NQ9/Documents/GitHub/PRJ302_MUSIC/music_uploads";
-
-        File f = new File(basePath + "/" + type + "/" + file);
-
-        if (!f.exists()) {
-            response.sendError(404);
-            return;
+        response.setContentType("text/html;charset=UTF-8");
+        
+        String msg = "";
+        String error="";
+        int albumID= Integer.parseInt(request.getParameter("albumID"));
+        int songID= Integer.parseInt(request.getParameter("songID"));
+        
+        AlbumSongDAO asDao= new AlbumSongDAO();
+        if(!asDao.exists(albumID, songID)){
+            boolean result= asDao.add(albumID, songID);
+            if(result){
+                msg+="Them album thanh cong";
+            }else{
+                error+="The album that bai";
+            }
+        }else {
+            error+="da co album trong bai hat";
         }
-
-        if (type.equals("audio")) {
-            response.setContentType("audio/mpeg");
-        } else if (type.equals("cover") || type.equals("topic") || type.equals("artist")) {
-            String mime = Files.probeContentType(f.toPath());
-            response.setContentType(mime);
-        }
-
-        OutputStream out = response.getOutputStream();
-        Files.copy(f.toPath(), out);
-        out.flush();
+        
+        request.getSession().setAttribute("msg", msg);
+        request.getSession().setAttribute("error", error);
+        
+        response.sendRedirect("MainController?action=manage_song");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

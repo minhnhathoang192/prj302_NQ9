@@ -16,6 +16,12 @@
     <button type="submit">Search</button>
 </form>
 
+<p style="color: green">${sessionScope.msg}</p>
+<p style="color: red">${sessionScope.error}</p>
+
+<c:remove var="msg" scope="session"/>
+<c:remove var="error" scope="session"/>
+
 <hr/>
 
 <c:choose>
@@ -33,6 +39,10 @@
                 <th>Release</th>
                 <th>Cover</th>
                 <th>Status</th>
+                <th>Artists</th>
+                <th>Add Artist</th>
+                <th>Albums</th>
+                <th>Add Album</th>
                 <th>Update</th>
                 <th>Action</th>
             </tr>
@@ -71,6 +81,57 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
+
+                    <!<!-- Artist -->
+                    <td>
+                        <c:forEach var="a" items="${artistsBySong[s.songID]}">
+                            ${a.artistName}<br/>
+                        </c:forEach>
+                    </td>
+
+                    <!<!-- addArtist -->
+                    <td>
+                        <form action="MainController" method="post">
+                            <input type="hidden" name="action" value="addArtistToSong"/>
+                            <input type="hidden" name="songID" value="${s.songID}"/>
+
+                            <select name="artistID">
+                                <c:forEach var="artist" items="${allArtists}">
+                                    <option value="${artist.artistID}">
+                                        ${artist.artistName}
+                                    </option>
+                                </c:forEach>
+                            </select>
+
+                            <button type="submit">Add</button>
+                        </form>
+                    </td>
+
+                    <!-- Albums -->
+                    <td>
+                        <c:forEach var="al" items="${albumsBySong[s.songID]}">
+                            ${al.albumName}<br/>
+                        </c:forEach>
+                    </td>
+
+                    <!-- addAlbum -->
+                    <td>
+                        <form action="MainController" method="post">
+                            <input type="hidden" name="action" value="addAlbumToSong"/>
+                            <input type="hidden" name="songID" value="${s.songID}"/>
+
+                            <select name="albumID">
+                                <c:forEach var="al" items="${allAlbums}">
+                                    <option value="${al.albumID}">
+                                        ${al.albumName}
+                                    </option>
+                                </c:forEach>
+                            </select>
+
+                            <button type="submit">Add</button>
+                        </form>
+                    </td>
+
 
                     <!-- UPDATE -->
                     <td>

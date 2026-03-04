@@ -269,4 +269,58 @@ public class SongDAO {
         }
         return list;
     }
+
+    public List<ArtistDTO> getArtistsBySong(int songID) {
+        List<ArtistDTO> list = new ArrayList<>();
+        try {
+            Connection conn = DbUtils.getConnection();
+            String sql = "SELECT a.artistID, a.artistName, a.avatarURL, a.description, a.debutDate, a.isActive "
+                    + "FROM ARTIST a "
+                    + "JOIN SONG_ARTIST sa ON a.artistID = sa.artistID "
+                    + "WHERE sa.songID = ?";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, songID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int artistID = rs.getInt("artistID");
+                String artistName = rs.getString("artistName");
+                String avatarURL = rs.getString("avatarURL");
+                String description = rs.getString("description");
+                Date debutDate = rs.getDate("debutDate");
+                boolean isActive = rs.getBoolean("isActive");
+                ArtistDTO a = new ArtistDTO(artistID, artistName, avatarURL, description, debutDate, isActive);
+                list.add(a);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<AlbumDTO> getAlbumBySong(int songID) {
+        List<AlbumDTO> list = new ArrayList<>();
+        try {
+            Connection conn = DbUtils.getConnection();
+            String sql = "SELECT a.* FROM ALBUM a "
+                    + "JOIN ALBUM_SONG s ON a.albumID = s.albumID "
+                    + "WHERE s.songID=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, songID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int albumID = rs.getInt("albumID");
+                String albumName = rs.getString("albumName");
+                String coverImage = rs.getString("coverImage");
+                Date releaseDate = rs.getDate("releaseDate");
+                boolean isActive = rs.getBoolean("isActive");
+                AlbumDTO a= new AlbumDTO(albumID, albumName, coverImage, releaseDate, isActive);
+                list.add(a);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }
