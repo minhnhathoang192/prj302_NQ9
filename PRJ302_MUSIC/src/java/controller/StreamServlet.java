@@ -50,7 +50,7 @@ public class StreamServlet extends HttpServlet {
 
         if (type.equals("audio")) {
             response.setContentType("audio/mpeg");
-        } else if (type.equals("cover") || type.equals("topic") || type.equals("artist")) {
+        } else if (type.equals("cover") || type.equals("topic") || type.equals("artist") || type.equals("album")) {
             String mime = Files.probeContentType(f.toPath());
             response.setContentType(mime);
         }

@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,12 @@ import model.ArtistDTO;
  *
  * @author NQ9
  */
+
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024,
+    maxFileSize = 1024 * 1024 * 20,
+    maxRequestSize = 1024 * 1024 * 50
+)
 public class EditArtistController extends HttpServlet {
 
     /**

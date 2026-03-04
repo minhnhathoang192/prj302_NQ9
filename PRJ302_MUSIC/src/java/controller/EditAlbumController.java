@@ -4,14 +4,17 @@
  */
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import model.AlbumDAO;
 import model.AlbumDTO;
 
@@ -19,6 +22,11 @@ import model.AlbumDTO;
  *
  * @author NQ9
  */
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 20,
+        maxRequestSize = 1024 * 1024 * 50
+)
 public class EditAlbumController extends HttpServlet {
 
     /**
@@ -56,10 +64,9 @@ public class EditAlbumController extends HttpServlet {
             String error = "";
             try {
                 String albumName = request.getParameter("albumName");
-                String coverImage = request.getParameter("coverImage");
                 String s_releaseDate = request.getParameter("releaseDate");
                 String s_isActive = request.getParameter("isActive");
-                
+
                 boolean isActive = "1".equals(s_isActive);
 
                 albumName = albumName.trim();
@@ -73,8 +80,31 @@ public class EditAlbumController extends HttpServlet {
                     error += "Ngay khong hop le";
                 }
 
+                Part coverPart = request.getPart("coverImage");
+                String coverFileName = null;
+
+                String basePath = "C:/Users/NQ9/Documents/GitHub/PRJ302_MUSIC/music_uploads/album";
+
+                File dir = new File(basePath);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                if (coverPart == null || coverPart.getSize() == 0) {
+                    error += "Chua chon Hinh Anh";
+                } else {
+                    String originalName = coverPart.getSubmittedFileName();
+
+                    if (!originalName.toLowerCase().matches(".*\\.(jpg|jpeg|png|webp)$")) {
+                        error += "Chi chap nhan file anh (jpg, png, webp)<br/>";
+                    } else {
+                        coverFileName = System.currentTimeMillis() + "_" + originalName;
+                        coverPart.write(basePath + File.separator + coverFileName);
+                    }
+                }
+
                 if (error.isEmpty()) {
-                    album = new AlbumDTO(albumID, albumName, coverImage, releaseDate, isActive);
+                    album = new AlbumDTO(albumID, albumName, coverFileName, releaseDate, isActive);
 
                     if (adao.updateAlbum(album)) {
                         msg += "update album thanh cong";

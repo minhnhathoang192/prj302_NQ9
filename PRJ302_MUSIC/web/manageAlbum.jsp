@@ -49,7 +49,7 @@
                                 <span>No Image</span>
                             </c:when>
                             <c:otherwise>
-                                <img src="${a.coverImage}" width="60"/>
+                                <img src="${pageContext.request.contextPath}/StreamServlet?type=album&file=${a.coverImage}" width="60"/>
                             </c:otherwise>
                         </c:choose>
                     </td>
