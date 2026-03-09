@@ -29,7 +29,7 @@
                          onclick="playSong(
                                          '${pageContext.request.contextPath}/StreamServlet?type=audio&file=${s.audioURL}',
                                                          '${s.title}',
-                                                         '${pageContext.request.contextPath}/StreamServlet?type=cover&file=${s.coverImage}'
+                                                         '${pageContext.request.contextPath}/StreamServlet?type=cover&file=${s.coverImage}', '${s.songID}'
                                                                          )">
                         ▶
                     </div>

@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <title>Home</title>
         <link rel="stylesheet" href="assets/css/style.css"/>
-            <link rel="stylesheet" href="assets/css/search.css"/>
+        <link rel="stylesheet" href="assets/css/search.css"/>
     </head>
     <body data-logged-in="${not empty sessionScope.user}" data-context="${pageContext.request.contextPath}">
         <jsp:include page="components/header.jsp"/>
@@ -42,12 +42,16 @@
                     <div id="page-vip" class="page">
                         <jsp:include page="components/vip-content.jsp"/>
                     </div>
-                    
+
                     <div id="page-search" class="page">
                         <jsp:include page="components/search-content.jsp"/>
                     </div>
-                    
-                    
+
+                    <div id="page-playlist" class="page">
+                        <jsp:include page="components/playlist-content.jsp"/>
+                    </div>
+
+
                     <div id="page-more" class="page">
                     </div>
                 </div>
@@ -59,8 +63,20 @@
         <jsp:include page="components/login-modal.jsp"/>
         <jsp:include page="components/forgot-modal.jsp"/>
         <jsp:include page="components/topic-modal.jsp"/>
-        <script src="assets/js/app.js"></script>
+        <jsp:include page="components/playlist-modal.jsp"/>
+        <jsp:include page="components/playlist-addsong-modal.jsp"/>
+        <jsp:include page="components/edit-playlist-modal.jsp"/>
+
+        <!--silder-->
         <script src="assets/js/silder.js"></script>
+        <script src="assets/js/login.js"></script>
+        <script src="assets/js/forgot.js"></script>
+        <script src="assets/js/app.js"></script>
+        <script src="assets/js/player.js"></script>
+        <script src="assets/js/topic-modal.js"></script>
+        <script src="assets/js/playlist.js"></script>
+        <script src="assets/js/footer.js"></script>
+        <script src="assets/js/recent.js"></script>
 
         <c:if test="${not empty message}">
             <script>
@@ -69,7 +85,5 @@
                 });
             </script>
         </c:if>
-            
-            <script src="assets/js/player.js"></script>
     </body>
 </html>

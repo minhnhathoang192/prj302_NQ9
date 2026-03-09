@@ -16,6 +16,8 @@
             <div id="player-artist">---</div>
         </div>
     </div>
+    
+    <button id="btn-like" onclick="toggleFavorite()">🤍</button>
 
     <!-- CENTER: controls -->
     <div class="player-center">
@@ -35,11 +37,4 @@
 
 
 
-<!--silder-->
-<script src="assets/js/slider.js"></script>
-<script src="assets/js/login.js"></script>
-<script src="assets/js/forgot.js"></script>
-<script src="assets/js/app.js"></script>
-<script src="assets/js/player.js"></script>
-<script src="assets/js/topic-modal.js"></script>
 

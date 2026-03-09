@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <section class="profile-page">
 
     <!-- ===== HEADER PROFILE ===== -->
@@ -72,14 +74,21 @@
 
     <!-- ===== PLAYLIST ===== -->
     <div class="profile-playlist">
+
         <div class="playlist-header">
             <h2>Playlist đã tạo</h2>
-            <button class="playlist-add">＋</button>
+            <button class="playlist-add" onclick="openPlaylist()">＋</button>
         </div>
 
-        <div class="playlist-grid">
-            <!-- Backend sẽ render playlist tại đây -->
+        <!-- JS sẽ render playlist ở đây -->
+        <div class="playlist-grid" id="playlistGrid">
+
+            <p id="playlistEmpty">Đang tải playlist...</p>
+
         </div>
+
     </div>
 
 </section>
+
+

@@ -8,11 +8,11 @@ public class PlaylistDAO {
 
     private PlaylistDTO mapRow(ResultSet rs) throws SQLException {
         return new PlaylistDTO(
-            rs.getInt("playListID"),
-            rs.getString("playListName"),
-            rs.getInt("userID"),
-            rs.getBoolean("isPublic"),
-            rs.getTimestamp("createDate")
+                rs.getInt("playListID"),
+                rs.getString("playListName"),
+                rs.getInt("userID"),
+                rs.getBoolean("isPublic"),
+                rs.getTimestamp("createDate")
         );
     }
 
@@ -21,11 +21,15 @@ public class PlaylistDAO {
         try {
             Connection conn = DbUtils.getConnection();
             PreparedStatement ps = conn.prepareStatement(
-                "SELECT * FROM PLAYLIST WHERE userID=? ORDER BY createDate DESC");
+                    "SELECT * FROM PLAYLIST WHERE userID=? ORDER BY createDate DESC");
             ps.setInt(1, userID);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) list.add(mapRow(rs));
-        } catch (Exception e) { e.printStackTrace(); }
+            while (rs.next()) {
+                list.add(mapRow(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return list;
     }
 
@@ -33,11 +37,15 @@ public class PlaylistDAO {
         try {
             Connection conn = DbUtils.getConnection();
             PreparedStatement ps = conn.prepareStatement(
-                "SELECT * FROM PLAYLIST WHERE playListID=?");
+                    "SELECT * FROM PLAYLIST WHERE playListID=?");
             ps.setInt(1, playListID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return mapRow(rs);
-        } catch (Exception e) { e.printStackTrace(); }
+            if (rs.next()) {
+                return mapRow(rs);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -50,7 +58,9 @@ public class PlaylistDAO {
             ps.setInt(2, userID);
             ps.setBoolean(3, isPublic);
             return ps.executeUpdate() > 0;
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -63,7 +73,9 @@ public class PlaylistDAO {
             ps.setBoolean(2, isPublic);
             ps.setInt(3, playListID);
             return ps.executeUpdate() > 0;
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -72,15 +84,17 @@ public class PlaylistDAO {
             Connection conn = DbUtils.getConnection();
             // Xóa các bài hát trong playlist trước
             PreparedStatement ps1 = conn.prepareStatement(
-                "DELETE FROM PLAYLIST_SONG WHERE playListID=?");
+                    "DELETE FROM PLAYLIST_SONG WHERE playListID=?");
             ps1.setInt(1, playListID);
             ps1.executeUpdate();
             // Xóa playlist
             PreparedStatement ps2 = conn.prepareStatement(
-                "DELETE FROM PLAYLIST WHERE playListID=?");
+                    "DELETE FROM PLAYLIST WHERE playListID=?");
             ps2.setInt(1, playListID);
             return ps2.executeUpdate() > 0;
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -88,14 +102,16 @@ public class PlaylistDAO {
         try {
             Connection conn = DbUtils.getConnection();
             String sql = "IF NOT EXISTS (SELECT 1 FROM PLAYLIST_SONG WHERE playListID=? AND songID=?) "
-                + "INSERT INTO PLAYLIST_SONG(playListID, songID) VALUES(?,?)";
+                    + "INSERT INTO PLAYLIST_SONG(playListID, songID) VALUES(?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, playListID);
             ps.setInt(2, songID);
             ps.setInt(3, playListID);
             ps.setInt(4, songID);
             return ps.executeUpdate() > 0;
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -103,11 +119,13 @@ public class PlaylistDAO {
         try {
             Connection conn = DbUtils.getConnection();
             PreparedStatement ps = conn.prepareStatement(
-                "DELETE FROM PLAYLIST_SONG WHERE playListID=? AND songID=?");
+                    "DELETE FROM PLAYLIST_SONG WHERE playListID=? AND songID=?");
             ps.setInt(1, playListID);
             ps.setInt(2, songID);
             return ps.executeUpdate() > 0;
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -116,19 +134,21 @@ public class PlaylistDAO {
         try {
             Connection conn = DbUtils.getConnection();
             String sql = "SELECT s.* FROM SONG s "
-                + "JOIN PLAYLIST_SONG ps ON s.songID = ps.songID "
-                + "WHERE ps.playListID=? AND s.isActive=1 ORDER BY ps.addDate DESC";
+                    + "JOIN PLAYLIST_SONG ps ON s.songID = ps.songID "
+                    + "WHERE ps.playListID=? AND s.isActive=1 ORDER BY ps.addDate DESC";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, playListID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new SongDTO(
-                    rs.getInt("songID"), rs.getString("title"), rs.getInt("duration"),
-                    rs.getString("audioURL"), rs.getString("lyric"),
-                    rs.getDate("releaseDate"), rs.getString("coverImage"), rs.getBoolean("isActive")
+                        rs.getInt("songID"), rs.getString("title"), rs.getInt("duration"),
+                        rs.getString("audioURL"), rs.getString("lyric"),
+                        rs.getDate("releaseDate"), rs.getString("coverImage"), rs.getBoolean("isActive")
                 ));
             }
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return list;
     }
 
@@ -136,11 +156,43 @@ public class PlaylistDAO {
         try {
             Connection conn = DbUtils.getConnection();
             PreparedStatement ps = conn.prepareStatement(
-                "SELECT COUNT(*) FROM PLAYLIST_SONG WHERE playListID=?");
+                    "SELECT COUNT(*) FROM PLAYLIST_SONG WHERE playListID=?");
             ps.setInt(1, playListID);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getInt(1);
-        } catch (Exception e) { e.printStackTrace(); }
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return 0;
+    }
+
+    public List<PlaylistDTO> getAllPlayList(String keyword) {
+        List<PlaylistDTO> list = new ArrayList<>();
+        try {
+            Connection conn = DbUtils.getConnection();
+            String sql = "SELECT * FROM PLAYLIST ";
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                sql += " WHERE playListName LIKE ? OR CAST(playListID AS VARCHAR) LIKE ? ";
+            }
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                ps.setString(1, "%" + keyword + "%");
+                ps.setString(2, "%" + keyword + "%");
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(mapRow(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

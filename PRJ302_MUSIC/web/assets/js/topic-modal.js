@@ -132,7 +132,9 @@ function buildAndLoadPlayer(list) {
 
     let contextPath = document.body.dataset.context;
 
+    // build playlist
     playlist = list.map(song => ({
+            songID: song.songID,
             audioURL: contextPath + "/StreamServlet?type=audio&file=" + encodeURIComponent(song.audioURL),
             title: song.title,
             coverURL: contextPath + "/StreamServlet?type=cover&file=" + encodeURIComponent(song.coverImage)
@@ -140,8 +142,6 @@ function buildAndLoadPlayer(list) {
 
     currentIndex = 0;
 
-    let s = playlist[currentIndex];
-
-    // gọi playSong
-    playSong(s.audioURL, s.title, s.coverURL);
+    // chạy bài đầu tiên bằng hệ thống playlist
+    playPlaylistSong(currentIndex);
 }

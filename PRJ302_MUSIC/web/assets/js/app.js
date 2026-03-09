@@ -1,6 +1,7 @@
 /* =========================
  SIMPLE SPA NAVIGATION
  ========================= */
+const contextPath = document.body.dataset.context;
 
 function showPage(page, el, addToHistory) {
 
@@ -156,12 +157,70 @@ window.addEventListener("load", function () {
     }
 });
 
+function loadUserPlaylists() {
+
+    fetch("MainController?action=loadProfile")
+            .then(res => res.json())
+            .then(data => {
+
+                const grid = document.getElementById("playlistGrid");
+                const empty = document.getElementById("playlistEmpty");
+
+                grid.innerHTML = "";
+
+                if (data.length === 0) {
+                    grid.innerHTML = "<p>Bạn chưa có playlist nào</p>";
+                    return;
+                }
+
+                data.forEach(p => {
+
+                    grid.insertAdjacentHTML("beforeend", `
+                    <div class="playlist-card"
+                         data-id="${p.playListID}"
+                         data-name="${p.playListName}">
+
+                        <div class="playlist-cover">
+                            <img src="assets/img/default-playlist.png">
+                        </div>
+
+                        <div class="playlist-name">
+                            ${p.playListName}
+                        </div>
+
+                        <div class="playlist-count">
+                            0 bài hát
+                        </div>
+
+                    </div>
+                `);
+
+                });
+
+            });
+
+}
+
 function handleProfileClick(page, el) {
 
     var isLoggedIn = document.body.getAttribute("data-logged-in");
 
     if (isLoggedIn === "true") {
+
         showPage(page, el);
+
+        if (page === "profile") {
+            loadUserPlaylists();
+        }
+
+        if (page === "favorite") {
+            loadFavoriteSongs();
+        }
+
+        if (page === "recent") {
+            loadRecentSongs();
+        }
+
     } else {
         openLogin();
     }
@@ -176,21 +235,21 @@ function loadForYou(el) {
 
     // đổi UI tab
     showPage('for-you', el);
-    
-    let savedTopics= sessionStorage.getItem("userTopics");
-    
-    if(savedTopics){
-        let topicIDs= JSON.parse(savedTopics);
-        
+
+    let savedTopics = sessionStorage.getItem("userTopics");
+
+    if (savedTopics) {
+        let topicIDs = JSON.parse(savedTopics);
+
         loadPlaylistByTopics(topicIDs);
         return;
     }
-    
+
     if (currentSong) {
         updateForYouUI();
         return;
     }
-    
+
 
     fetch('MainController?action=getRandomPlaylist')
             .then(res => res.json())
@@ -202,7 +261,7 @@ function loadForYou(el) {
                 }
 
                 buildAndLoadPlayer(list);
-                
+
             })
             .catch(err => {
                 console.error("Lỗi loadForYou:", err);
@@ -269,17 +328,18 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
 
     let keyword = document.querySelector("input[name='keyword']").value.trim();
 
-    if (!keyword) return;
+    if (!keyword)
+        return;
 
     fetch("MainController?action=searchAjax&keyword=" + encodeURIComponent(keyword))
-        .then(res => res.json())
-        .then(data => {
+            .then(res => res.json())
+            .then(data => {
 
-            renderSearchResult(data);
-            showPage("search");
+                renderSearchResult(data);
+                showPage("search");
 
-        })
-        .catch(err => console.error("Search error:", err));
+            })
+            .catch(err => console.error("Search error:", err));
 });
 
 function renderSearchResult(list) {
@@ -311,20 +371,33 @@ function renderSearchResult(list) {
 
             // build playlist từ search
             playlist = list.map(song => ({
-                audioURL: "StreamServlet?type=audio&file=" + encodeURIComponent(song.audioURL),
-                title: song.title,
-                coverURL: "StreamServlet?type=cover&file=" + encodeURIComponent(song.coverImage)
-            }));
+                    songID: song.songID, // ⭐ thêm dòng này
+                    audioURL: "StreamServlet?type=audio&file=" + encodeURIComponent(song.audioURL),
+                    title: song.title,
+                    coverURL: "StreamServlet?type=cover&file=" + encodeURIComponent(song.coverImage)
+                }));
 
             currentIndex = index;
 
+            let s = playlist[currentIndex];
+
             playSong(
-                playlist[currentIndex].audioURL,
-                playlist[currentIndex].title,
-                playlist[currentIndex].coverURL
-            );
+                    s.audioURL,
+                    s.title,
+                    s.coverURL,
+                    s.songID
+                    );
         };
 
         container.appendChild(item);
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    history.replaceState(null, null, window.location.pathname);
+
+    showPage("home", document.querySelector(".nav-item"));
+
+});
+

@@ -113,6 +113,44 @@ public class MainController extends HttpServlet {
             url = "addArtistToSongController";
         } else if (action.equals("addAlbumToSong")) {
             url = "addAlbumToSongController";
+        } else if (action.equals("manage_playlist")) {
+            url = "managePlaylistController";
+        } else if (action.equals("addPlaylist")) {
+            url = "addPlaylistController";
+        } else if (action.equals("viewPlaylist") || action.equals("savePlaylist")) {
+            url = "viewPlaylistController";
+        } else if (action.equals("removeSongFromPlaylist")) {
+            url = "removeSongFromPlaylistController";
+        } else if (action.equals("deletePlaylist")) {
+            url = "deletePlaylistController";
+        } else if (action.equals("loadProfile")) {
+            url = "loadProfileController";
+        } else if (action.equals("getSongsInPlaylist")) {
+            url = "getSongsInPlaylistController";
+        } else if (action.equals("getPlaylistInfo")) {
+            url = "getPlaylistInfoController";
+        } else if (action.equals("addSongToPlaylist")) {
+            url = "addSongToPlaylistController";
+        } else if (action.equals("toggleFavorite")) {
+            url = "toggleFavoriteController";
+        } else if (action.equals("getFavoriteSongs")) {
+            url = "getFavoriteSongsController";
+        } else if (action.equals("isFavorite")){
+            url = "isFavoriteController";
+        } else if(action.equals("addListeningHistory")){
+            //add songtoListening History
+            url = "addListeningHistoryController";
+        } else if(action.equals("getListeningHistory")){
+            //loadpage listeningHistory
+            url = "getListeningHistoryController";
+        } else if(action.equals("addSongToPlaylistFromUser")){
+            url = "addSongToPlaylistFromUserController";
+        } else if(action.equals("removeSongFromPlaylistFromUser")){
+            url = "removeSongFromPlaylistFromUserController";
+        } else if(action.equals("editPlaylistFromUser")){
+            url = "editPlaylistFromUserController";
+        } else if(action.equals("deletePlaylistFromUser")){
+            url = "deletePlaylistFromUserController";
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);
