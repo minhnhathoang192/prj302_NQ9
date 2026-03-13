@@ -100,7 +100,7 @@ audio.addEventListener("play", () => {
             btn.innerText = "⏸";
     }
 
-    document.querySelectorAll(".pl-play, .fav-play").forEach(btn => {
+    document.querySelectorAll(".pl-play, .fav-play, .album-play, .artist-play").forEach(btn => {
         btn.innerHTML = "⏸ Tạm dừng";
     });
 
@@ -122,7 +122,7 @@ audio.addEventListener("pause", () => {
             btn.innerText = "▶";
     }
 
-    document.querySelectorAll(".pl-play, .fav-play").forEach(btn => {
+    document.querySelectorAll(".pl-play, .fav-play, .album-play, .artist-play").forEach(btn => {
         btn.innerHTML = "▶ Phát tất cả";
     });
 

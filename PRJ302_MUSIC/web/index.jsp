@@ -51,6 +51,18 @@
                         <jsp:include page="components/playlist-content.jsp"/>
                     </div>
 
+                    <div id="page-album" class="page">
+                        <jsp:include page="components/album-content.jsp"/>
+                    </div>
+
+                    <div id="page-artist" class="page">
+                        <jsp:include page="components/artist-content.jsp"/>
+                    </div>
+
+                    <div id="page-home-artist-more" class="page">
+                        <jsp:include page="components/home-artist-more-content.jsp"/>
+                    </div>
+
 
                     <div id="page-more" class="page">
                     </div>
@@ -77,6 +89,9 @@
         <script src="assets/js/playlist.js"></script>
         <script src="assets/js/footer.js"></script>
         <script src="assets/js/recent.js"></script>
+        <script src="assets/js/album.js"></script>
+        <script src="assets/js/artist.js"></script>
+        <script src="assets/js/home.js"></script>
 
         <c:if test="${not empty message}">
             <script>

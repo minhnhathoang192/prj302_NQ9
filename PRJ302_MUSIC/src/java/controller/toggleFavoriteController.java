@@ -34,8 +34,6 @@ public class toggleFavoriteController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
         response.setContentType("application/json;charset=UTF-8");
 
         int songID = Integer.parseInt(request.getParameter("songID"));

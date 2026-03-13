@@ -8,13 +8,21 @@ package controller;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.AlbumDAO;
+import model.AlbumDTO;
+import model.ArtistDAO;
+import model.ArtistDTO;
+import model.PlayListtDAO;
+import model.PlayListtDTO;
 import model.SongDAO;
 import model.SongDTO;
 import model.userDAO;
@@ -45,17 +53,23 @@ public class searchSongController extends HttpServlet {
         String keyword = request.getParameter("keyword");
 
         SongDAO sdao = new SongDAO();
-//        PlaylistDAO pdao = new PlaylistDAO();
-//        ArtistDAO adao = new ArtistDAO();
-//        AlbumDAO aldao = new AlbumDAO();
+        ArtistDAO adao= new ArtistDAO();
+        AlbumDAO aldao= new AlbumDAO();
+        PlayListtDAO pdao =new PlayListtDAO();
 
         List<SongDTO> songs= sdao.searchSongs(keyword);
-//        request.setAttribute("playlists", pdao.search(keyword));
-//        request.setAttribute("artists", adao.search(keyword));
-//        request.setAttribute("albums", aldao.search(keyword));
+        List<ArtistDTO> artists = adao.searchArtists(keyword);
+        List<AlbumDTO> albums= aldao.searchAlbums(keyword);
+        List<PlayListtDTO> playlists= pdao.searchPlaylists(keyword);
+        
+        Map<String, Object> result= new HashMap<>();
+        result.put("songs", songs);
+        result.put("artists", artists);
+        result.put("albums", albums);
+        result.put("playlists", playlists);
 
         Gson gson= new Gson();
-        response.getWriter().write(gson.toJson(songs));
+        response.getWriter().write(gson.toJson(result));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

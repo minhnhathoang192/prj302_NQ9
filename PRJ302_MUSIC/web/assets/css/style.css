@@ -53,6 +53,7 @@ body {
 .main {
     margin-left: 240px;
     padding-top: 64px;
+    padding-bottom:80px;
 
     min-height: 100vh;
     width: calc(100% - 240px);
@@ -150,9 +151,10 @@ body {
     margin-bottom: 30px;
 }
 
-.album-cover {
-    width: 180px;
-    border-radius: 10px;
+.album-cover{
+    width:280px;
+    height:280px;
+    flex-shrink:0;
 }
 
 .song-list {
@@ -687,14 +689,15 @@ body {
 
 .artist-card {
     height: 320px;                 /* to hơn */
-    background: #1e293b;
+    background: transparent;
     border-radius: 16px;
-    padding: 16px;
+    padding: 0;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: 0.25s;
+    text-align:center;
 }
 
 .artist-card:hover {
@@ -1098,6 +1101,7 @@ body {
 /* playlist */
 .profile-playlist {
     margin-top: 10px;
+    padding: 20px 0;
 }
 
 .playlist-header {
@@ -1121,7 +1125,8 @@ body {
 .playlist-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 16px;
+    gap: 24px;
+    padding-top: 20px;
 }
 
 .playlist-card {
@@ -2427,9 +2432,9 @@ body {
 }
 
 .playlist-card{
-    background:rgba(255,255,255,0.05);
-    padding:16px;
-    border-radius:14px;
+    background:transparent;
+    padding:0;
+    border-radius:12px;
     cursor:pointer;
     transition:.2s;
 }
@@ -3413,4 +3418,1772 @@ body {
 
     cursor:pointer;
 
+}
+/*
+/////////////////////////album/////////////////////*/
+/* ===== ALBUM PAGE ===== */
+
+.album-page{
+    padding:40px 60px;
+    color:#fff;
+}
+
+
+/* ===== HEADER ===== */
+
+.album-header{
+    display:flex;
+    align-items:flex-end;
+    gap:40px;
+    margin-bottom:40px;
+}
+
+.album-info{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex:1;          /* QUAN TRỌNG */
+}
+
+.album-cover img{
+    width:280px;
+    height:280px;
+    object-fit:cover;
+    border-radius:18px;
+    box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
+
+.album-info{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.album-type{
+    font-size:14px;
+    opacity:.7;
+}
+
+.album-info h1{
+    font-size:48px;
+    margin:10px 0;
+    line-height:1.2;
+}
+
+.album-artist{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    opacity:.8;
+}
+
+.album-artist-avatar{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+
+
+.artist-avatar-box{
+    width:180px;
+    height:180px;
+}
+
+.artist-avatar{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow:0 15px 40px rgba(0,0,0,.6);
+}
+
+.album-actions{
+    margin-top:24px;
+    display:flex;
+    align-items:center;
+}
+
+
+
+
+/* ===== BUTTON ===== */
+
+.album-play-btn{
+    padding:12px 28px;
+    border:none;
+    border-radius:999px;
+    background:#21c4d6;
+    color:black;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.album-play-btn:hover{
+    background:#2dd4e7;
+}
+
+
+/* ===== TABLE ===== */
+
+.album-table{
+    margin-top:30px;
+}
+
+
+/* header */
+
+.album-table-header{
+    display:grid;
+    grid-template-columns:60px 1fr 200px 120px;
+    padding:12px 0;
+    opacity:.6;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+
+/* ===== SONG ROW ===== */
+
+.album-song-row{
+    display:grid;
+    grid-template-columns:60px 1fr 200px 120px;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    transition:.2s;
+}
+
+.album-song-row:hover{
+    background:rgba(255,255,255,0.05);
+}
+
+
+/* title block */
+
+.album-song-title{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.album-cover-box{
+    position:relative;
+    width:44px;
+    height:44px;
+    overflow:hidden;
+}
+
+.album-song-cover{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:6px;
+}
+
+.album-cover-play{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,0.4);
+    border-radius:6px;
+    color:white;
+    font-size:18px;
+    opacity:0;
+    transition:.2s;
+}
+
+.album-cover-box:hover .album-cover-play{
+    opacity:1;
+}
+
+/* text */
+
+.album-song-name{
+    font-weight:500;
+}
+
+.album-song-artist{
+    font-size:13px;
+    opacity:.7;
+}
+
+.album-song-row:hover .album-song-cover{
+    filter:brightness(0.6);
+}
+
+/* khi bài đang phát thì luôn hiện play overlay */
+.album-song-row.playing .album-cover-play{
+    opacity:1;
+}
+
+/* hiện wave */
+.album-song-row.playing .wave{
+    display:flex;
+}
+
+/* ẩn icon play */
+.album-song-row.playing .play-icon{
+    display:none;
+}
+
+
+/*////////////////////////////////////////////////tac gia//////////////////////////*/
+/* ===== ARTIST COVER ===== */
+
+.artist-cover{
+    position:relative;
+    height:320px;
+    overflow:hidden;
+}
+
+.artist-cover-bg{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:blur(12px) brightness(.5);
+    transform:scale(1.2);
+}
+
+/* overlay gradient */
+
+.artist-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,.4),
+        rgba(0,0,0,.9)
+        );
+}
+
+/* header */
+
+.artist-header{
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:40px 60px;
+}
+
+/* avatar */
+
+.artist-avatar img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:4px solid rgba(255,255,255,.2);
+}
+
+/* info */
+.artist-info{
+    display:flex;
+    margin-left: 50px;
+    flex-direction:column;
+}
+
+.artist-info h1{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.artist-followers{
+    opacity:.7;
+    margin-bottom:20px;
+}
+/* play button */
+
+.artist-play-btn{
+    padding:12px 28px;
+    border:none;
+    border-radius:999px;
+    background:#21c4d6;
+    color:black;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.artist-play-btn:hover{
+    background:#2dd4e7;
+}
+
+/* ===== SONG TABLE ===== */
+
+.artist-songs{
+    padding:40px 60px;
+}
+
+.artist-table-header{
+    display:grid;
+    grid-template-columns:60px 1fr 200px 120px;
+    padding:12px 0;
+    opacity:.6;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+/* ===== ARTIST TABLE ===== */
+
+/* ===== ROW ===== */
+
+.artist-song-row{
+    display:grid;
+    grid-template-columns:60px 1fr 200px 120px;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    transition:.2s;
+}
+
+.artist-song-row:hover{
+    background:rgba(255,255,255,0.05);
+}
+
+/* ===== TITLE BLOCK ===== */
+
+.artist-song-title{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+/* ===== COVER ===== */
+
+.artist-cover-box{
+    position:relative;
+    width:44px;
+    height:44px;
+    overflow:hidden;
+    border-radius:6px;
+}
+
+.artist-song-cover{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.2s;
+}
+
+/* ===== PLAY OVERLAY ===== */
+
+.artist-cover-play{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.45);
+    border-radius:6px;
+    opacity:0;
+    transition:.2s;
+}
+
+.artist-cover-box:hover .artist-cover-play{
+    opacity:1;
+}
+
+.artist-play-icon{
+    color:white;
+    font-size:16px;
+}
+
+/* hover */
+
+.artist-cover-box:hover .artist-play-btn{
+    opacity:1;
+}
+
+.artist-cover-box:hover .artist-song-cover{
+    filter:brightness(.6);
+}
+
+/* ===== PLAY ICON ===== */
+
+.artist-play-icon{
+    color:white;
+    font-size:16px;
+}
+
+/* ===== TEXT ===== */
+
+.artist-song-name{
+    font-weight:500;
+}
+
+.artist-song-artist{
+    font-size:13px;
+    opacity:.7;
+}
+/* ===== PLAYING STATE ===== */
+
+.artist-song-row.playing{
+    background:rgba(255,255,255,0.08);
+}
+
+/* khi bài đang phát thì luôn hiện overlay */
+.artist-song-row.playing .artist-play-btn{
+    opacity:1;
+}
+
+/* hiện wave */
+.artist-song-row.playing .wave{
+    display:flex;
+}
+
+/* ẩn icon play */
+.artist-song-row.playing .artist-play-icon{
+    display:none;
+}
+
+.artist-cover-box:hover .artist-play-btn{
+    opacity:1;
+}
+
+.artist-song-row:hover .artist-song-cover{
+    filter:brightness(0.6);
+}
+
+.artist-song-row.playing .artist-cover-play{
+    opacity:1;
+}
+
+.artist-song-row.playing .wave{
+    display:flex;
+}
+
+.artist-song-row.playing .artist-play-icon{
+    display:none;
+}
+
+.artist-actions{
+    display:flex;
+    gap:14px;
+    align-items:center;
+}
+
+.artist-follow-btn{
+    padding:10px 22px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,0.6);
+    background:transparent;
+    color:white;
+    font-weight:500;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.artist-follow-btn:hover{
+    border-color:white;
+}
+
+.artist-follow-btn.following{
+    background:white;
+    color:black;
+    border:none;
+}
+
+/* ===== COVER ===== */
+
+.artist-cover{
+    position:relative;
+    height:350px;
+    overflow:hidden;
+}
+
+/* background blur */
+
+.artist-cover-bg{
+    position:absolute;
+    top:-50px;
+    left:0;
+    width:100%;
+    height:120%;
+    object-fit:cover;
+    filter:blur(30px);
+    transform:scale(1.2);
+}
+
+/* overlay tối */
+
+.artist-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.3),
+        rgba(0,0,0,0.9)
+        );
+}
+
+/* ===== HEADER ===== */
+
+.artist-header{
+    position:relative;
+    z-index:2;
+    height: 420px;
+    display:flex;
+    align-items:center;
+    gap:30px;
+
+    padding:60px;
+    color:white;
+}
+
+/* avatar */
+
+.artist-avatar{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow:0 20px 50px rgba(0,0,0,0.6);
+}
+
+/* info */
+
+.artist-info h1{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.artist-followers{
+    opacity:.8;
+    margin-bottom:18px;
+}
+
+.artist-header{
+    min-height:180px;
+}
+
+/*// tab search*/
+.tab-content{
+    display: none;
+    animation: fadeIn .2s ease;
+}
+
+.tab-content.active{
+    display: block;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0
+    }
+    to{
+        opacity:1
+    }
+}
+
+.search-section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:25px;
+}
+
+.search-section-header h3{
+    margin:0;
+}
+
+.search-more{
+    font-size:14px;
+    color:#cfcfcf;
+    cursor:pointer;
+}
+
+.search-more:hover{
+    color:white;
+}
+
+
+/*//tab song search*/
+.search-song-card{
+    display:flex;
+    align-items:center;
+    gap:18px;
+
+    padding:14px;
+    border-radius:10px;
+
+    min-height:96px;
+    cursor:pointer;
+
+    transition:background .15s ease;
+}
+
+.search-song-card:hover{
+    background:rgba(255,255,255,0.06);
+}
+
+.search-song-cover{
+    width:72px;
+    height:72px;
+    flex-shrink:0;
+}
+
+.search-song-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.search-song-meta{
+    display:flex;
+    flex-direction:column;
+}
+
+.search-song-title{
+    font-size:18px;
+    font-weight:600;
+    color:#ffffff;
+    line-height:1.3;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.search-song-artist{
+    font-size:14px;
+    color:#b3b3b3;
+}
+
+.songs-grid.song-grid-all{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:repeat(3, auto);
+    grid-auto-flow:column; /* quan trọng */
+    gap:20px 60px;
+}
+
+.search-tabs{
+    display:flex;
+    gap:28px;
+    margin-bottom:25px;
+}
+
+.tab{
+    font-size:16px;
+    font-weight:600;
+    color:#b3b3b3;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.tab:hover{
+    color:#ffffff;
+}
+
+.tab.active{
+    color:#ffffff;
+    position:relative;
+}
+
+.tab.active::after{
+    content:"";
+    position:absolute;
+    bottom:-6px;
+    left:0;
+    width:100%;
+    height:2px;
+    background:#1db954; /* Spotify green */
+}
+.search-title{
+    font-size:48px !important;
+    font-weight:800;
+    letter-spacing:-0.3px;
+    margin-bottom:24px;
+    margin-top: 10px;
+    color:#fff;
+}
+
+.search-section-header{
+    font-size:24px;
+    font-weight:700;
+    color:#ffffff;
+    margin:25px 0 15px 0;
+}
+
+
+#searchSongOnly{
+    display:grid;
+    grid-template-columns:1fr 1fr;   /* 2 cột */
+    gap:22px 60px;
+}
+
+#searchPlaylistContainer{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:24px;
+}
+
+#searchPlaylistOnly{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:24px;
+}
+
+.playlist-card{
+    cursor:pointer;
+}
+
+.playlist-cover{
+    width:240px;
+    height:240px;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.playlist-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;
+    border:none;
+    box-shadow:none;
+}
+
+.playlist-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;
+    border:none;
+    box-shadow:none;
+}
+.playlist-title{
+    margin-top:14px;     /* cách ảnh ra */
+    font-size:17px;      /* to hơn */
+    font-weight:700;     /* bold */
+    color:#ffffff;
+}
+
+
+/*//tab artist*/
+
+#searchArtistContainer{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:30px;
+}
+
+#searchArtistOnly{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:30px;
+}
+
+.artist-card{
+    text-align:center;
+    cursor:pointer;
+    padding-top: 10px;
+}
+
+.artist-avatar{
+    width:210px;
+    height:210px;
+    margin:auto;
+    border-radius:50%;
+    overflow:hidden;
+}
+
+.artist-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.artist-name{
+    margin-top:26px;
+    font-size:18px;
+    font-weight:700;
+    color:#fff;
+}
+
+/*//tab album*/
+
+#searchAlbumContainer{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:24px;
+}
+
+#searchAlbumOnly{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:24px;
+}
+
+.album-card{
+    cursor:pointer;
+}
+
+.album-cover{
+    width:240px;
+    height:240px;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.album-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.album-title{
+    margin-top:14px;     /* cách ảnh ra */
+    font-size:17px;      /* to hơn */
+    font-weight:700;     /* bold */
+    color:#ffffff;
+}
+
+/* ===== HOME ARTIST SECTION ===== */
+
+.home-artist-section{
+    margin-top:40px;
+}
+
+
+/* HEADER */
+
+.home-artist-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.home-artist-title{
+    font-size:26px;
+    font-weight:700;
+    color:white;
+}
+
+.home-artist-more{
+    font-size:14px;
+    color:#b3b3b3;
+    cursor:pointer;
+}
+
+.home-artist-more:hover{
+    color:white;
+}
+
+
+/* ===== ARTIST ROW ===== */
+
+.home-artist-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+}
+
+
+/* ===== CARD ===== */
+
+.home-artist-card{
+    position:relative;
+    height:385px;
+    border-radius:16px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform .25s;
+}
+
+.home-artist-card:hover{
+    transform:translateY(-6px);
+}
+
+
+/* BACKGROUND IMAGE */
+
+.home-artist-bg{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .3s;
+    image-rendering: auto;
+}
+
+
+/* HOVER */
+
+.home-artist-card:hover .home-artist-bg{
+    transform:scale(1.05);
+}
+
+
+/* OVERLAY */
+.home-artist-overlay{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    padding:16px;
+
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,0.9),
+        rgba(0,0,0,0.6),
+        rgba(0,0,0,0)
+        );
+}
+
+
+/* ARTIST NAME */
+.home-artist-name{
+    font-size:20px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:6px;
+}
+
+/* FOLLOW ROW */
+.home-artist-follow-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+}
+
+.home-artist-followers{
+
+    font-size:14px;
+
+    color:#cfcfcf;
+
+    margin-bottom:8px;
+
+}
+
+
+/* FOLLOW BUTTON */
+.home-artist-follow-btn{
+    padding:6px 14px;
+    border-radius:20px;
+    border:1px solid #fff;
+    background:transparent;
+    color:#fff;
+    font-size:13px;
+    cursor:pointer;
+    transition:all .2s;
+}
+
+.home-artist-follow-btn:hover{
+    background:#fff;
+    color:#000;
+}
+
+
+/* SONG AREA */
+.home-artist-latest-song{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* SONG COVER */
+.home-artist-song-cover{
+    width:40px;
+    height:40px;
+    border-radius:6px;
+    object-fit:cover;
+}
+
+
+/* SONG TITLE */
+.home-artist-song-title{
+    font-size:14px;
+    font-weight:600;
+    color:#fff;
+}
+
+/* SONG ARTIST */
+.home-artist-song-artist{
+    font-size:12px;
+    color:#b3b3b3;
+}
+
+@media(max-width:1200px){
+
+    .home-artist-row{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:900px){
+
+    .home-artist-row{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+.home-artist-ranking-row{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 24px;
+    border-radius:12px;
+
+    margin-bottom:16px;
+
+    transition:0.25s;
+
+}
+
+.home-artist-ranking-row:hover{
+
+    background:#1c1c1c;
+
+}
+
+/* rank */
+
+.home-artist-rank{
+
+    font-size:20px;
+    font-weight:700;
+    width:50px;
+    color:#bbb;
+
+}
+
+/* avatar */
+
+.home-artist-rank-avatar{
+
+    width:56px;
+    height:56px;
+
+    border-radius:50%;
+    object-fit:cover;
+
+}
+
+/* artist info */
+
+.home-artist-rank-info{
+
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+
+}
+
+.home-artist-rank-name{
+
+    font-size:18px;
+    font-weight:700;
+
+}
+
+.home-artist-rank-follow{
+
+    font-size:14px;
+    color:#9aa0a6;
+
+}
+
+/* latest song */
+
+.home-artist-latest-song{
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+}
+
+.home-artist-song-cover{
+
+    width:60px;
+    height:60px;
+
+    border-radius:8px;
+    object-fit:cover;
+
+}
+
+.home-artist-song-title{
+
+    font-size:16px;
+    font-weight:600;
+
+}
+
+.home-artist-song-artist{
+
+    font-size:13px;
+    color:#9aa0a6;
+
+}
+
+/* ===== PAGE ===== */
+
+.home-artist-ranking-page{
+    padding:40px 60px;
+}
+
+/* ===== BANNER ===== */
+
+.home-artist-banner{
+
+    height:260px;
+
+    border-radius:14px;
+
+    background-size:cover;
+    background-position:center;
+
+    position:relative;
+
+    display:flex;
+    align-items:flex-end;
+
+    padding:40px;
+
+    margin-bottom:50px;
+
+}
+
+/* overlay tối */
+
+.home-artist-banner::after{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.2),
+        rgba(0,0,0,0.9)
+        );
+
+}
+
+/* banner text */
+
+.home-artist-banner-content{
+    position:relative;
+    z-index:2;
+}
+
+.home-artist-page-title{
+    font-size:42px;
+    font-weight:800;
+}
+
+.home-artist-update{
+    margin-top:10px;
+    color:#aaa;
+}
+
+
+/* ===== GRID ===== */
+
+.home-artist-ranking-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:120px;
+
+}
+
+/* ===== HEADER ===== */
+
+.home-artist-rank-header,
+.home-artist-song-header{
+
+    font-size:14px;
+    color:#a0a0a0;
+
+    margin-bottom:24px;
+
+}
+
+
+/* ===== LEFT RANK ===== */
+
+.home-artist-rank-card{
+
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+
+    padding:14px 18px;
+
+    border-radius:10px;
+
+    margin-bottom:18px;
+
+    transition:0.25s;
+
+}
+
+.home-artist-rank-card:hover{
+    background:#1a1a1a;
+}
+
+/* rank number */
+
+.home-artist-rank{
+
+    width:40px;
+
+    font-size:18px;
+    font-weight:700;
+
+    color:#bbb;
+
+}
+
+/* avatar */
+
+.home-artist-rank-avatar{
+
+    width:60px;
+    height:60px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+/* artist info */
+
+.home-artist-rank-info{
+
+    display:flex;
+    flex-direction:column;
+
+}
+
+.home-artist-rank-name{
+
+    font-size:18px;
+    font-weight:700;
+
+}
+
+.home-artist-rank-follow{
+
+    font-size:14px;
+    color:#aaa;
+
+}
+
+
+/* ===== RIGHT SONG ===== */
+
+.home-artist-latest-song{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+
+    margin-bottom:22px;
+
+    cursor:pointer;
+
+}
+
+.home-artist-latest-song:hover{
+    opacity:0.8;
+}
+
+.home-artist-song-cover{
+
+    width:60px;
+    height:60px;
+
+    border-radius:8px;
+
+    object-fit:cover;
+
+}
+
+.home-artist-song-title{
+
+    font-size:16px;
+    font-weight:600;
+
+}
+
+.home-artist-song-artist{
+
+    font-size:13px;
+    color:#aaa;
+
+}
+
+.home-artist-rank-card:hover{
+    background:#222;
+    transform:translateX(6px);
+}
+.home-artist-latest-song:hover{
+    background:#1a1a1a;
+    padding:8px;
+    border-radius:8px;
+    transform:translateX(6px);
+}
+
+/* ===== PAGE ===== */
+
+.home-artist-more-page{
+    padding:40px 60px;
+}
+
+/* ===== BANNER ===== */
+
+.home-artist-more-banner{
+
+    height:260px;
+    border-radius:14px;
+
+    background-size:cover;
+    background-position:center;
+
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:flex-end;   /* đưa nội dung xuống dưới */
+}
+
+/* lớp làm mờ */
+
+.home-artist-more-banner::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:inherit;
+
+    filter:blur(18px);
+
+    transform:scale(1.1);
+
+}
+
+/* lớp tối để chữ nổi hơn */
+
+.home-artist-more-banner::after{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.2),
+        rgba(0,0,0,0.85)
+        );
+
+}
+.home-artist-more-banner-content{
+    position:relative;
+    z-index:2;
+    padding:30px 40px;
+}
+
+.home-artist-more-title{
+    font-size:42px;
+    font-weight:800;
+}
+
+.home-artist-more-update{
+    margin-top:8px;
+    color:#aaa;
+}
+
+
+/* ===== HEADER ===== */
+
+.home-artist-more-header{
+
+    display:flex;
+    justify-content:space-between;
+
+    margin:30px 0;
+
+    color:#aaa;
+    font-size:14px;
+
+}
+
+
+/* ===== ROW ===== */
+
+.home-artist-more-row{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 24px;
+
+    border-radius:12px;
+
+    margin-bottom:16px;
+
+    transition:0.25s;
+
+}
+
+.home-artist-more-row:hover{
+    background:#1a1a1a;
+}
+
+
+/* ===== LEFT SIDE ===== */
+
+.home-artist-more-left{
+
+    display:flex;
+    align-items:center;
+
+    gap:18px;
+
+}
+
+/* rank */
+
+.home-artist-more-rank{
+
+    width:40px;
+
+    font-size:18px;
+    font-weight:700;
+
+    color:#bbb;
+
+}
+
+/* avatar */
+
+.home-artist-more-avatar{
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+/* info */
+
+.home-artist-more-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.home-artist-more-name{
+
+    font-size:18px;
+    font-weight:700;
+
+}
+
+.home-artist-more-follow{
+
+    font-size:14px;
+    color:#aaa;
+
+}
+
+
+/* ===== SONG ===== */
+
+.home-artist-more-song{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+    min-width:320px;   /* giữ khoảng cách */
+    justify-content:flex-start;
+
+    margin-right:120px; /* dịch vào giữa */
+}
+
+.home-artist-more-song-cover{
+    width:60px;
+    height:60px;
+
+    border-radius:8px;
+
+    object-fit:cover;
+
+    position:relative;   /* QUAN TRỌNG */
+    display:block;
+}
+
+.home-artist-more-song-title{
+
+    font-size:16px;
+    font-weight:600;
+
+}
+
+.home-artist-more-song-artist{
+
+    font-size:13px;
+    color:#aaa;
+
+}
+
+.home-artist-more-song-header{
+    margin-right:370px;
+}
+
+.home-artist-more-rank-header{
+    margin-left:27px;
+}
+
+.home-artist-more-song-cover::after{
+    content:"▶";
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+    color:white;
+
+    opacity:0;
+    transition:0.2s;
+}
+
+.home-artist-more-song:hover .home-artist-more-song-cover::after{
+    opacity:1;
+}
+
+/* ===== PLAYLIST SECTION ===== */
+.user-playlist-section{
+    padding:40px 10px;
+}
+
+/* HEADER */
+.user-playlist-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.user-playlist-title{
+    font-size:24px;
+    font-weight:600;
+}
+
+.user-playlist-add{
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    border:none;
+    background:#3aa8d8;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+/* GRID */
+.user-playlist-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:45px; /* khoảng cách card */
+}
+
+/* EMPTY TEXT */
+.user-playlist-empty{
+    opacity:0.7;
+}
+
+.favorite-song-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:25px;
+
+}
+
+.favorite-song-item{
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+
+    cursor:pointer;
+
+}
+
+.favorite-song-cover{
+
+    width:55px;
+    height:55px;
+
+    border-radius:6px;
+
+    object-fit:cover;
+
+}
+
+.favorite-song-title{
+
+    font-weight:600;
+    font-size:14px;
+
+}
+
+.favorite-song-artist{
+
+    font-size:12px;
+    opacity:0.7;
+
+}
+
+.home-favorite-title{
+
+    font-size:90px;
+    font-weight:700;
+    color:white;
+
+    margin-bottom:20px;
+
+}
+
+#favoriteSongContainer{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:28px;
+
+}
+
+.home-favorite-song-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    cursor:pointer;
+
+    padding:6px;
+
+    border-radius:10px;
+
+    transition:0.25s;
+
+}
+
+.home-favorite-song-item:hover{
+
+    background:rgba(255,255,255,0.05);
+
+}
+
+.home-favorite-song-cover{
+
+    width:80px;
+    height:80px;
+
+    position:relative;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+.home-favorite-song-cover img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.home-favorite-play{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:20px;
+
+    background:rgba(0,0,0,0.35);
+
+    color:white;
+
+    opacity:0;
+
+    transition:0.2s;
+
+}
+
+.home-favorite-song-cover:hover .home-favorite-play{
+
+    opacity:1;
+
+}
+
+.section-header{
+
+    margin:25px 0 20px;
+
+}
+
+.section-header h2{
+
+    font-size:26px;
+    font-weight:700;
+    color:white;
+
+}
+
+.home-favorite-song-likes{
+    color:#ff304f;
+    font-size:14px;
+    margin-top:6px;
+    display:flex;
+    align-items:center;
+    gap:4px;
 }

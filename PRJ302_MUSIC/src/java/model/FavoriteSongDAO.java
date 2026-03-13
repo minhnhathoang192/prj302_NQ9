@@ -139,4 +139,54 @@ public class FavoriteSongDAO {
         return liked;
     }
 
+    public List<SongDTO> getMostFavoriteSongs() {
+
+        List<SongDTO> list = new ArrayList<>();
+
+        try {
+
+            Connection conn = DbUtils.getConnection();
+
+            String sql
+                    = "SELECT TOP 12 "
+                    + "    s.songID, "
+                    + "    s.title, "
+                    + "    s.coverImage, "
+                    + "    COUNT(u.userID) AS likes "
+                    + " FROM SONG s "
+                    + " LEFT JOIN FAVORITE_SONG f "
+                    + "    ON s.songID = f.songID "
+                    + " LEFT JOIN USERS u "
+                    + "    ON f.userID = u.userID "
+                    + "    AND u.status = 1 "
+                    + " WHERE s.isActive = 1 "
+                    + " GROUP BY "
+                    + "    s.songID, "
+                    + "    s.title, "
+                    + "    s.coverImage "
+                    + " ORDER BY likes DESC ";
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                SongDTO s = new SongDTO();
+
+                s.setSongID(rs.getInt("songID"));
+                s.setTitle(rs.getString("title"));
+                s.setCoverImage(rs.getString("coverImage"));
+                s.setLikes(rs.getInt("likes"));
+
+                list.add(s);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
 }

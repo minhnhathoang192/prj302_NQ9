@@ -25,8 +25,6 @@
 
             <input type="submit" hidden>
         </form>
-
-
     </div>
 
     <!-- RIGHT -->

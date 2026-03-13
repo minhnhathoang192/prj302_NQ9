@@ -55,7 +55,7 @@ function loadUserPlaylists() {
 }
 
 
-// ===== CLICK PLAYLIST =====
+/////////////////////////////////// ===== CLICK PLAYLIST =====///////////////////////////////////////
 document.addEventListener("click", function (e) {
 
     const card = e.target.closest(".playlist-card");
@@ -189,6 +189,8 @@ function loadPlaylistSongs(id) {
             });
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+//
 
 // ===== FORMAT TIME =====
 function formatDuration(sec) {

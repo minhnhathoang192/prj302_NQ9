@@ -73,17 +73,20 @@
     </div>
 
     <!-- ===== PLAYLIST ===== -->
-    <div class="profile-playlist">
+    <!-- ===== USER PLAYLIST ===== -->
+    <div class="user-playlist-section">
 
-        <div class="playlist-header">
-            <h2>Playlist đã tạo</h2>
-            <button class="playlist-add" onclick="openPlaylist()">＋</button>
+        <div class="user-playlist-header">
+            <h2 class="user-playlist-title">Playlist đã tạo</h2>
+            <button class="user-playlist-add" onclick="openPlaylist()">＋</button>
         </div>
 
-        <!-- JS sẽ render playlist ở đây -->
-        <div class="playlist-grid" id="playlistGrid">
+        <!-- JS render playlist -->
+        <div class="user-playlist-grid" id="playlistGrid">
 
-            <p id="playlistEmpty">Đang tải playlist...</p>
+            <p class="user-playlist-empty" id="playlistEmpty">
+                Đang tải playlist...
+            </p>
 
         </div>
 

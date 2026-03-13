@@ -13,7 +13,7 @@
 
     <!-- MAIN MENU -->
     <ul class="nav-menu">
-        <li class="nav-item active" onclick="showPage('home', this)">
+        <li class="nav-item active" onclick="loadHome()">
             <span class="icon">🎵</span>
             <span>Khám Phá</span>
         </li>

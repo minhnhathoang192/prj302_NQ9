@@ -335,69 +335,233 @@ document.getElementById("searchForm").addEventListener("submit", function (e) {
             .then(res => res.json())
             .then(data => {
 
-                renderSearchResult(data);
+                renderSongs(data.songs);
+                renderArtists(data.artists);
+                renderAlbums(data.albums);
+                renderPlaylists(data.playlists);
+
                 showPage("search");
 
             })
             .catch(err => console.error("Search error:", err));
 });
 
-function renderSearchResult(list) {
+function renderSongs(list) {
 
-    let container = document.getElementById("searchResultContainer");
-    container.innerHTML = "";
-
+    const containerAll = document.getElementById("searchResultContainer");
+    const containerSong = document.getElementById("searchSongOnly");
+    if (!containerAll || !containerSong)
+        return;
+    containerAll.innerHTML = "";
+    containerSong.innerHTML = "";
     if (!list || list.length === 0) {
-        container.innerHTML = "<p>Không tìm thấy bài hát</p>";
+        containerAll.innerHTML = "<p>Không có bài hát</p>";
+        containerSong.innerHTML = "<p>Không có bài hát</p>";
         return;
     }
 
-    list.forEach((s, index) => {
+// ===== TAB ALL (GIỚI HẠN 6) =====
+    const limitedSongs = list.slice(0, 6);
+    limitedSongs.forEach((s, index) => {
 
-        let item = document.createElement("div");
-        item.className = "song-item";
-
-        item.innerHTML = `
-            <div class="song-thumb">
+        const html = `
+        <div class="search-song-card" data-id="${s.songID}">
+            <div class="search-song-cover">
                 <img src="StreamServlet?type=cover&file=${encodeURIComponent(s.coverImage)}">
-                <div class="play-btn">▶</div>
             </div>
-            <div class="song-info">
-                <div class="song-title">${s.title}</div>
+
+            <div class="search-song-meta">
+                <div class="search-song-title">${s.title}</div>
+                <div class="search-song-artist">${s.artistName ?? ""}</div>
             </div>
+        </div>
         `;
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = html;
+        const node = wrapper.firstElementChild;
+        node.onclick = () => {
 
-        item.onclick = () => {
-
-            // build playlist từ search
             playlist = list.map(song => ({
-                    songID: song.songID, // ⭐ thêm dòng này
+                    songID: song.songID,
                     audioURL: "StreamServlet?type=audio&file=" + encodeURIComponent(song.audioURL),
                     title: song.title,
                     coverURL: "StreamServlet?type=cover&file=" + encodeURIComponent(song.coverImage)
                 }));
-
             currentIndex = index;
-
-            let s = playlist[currentIndex];
-
+            const current = playlist[currentIndex];
             playSong(
-                    s.audioURL,
-                    s.title,
-                    s.coverURL,
-                    s.songID
+                    current.audioURL,
+                    current.title,
+                    current.coverURL,
+                    current.songID
                     );
         };
+        containerAll.appendChild(node);
+    });
+    // ===== TAB SONG (HIỆN TẤT CẢ) =====
+    list.forEach((s, index) => {
 
-        container.appendChild(item);
+        const html = `
+        <div class="search-song-card" data-id="${s.songID}">
+            <div class="search-song-cover">
+                <img src="StreamServlet?type=cover&file=${encodeURIComponent(s.coverImage)}">
+            </div>
+
+            <div class="search-song-meta">
+                <div class="search-song-title">${s.title}</div>
+                <div class="search-song-artist">${s.artistName ?? ""}</div>
+            </div>
+        </div>
+        `;
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = html;
+        const node = wrapper.firstElementChild;
+        node.onclick = () => {
+
+            playlist = list.map(song => ({
+                    songID: song.songID,
+                    audioURL: "StreamServlet?type=audio&file=" + encodeURIComponent(song.audioURL),
+                    title: song.title,
+                    coverURL: "StreamServlet?type=cover&file=" + encodeURIComponent(song.coverImage)
+                }));
+            currentIndex = index;
+            const current = playlist[currentIndex];
+            playSong(
+                    current.audioURL,
+                    current.title,
+                    current.coverURL,
+                    current.songID
+                    );
+        };
+        containerSong.appendChild(node);
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function renderArtists(list) {
 
-    history.replaceState(null, null, window.location.pathname);
+    const containerAll = document.getElementById("searchArtistContainer");
+    const containerArtist = document.getElementById("searchArtistOnly");
+    if (!containerAll || !containerArtist)
+        return;
+    containerAll.innerHTML = "";
+    containerArtist.innerHTML = "";
+    if (!list || list.length === 0) {
+        containerAll.innerHTML = "<p>Không có nghệ sĩ</p>";
+        containerArtist.innerHTML = "<p>Không có nghệ sĩ</p>";
+        return;
+    }
 
-    showPage("home", document.querySelector(".nav-item"));
+    list.forEach((a, index) => {
+
+        const avatarURL =
+                contextPath + "/StreamServlet?type=artist&file=" +
+                encodeURIComponent(a.avatarURL || "");
+        const html = `
+        <div class="artist-card" data-id="${a.artistID}">
+
+            <div class="artist-avatar">
+                <img src="${avatarURL}">
+            </div>
+
+            <div class="artist-name">
+                ${a.artistName}
+            </div>
+
+        </div>
+        `;
+        /* TAB ALL → chỉ 6 nghệ sĩ */
+        if (index < 6) {
+            containerAll.insertAdjacentHTML("beforeend", html);
+        }
+
+        /* TAB ARTIST → tất cả */
+        containerArtist.insertAdjacentHTML("beforeend", html);
+    });
+}
+
+function renderAlbums(list) {
+
+const containerAll = document.getElementById("searchAlbumContainer");
+        const containerAlbum = document.getElementById("searchAlbumOnly");
+        if (!containerAll || !containerAlbum) return;
+        containerAll.innerHTML = "";
+        containerAlbum.innerHTML = "";
+        if (!list || list.length === 0) {
+containerAll.innerHTML = "<p>Không có album</p>";
+        containerAlbum.innerHTML = "<p>Không có album</p>";
+        return;
+        }
+
+list.forEach((al, index) => {
+
+const coverURL =
+        contextPath + "/StreamServlet?type=album&file=" +
+        encodeURIComponent(al.coverImage || "");
+        const html = `
+        <div class="album-card" data-id="${al.albumID}">
+
+            <div class="album-cover">
+                <img src="${coverURL}">
+            </div>
+
+            <div class="album-title">
+                ${al.albumName}
+            </div>
+
+        </div>
+        `;
+        /* TAB ALL → 6 album */
+        if (index < 6){
+containerAll.insertAdjacentHTML("beforeend", html);
+        }
+
+/* TAB ALBUM → tất cả */
+containerAlbum.insertAdjacentHTML("beforeend", html);
+        });
+}
+
+function renderPlaylists(list) {
+
+const containerAll = document.getElementById("searchPlaylistContainer");
+        const containerOnly = document.getElementById("searchPlaylistOnly");
+        if (!containerAll) return;
+        containerAll.innerHTML = "";
+        if (containerOnly) containerOnly.innerHTML = "";
+        if (!list || list.length === 0) {
+containerAll.innerHTML = "<p>Không có playlist</p>";
+        if (containerOnly) containerOnly.innerHTML = "<p>Không có playlist</p>";
+        return;
+        }
+
+list.forEach((p, index) => {
+
+const coverURL =
+        contextPath + "/StreamServlet?type=playlist&file=" +
+        encodeURIComponent(p.coverImage || "");
+        const html = `
+        <div class="playlist-card" data-id="${p.playListID}">
+
+            <div class="playlist-cover">
+                <img src="${coverURL}">
+            </div>
+
+            <div class="playlist-title">
+                ${p.playListName}
+            </div>
+
+        </div>
+        `;
+        /* TAB ALL → chỉ 6 playlist */
+        if (index < 6){
+containerAll.insertAdjacentHTML("beforeend", html);
+        }
+
+/* TAB PLAYLIST → tất cả */
+if (containerOnly) {
+containerOnly.insertAdjacentHTML("beforeend", html);
+        }
 
 });
+}
+
 

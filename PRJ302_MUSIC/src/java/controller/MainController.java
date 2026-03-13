@@ -151,6 +151,26 @@ public class MainController extends HttpServlet {
             url = "editPlaylistFromUserController";
         } else if(action.equals("deletePlaylistFromUser")){
             url = "deletePlaylistFromUserController";
+        } else if(action.equals("getAlbumInfo")){
+            url = "getAlbumInfoController";
+        } else if(action.equals("getSongsInAlbum")){
+            url = "getSongsInAlbumController";
+        } else if(action.equals("getArtistInfo")){
+            url = "getArtistInfoController";
+        } else if(action.equals("getSongsByArtist")){
+            url = "getSongsByArtistController";
+        } else if(action.equals("toggleFollowArtist")){
+            url = "toggleFollowArtistController";
+        } else if(action.equals("getArtistFollowers")){
+            url = "getArtistFollowersController";
+        } else if(action.equals("isFollowingArtist")){
+            url = "isFollowingArtistController";
+        } else if(action.equals("getTrendingArtists")){
+            url = "getTrendingArtistsController";
+        } else if(action.equals("getSongByID")){
+            url = "getSongByIDController";
+        } else if(action.equals("getMostFavoriteSongs")){
+            url = "getMostFavoriteSongsController";
         }
 
         RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -77,7 +77,7 @@ public class AlbumSongDAO {
     public boolean add(int albumID, int songID) {
         try (Connection conn = DbUtils.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                     "INSERT INTO AlbumSong(albumID, songID) VALUES(?,?)")) {
+                     "INSERT INTO ALBUM_SONG(albumID, songID) VALUES(?,?)")) {
             ps.setInt(1, albumID);
             ps.setInt(2, songID);
             return ps.executeUpdate() > 0;

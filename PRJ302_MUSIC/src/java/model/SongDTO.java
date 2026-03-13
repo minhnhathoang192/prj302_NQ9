@@ -18,6 +18,8 @@ public class SongDTO {
     private Date releaseDate;
     private String coverImage;
     private boolean isActive;
+    
+    private int likes;
 
     public SongDTO() {
     }
@@ -96,4 +98,14 @@ public class SongDTO {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+    
+    
 }

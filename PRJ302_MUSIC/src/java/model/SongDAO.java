@@ -166,10 +166,63 @@ public class SongDAO {
     }
 
     public List<SongDTO> searchSongs(String keyword) {
-        if (keyword == null || keyword.trim().isEmpty()) {
-            return getAllActiveSongs();
+
+        List<SongDTO> list = new ArrayList<>();
+
+        try ( Connection conn = DbUtils.getConnection()) {
+
+            String[] tokens = keyword.trim().split("\\s+");
+
+            StringBuilder sql = new StringBuilder("SELECT DISTINCT s.* "
+                    + "FROM SONG s LEFT JOIN SONG_ARTIST sa ON s.songID = sa.songID "
+                    + "LEFT JOIN ARTIST a ON sa.artistID = a.artistID "
+                    + "LEFT JOIN ALBUM_SONG als ON s.songID = als.songID "
+                    + "LEFT JOIN ALBUM al ON als.albumID = al.albumID "
+                    + "WHERE s.isActive = 1 AND (");
+
+            for (int i = 0; i < tokens.length; i++) {
+                if (i > 0) {
+                    sql.append(" OR ");
+                }
+                sql.append("(s.title LIKE ? OR a.artistName LIKE ? OR al.albumName LIKE ?)");
+            }
+
+            sql.append(")");
+
+            PreparedStatement ps = conn.prepareStatement(sql.toString());
+
+            int index = 1;
+
+            for (String t : tokens) {
+                String like = "%" + t + "%";
+                ps.setString(index++, like);
+                ps.setString(index++, like);
+                ps.setString(index++, like);
+            }
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                SongDTO s = new SongDTO(
+                        rs.getInt("songID"),
+                        rs.getString("title"),
+                        rs.getInt("duration"),
+                        rs.getString("audioURL"),
+                        rs.getString("lyric"),
+                        rs.getDate("releaseDate"),
+                        rs.getString("coverImage"),
+                        rs.getBoolean("isActive")
+                );
+
+                list.add(s);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return searchSongsByTitle(keyword);
+
+        return list;
     }
 
     public List<SongDTO> searchSongsByTitle(String keyword) {
@@ -315,7 +368,7 @@ public class SongDAO {
                 String coverImage = rs.getString("coverImage");
                 Date releaseDate = rs.getDate("releaseDate");
                 boolean isActive = rs.getBoolean("isActive");
-                AlbumDTO a= new AlbumDTO(albumID, albumName, coverImage, releaseDate, isActive);
+                AlbumDTO a = new AlbumDTO(albumID, albumName, coverImage, releaseDate, isActive);
                 list.add(a);
             }
         } catch (Exception e) {

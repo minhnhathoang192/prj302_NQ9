@@ -13,8 +13,10 @@
 
         <div class="banner-track">
             <img src="assets/img/banner1.png"/>
-            <img src="assets/img/banner2.png"/>
-            <img src="assets/img/banner3.png"/>
+            <img src="assets/img/banner7.png"/>
+            <img src="assets/img/banner6.png"/>
+            <img src="assets/img/banner5.png"/>
+            <img src="assets/img/banner4.jpg"/>
         </div>
 
         <button class="slide-btn right">›</button>
@@ -106,35 +108,46 @@
     </section>
 
 
-    <!-- ===== BẢNG XẾP HẠNG ===== -->
-    <section class="ranking-section">
-        <div class="section-header">
-            <h2>Bảng Xếp Hạng</h2>
-            <span class="more">Thêm</span>
-        </div>
-
-        <div class="ranking-row">
-            <div class="ranking-card">Top 50 Nhạc Việt</div>
-            <div class="ranking-card">Top 50 Nhạc Hoa</div>
-            <div class="ranking-card">Top 50 YouTube</div>
-        </div>
-    </section>
+   
 
 
     <!-- ===== NGHỆ SĨ THỊNH HÀNH ===== -->
-    <section class="artist-section">
-        <div class="section-header">
-            <h2>Nghệ Sĩ Thịnh Hành</h2>
-            <span class="more">Thêm</span>
+    <section class="home-artist-section">
+
+        <div class="home-artist-header">
+
+            <h2 class="section-header">
+                Nghệ Sĩ Thịnh Hành
+            </h2>
+
+            <span class="home-artist-more" onclick="loadArtistRanking()">
+                Thêm
+            </span>
+
         </div>
 
-        <div class="artist-row">
-            <div class="artist-card">Trọng Nhân</div>
-            <div class="artist-card">Tiểu Mỹ</div>
-            <div class="artist-card">Maydays</div>
-            <div class="artist-card">Dương Domic</div>
-            <div class="artist-card">Low G</div>
+
+        <div class="home-artist-row" id="homeTrendingArtistContainer">
+
+            <!-- JS render artists -->
+
         </div>
+
+    </section>
+    
+    
+     <section class="favorite-song-section">
+
+        <div class="section-header">
+            <h2>Nhạc được yêu thích nhất</h2>
+        </div>
+
+        <div class="favorite-song-grid" id="favoriteSongContainer">
+
+            <!-- JS render -->
+
+        </div>
+
     </section>
 
 </section>

@@ -331,4 +331,47 @@ public class PlayListtDAO {
 
         return false;
     }
+
+    public List<PlayListtDTO> searchPlaylists(String keyword) {
+        List<PlayListtDTO> list = new ArrayList<>();
+        try {
+            Connection conn = DbUtils.getConnection();
+            String[] tokens = keyword.trim().split("\\s+");
+            StringBuilder sql = new StringBuilder("SELECT DISTINCT p.*"
+                    + "            FROM PLAYLIST p"
+                    + "            LEFT JOIN PLAYLIST_SONG ps ON p.playListID = ps.playListID"
+                    + "            LEFT JOIN SONG s ON ps.songID = s.songID"
+                    + "            WHERE p.isPublic = 1 AND (");
+            
+            for (int i = 0; i < tokens.length; i++) {
+                if(i>0) sql.append(" OR ");
+                sql.append("(p.playListName LIKE ? OR s.title LIKE ?)");
+            }
+            
+            sql.append(")");
+            
+            PreparedStatement ps= conn.prepareStatement(sql.toString());
+            
+            int index = 1;
+            for (String t : tokens) {
+                String like = "%" + t + "%";
+                ps.setString(index++, like);
+                ps.setString(index++, like);
+            }
+            
+            ResultSet rs= ps.executeQuery();
+            while(rs.next()){
+                int playListID= rs.getInt("playListID");
+                String playListName= rs.getString("playListName");
+                int userID = rs.getInt("userID");
+                boolean isPublic = rs.getBoolean("isPublic");
+                Timestamp createDate= rs.getTimestamp("createDate");
+                PlayListtDTO p= new PlayListtDTO(playListID, playListName, userID, isPublic, createDate);
+                list.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

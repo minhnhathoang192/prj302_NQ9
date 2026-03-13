@@ -208,6 +208,46 @@
         <servlet-name>deletePlaylistFromUserController</servlet-name>
         <servlet-class>controller.deletePlaylistFromUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getAlbumInfoController</servlet-name>
+        <servlet-class>controller.getAlbumInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getSongsInAlbumController</servlet-name>
+        <servlet-class>controller.getSongsInAlbumController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getArtistInfoController</servlet-name>
+        <servlet-class>controller.getArtistInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getSongsByArtistController</servlet-name>
+        <servlet-class>controller.getSongsByArtistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>toggleFollowArtistController</servlet-name>
+        <servlet-class>controller.toggleFollowArtistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getArtistFollowersController</servlet-name>
+        <servlet-class>controller.getArtistFollowersController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>isFollowingArtistController</servlet-name>
+        <servlet-class>controller.isFollowingArtistController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getTrendingArtistsController</servlet-name>
+        <servlet-class>controller.getTrendingArtistsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getSongByIDController</servlet-name>
+        <servlet-class>controller.getSongByIDController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getMostFavoriteSongsController</servlet-name>
+        <servlet-class>controller.getMostFavoriteSongsController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -415,6 +455,46 @@
     <servlet-mapping>
         <servlet-name>deletePlaylistFromUserController</servlet-name>
         <url-pattern>/deletePlaylistFromUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getAlbumInfoController</servlet-name>
+        <url-pattern>/getAlbumInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getSongsInAlbumController</servlet-name>
+        <url-pattern>/getSongsInAlbumController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getArtistInfoController</servlet-name>
+        <url-pattern>/getArtistInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getSongsByArtistController</servlet-name>
+        <url-pattern>/getSongsByArtistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>toggleFollowArtistController</servlet-name>
+        <url-pattern>/toggleFollowArtistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getArtistFollowersController</servlet-name>
+        <url-pattern>/getArtistFollowersController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>isFollowingArtistController</servlet-name>
+        <url-pattern>/isFollowingArtistController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getTrendingArtistsController</servlet-name>
+        <url-pattern>/getTrendingArtistsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getSongByIDController</servlet-name>
+        <url-pattern>/getSongByIDController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getMostFavoriteSongsController</servlet-name>
+        <url-pattern>/getMostFavoriteSongsController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -4,19 +4,22 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.AlbumSongDAO;
+import model.ArtistDAO;
+import model.SongDTO;
 
 /**
  *
  * @author NQ9
  */
-public class addAlbumToSongController extends HttpServlet {
+public class getSongsByArtistController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,29 +32,28 @@ public class addAlbumToSongController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         
-        String msg = "";
-        String error="";
-        int albumID= Integer.parseInt(request.getParameter("albumID"));
-        int songID= Integer.parseInt(request.getParameter("songID"));
-        
-        AlbumSongDAO asDao= new AlbumSongDAO();
-        if(!asDao.exists(albumID, songID)){
-            boolean result= asDao.add(albumID, songID);
-            if(result){
-                msg+="Them album thanh cong";
-            }else{
-                error+="Them album that bai";
+        try {
+            String s_artistID= request.getParameter("artistID");
+            
+            if(s_artistID==null){
+                response.getWriter().write("[]");
+                return;
             }
-        }else {
-            error+="da co album trong bai hat";
+            
+            int artistID = Integer.parseInt(s_artistID);
+            ArtistDAO adao= new ArtistDAO();
+            List<SongDTO> songs= adao.getSongByArtist(artistID);
+            
+            Gson gson= new Gson();
+            PrintWriter out= response.getWriter();
+            out.write(gson.toJson(songs));
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().write("[]");
         }
-        
-        request.getSession().setAttribute("msg", msg);
-        request.getSession().setAttribute("error", error);
-        
-        response.sendRedirect("MainController?action=manage_song");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -4,19 +4,21 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.AlbumSongDAO;
+import model.SongDAO;
+import model.SongDTO;
 
 /**
  *
  * @author NQ9
  */
-public class addAlbumToSongController extends HttpServlet {
+public class getSongByIDController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,29 +31,19 @@ public class addAlbumToSongController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         
-        String msg = "";
-        String error="";
-        int albumID= Integer.parseInt(request.getParameter("albumID"));
-        int songID= Integer.parseInt(request.getParameter("songID"));
-        
-        AlbumSongDAO asDao= new AlbumSongDAO();
-        if(!asDao.exists(albumID, songID)){
-            boolean result= asDao.add(albumID, songID);
-            if(result){
-                msg+="Them album thanh cong";
-            }else{
-                error+="Them album that bai";
-            }
-        }else {
-            error+="da co album trong bai hat";
+        try {
+            String id= request.getParameter("songID");
+            int songID = Integer.parseInt(id);
+            SongDAO sdao= new SongDAO();
+            SongDTO s= sdao.getSongByID(songID);
+            
+            Gson gson= new Gson();
+            response.getWriter().write(gson.toJson(s));
+        } catch (Exception e) {
         }
-        
-        request.getSession().setAttribute("msg", msg);
-        request.getSession().setAttribute("error", error);
-        
-        response.sendRedirect("MainController?action=manage_song");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
