@@ -6,6 +6,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -44,20 +45,44 @@ public class StreamServlet extends HttpServlet {
         File f = new File(basePath + "/" + type + "/" + file);
 
         if (!f.exists()) {
-            response.sendError(404);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
-        if (type.equals("audio")) {
+        // ===== SET CONTENT TYPE =====
+        if ("audio".equals(type)) {
             response.setContentType("audio/mpeg");
-        } else if (type.equals("cover") || type.equals("topic") || type.equals("artist") || type.equals("album")) {
+
+            // quan trọng để browser cho phép tua
+            response.setHeader("Accept-Ranges", "bytes");
+
+        } else if ("cover".equals(type) || "topic".equals(type) || "artist".equals(type) || "album".equals(type)) {
+
             String mime = Files.probeContentType(f.toPath());
+
+            if (mime == null) {
+                mime = "application/octet-stream";
+            }
+
             response.setContentType(mime);
         }
 
-        OutputStream out = response.getOutputStream();
-        Files.copy(f.toPath(), out);
-        out.flush();
+        // ===== SET FILE SIZE =====
+        response.setContentLengthLong(f.length());
+
+        // ===== STREAM FILE =====
+        try ( OutputStream out = response.getOutputStream();  
+                InputStream in = Files.newInputStream(f.toPath())) {
+
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+
+            out.flush();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

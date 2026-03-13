@@ -259,6 +259,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 function playPlaylistSong(index) {
+    
+    if (!playlist[index]) return;
 
     currentIndex = index;
     const s = playlist[index];
@@ -278,28 +280,27 @@ function playPlaylistSong(index) {
 
 document.addEventListener("click", function (e) {
 
+    if (e.target.closest("#music-player")) return;
+
     const btn = e.target.closest(".pl-play");
-    if (!btn)
-        return;
+    if (!btn) return;
+
     const audio = getAudio();
-    if (playlist.length === 0)
-        return;
-    // nếu chưa phát bài nào của playlist này
+    if (playlist.length === 0) return;
+
     if (currentIndex === -1) {
         playPlaylistSong(0);
         return;
     }
 
-// nếu đang phát playlist hiện tại
     if (!audio.paused) {
         audio.pause();
     } else {
         audio.play();
     }
 
-}
-)
-        ;
+});
+
 function togglePlaylistSong(index, e) {
 
     e.stopPropagation();

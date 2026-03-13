@@ -3,13 +3,20 @@ function getAudio() {
 }
 
 function playSong(url, title, cover, songID) {
+    console.trace("playSong called");
     let audio = getAudio();
+
+    // nếu đang phát đúng bài này thì KHÔNG reload
+    if (window.currentSongID === songID) {
+        audio.play();
+        return;
+    }
 
     audio.src = url;
     audio.play();
 
     window.currentSongID = songID;
-    
+
     //luu listent_History
     fetch("MainController?action=addListeningHistory&songID=" + songID)
             .catch(err => console.log("History error:", err));
@@ -40,9 +47,9 @@ function playSong(url, title, cover, songID) {
                     return;
 
                 if (data.liked) {
-                    btn.innerText = "❤";
+                    btn.classList.add("liked");
                 } else {
-                    btn.innerText = "🤍";
+                    btn.classList.remove("liked");
                 }
 
             });
@@ -77,53 +84,64 @@ function togglePlay() {
 
 
 
-let audio = getAudio();
+document.addEventListener("DOMContentLoaded", function () {
 
-audio.addEventListener("play", () => {
+    const audio = getAudio();
 
-    let buttons = document.querySelectorAll(".btn-play");
-    let wave = document.querySelector(".music-wave");
+    if (!audio)
+        return;
 
-    buttons.forEach(btn => btn.innerText = "⏸");
+    audio.addEventListener("play", () => {
 
-    if (wave)
-        wave.classList.add("playing");
+        let buttons = document.querySelectorAll(".btn-play");
+        let wave = document.querySelector(".music-wave");
 
-    // reset icon playlist
-    document.querySelectorAll(".song-play-btn")
-            .forEach(btn => btn.innerText = "▶");
+        buttons.forEach(btn => btn.innerText = "⏸");
 
-    // icon bài đang phát
-    if (currentIndex >= 0) {
-        const btn = document.querySelectorAll(".song-play-btn")[currentIndex];
-        if (btn)
-            btn.innerText = "⏸";
-    }
+        if (wave)
+            wave.classList.add("playing");
 
-    document.querySelectorAll(".pl-play, .fav-play, .album-play, .artist-play").forEach(btn => {
-        btn.innerHTML = "⏸ Tạm dừng";
+        document.querySelectorAll(".song-play-btn")
+                .forEach(btn => btn.innerText = "▶");
+
+        if (currentIndex >= 0) {
+            const btn = document.querySelectorAll(".song-play-btn")[currentIndex];
+            if (btn)
+                btn.innerText = "⏸";
+        }
+
+        document.querySelectorAll(".pl-play, .fav-play, .album-play, .artist-play")
+                .forEach(btn => {
+                    btn.innerHTML = "⏸ Tạm dừng";
+                });
+
     });
 
-});
+    audio.addEventListener("pause", () => {
 
-audio.addEventListener("pause", () => {
+        let buttons = document.querySelectorAll(".btn-play");
+        let wave = document.querySelector(".music-wave");
 
-    let buttons = document.querySelectorAll(".btn-play");
-    let wave = document.querySelector(".music-wave");
+        buttons.forEach(btn => btn.innerText = "▶");
 
-    buttons.forEach(btn => btn.innerText = "▶");
+        if (wave)
+            wave.classList.remove("playing");
 
-    if (wave)
-        wave.classList.remove("playing");
+        if (currentIndex >= 0) {
+            const btn = document.querySelectorAll(".song-play-btn")[currentIndex];
+            if (btn)
+                btn.innerText = "▶";
+        }
 
-    if (currentIndex >= 0) {
-        const btn = document.querySelectorAll(".song-play-btn")[currentIndex];
-        if (btn)
-            btn.innerText = "▶";
-    }
+        document.querySelectorAll(".pl-play, .fav-play, .album-play, .artist-play")
+                .forEach(btn => {
+                    btn.innerHTML = "▶ Phát tất cả";
+                });
 
-    document.querySelectorAll(".pl-play, .fav-play, .album-play, .artist-play").forEach(btn => {
-        btn.innerHTML = "▶ Phát tất cả";
+    });
+
+    audio.addEventListener("ended", () => {
+        nextSong();
     });
 
 });
@@ -154,15 +172,11 @@ function prevSong() {
 
 }
 
-getAudio().addEventListener("ended", () => {
-    nextSong();
-});
+
 
 document.addEventListener("click", function (e) {
 
-    const btn = e.target.closest("#fyPlayBtn");
-
-    if (!btn)
+    if (!e.target.closest("#fyPlayBtn") || e.target.closest("#progress-bar"))
         return;
 
     if (!currentSong) {
@@ -171,11 +185,11 @@ document.addEventListener("click", function (e) {
     }
 
     playSong(
-            currentSong.audioURL,
-            currentSong.title,
-            currentSong.coverURL,
-            currentSong.songID
-            );
+        currentSong.audioURL,
+        currentSong.title,
+        currentSong.coverURL,
+        currentSong.songID
+    );
 
 });
 

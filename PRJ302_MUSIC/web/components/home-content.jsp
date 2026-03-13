@@ -108,7 +108,7 @@
     </section>
 
 
-   
+
 
 
     <!-- ===== NGHỆ SĨ THỊNH HÀNH ===== -->
@@ -134,9 +134,9 @@
         </div>
 
     </section>
-    
-    
-     <section class="favorite-song-section">
+
+
+    <section class="favorite-song-section">
 
         <div class="section-header">
             <h2>Nhạc được yêu thích nhất</h2>
@@ -145,6 +145,80 @@
         <div class="favorite-song-grid" id="favoriteSongContainer">
 
             <!-- JS render -->
+
+        </div>
+
+    </section>
+
+    <section class="home-footer">
+
+        <div class="footer-container">
+
+            <!-- LOGO + ABOUT -->
+            <div class="footer-col footer-about">
+                <h2 class="footer-logo">QNQ Music</h2>
+
+                <p>
+                    Nền tảng nghe nhạc trực tuyến được phát triển
+                    trong môn <b>PRJ302</b>.  
+                    Người dùng có thể khám phá âm nhạc, tạo playlist,
+                    theo dõi nghệ sĩ và thưởng thức âm nhạc cá nhân hóa.
+                </p>
+            </div>
+
+
+            <!-- TEAM -->
+            <div class="footer-col">
+
+                <h3>Nhóm Phát Triển</h3>
+
+                <ul>
+                    <li>Hoàng Minh Nhật — Backend & Database</li>
+                    <li>Quốc — DAO / DTO Development</li>
+                    <li>Quý — UI Design & Music Content</li>
+                </ul>
+
+            </div>
+
+
+            <!-- TECHNOLOGY -->
+            <div class="footer-col">
+
+                <h3>Công Nghệ</h3>
+
+                <ul>
+                    <li>Architecture: MVC2 with AJAX</li>
+                    <li>Backend: Java Servlet</li>
+                    <li>Frontend: JSP + JavaScript</li>
+                    <li>Database: SQL Sever</li>
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT -->
+            <div class="footer-col">
+
+                <h3>Liên Hệ</h3>
+
+                <ul>
+                    <li>Email: qnqmusic@gmail.com</li>
+                    <li>Project: PRJ302 Music</li>
+                    <li>FPT UNIVERSITY</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="footer-line"></div>
+
+            <p>
+                © 2026 QNQ Music — Music Streaming Platform for Educational Purposes
+            </p>
 
         </div>
 

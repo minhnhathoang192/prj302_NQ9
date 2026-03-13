@@ -1158,50 +1158,6 @@ body {
     opacity: 0.7;
 }
 
-/* ===== FOR YOU ===== */
-.for-you-page {
-    position: relative;
-    min-height: 100%;
-    padding-bottom: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* blur background */
-.for-you-bg {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, #1f3a4c, #000);
-    filter: blur(80px);
-    opacity: 0.6;
-}
-
-/* main card */
-.for-you-card {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    color: white;
-}
-
-/* cover */
-.for-you-cover {
-    position: relative;
-    width: 760px;          /* TO HƠN */
-    height: 760px;
-    margin: auto;
-}
-
-
-.for-you-cover img {
-    width: 100%;
-    height: 100%;
-    border-radius: 24px;
-    object-fit: cover;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-}
 
 /* wave */
 .music-wave {
@@ -1247,74 +1203,7 @@ body {
     }
 }
 
-/* info */
-.for-you-info {
-    margin-top: 36px;
-}
 
-.for-you-info h1 {
-    font-size: 30px;
-    font-weight: 700;
-}
-
-.for-you-info p {
-    font-size: 16px;
-    opacity: 0.75;
-}
-
-
-/* player */
-.for-you-player {
-    position: absolute;
-    right: -80px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.for-you-player button {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(255,255,255,0.15);
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-}
-.for-you-bg-cover {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.for-you-bg-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(60px) brightness(0.4);
-    transform: scale(1.2);
-}
-/* ===== FOR YOU – PLAY EFFECT ===== */
-
-.for-you-cover.playing {
-    animation: pulse 1.5s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0%   {
-        transform: scale(1);
-    }
-    50%  {
-        transform: scale(1.04);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
 
 
 .nav-section {
@@ -5186,4 +5075,779 @@ body {
     display:flex;
     align-items:center;
     gap:4px;
+}
+
+/* ===== PLAYER CONTAINER ===== */
+
+#music-player{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:90px;
+
+    background:#181818;
+    border-top:1px solid #2a2a2a;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 20px;
+    box-sizing:border-box;
+    z-index:999;
+}
+
+/* ===== LEFT ===== */
+
+.player-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:25%;
+}
+
+#player-cover{
+    width:56px;
+    height:56px;
+    border-radius:6px;
+    object-fit:cover;
+}
+
+.song-info{
+    display:flex;
+    flex-direction:column;
+}
+
+#player-title{
+    color:white;
+    font-size:14px;
+    font-weight:600;
+}
+
+#player-artist{
+    color:#aaa;
+    font-size:12px;
+}
+
+/* ===== HEART BUTTON ===== */
+
+#btn-like{
+    background:none;
+    border:none;
+    font-size:18px;
+    cursor:pointer;
+    color:#aaa;
+    margin-left:10px;
+    transition:0.2s;
+}
+
+#btn-like:hover{
+    transform:scale(1.15);
+}
+
+#btn-like.liked{
+    color:#ff3b5c;
+    animation:pop 0.2s ease;
+}
+
+@keyframes pop{
+    0%{
+        transform:scale(0.8);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+/* ===== CENTER PLAYER ===== */
+
+.player-center{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:50%;
+}
+
+/* ===== CONTROLS ===== */
+
+.player-controls{
+    display:flex;
+    align-items:center;
+    gap:30px;
+    margin-bottom:8px;
+}
+
+.player-controls button{
+    background:none;
+    border:none;
+    color:#b3b3b3;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.player-controls button:hover{
+    color:white;
+    transform:scale(1.1);
+}
+
+/* PLAY BUTTON */
+
+.btn-play{
+    font-size:26px;
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+    background:white;
+    color:black;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:0.2s;
+}
+
+.btn-play:hover{
+    transform:scale(1.08);
+}
+
+/* ===== PROGRESS BAR ===== */
+
+.player-progress{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+}
+
+#progress-bar{
+    flex:1;
+    height:4px;
+
+    appearance:none;
+    background:#535353;
+    border-radius:2px;
+
+    cursor:pointer;
+}
+
+/* progress thumb */
+
+#progress-bar::-webkit-slider-thumb{
+    appearance:none;
+    width:12px;
+    height:12px;
+
+    background:white;
+    border-radius:50%;
+
+    cursor:pointer;
+}
+
+#progress-bar:hover::-webkit-slider-thumb{
+    background:#1db954;
+}
+
+/* time */
+
+#current-time,
+#duration{
+    color:#aaa;
+    font-size:12px;
+}
+
+/* ===== RIGHT PLAYER ===== */
+
+.player-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:25%;
+    justify-content:flex-end;
+}
+
+/* ===== VOLUME SLIDER ===== */
+
+#volume-slider{
+    width:100px;
+    height:4px;
+
+    appearance:none;
+    border-radius:3px;
+
+    /* trắng đục */
+    background:linear-gradient(
+        to right,
+        rgba(255,255,255,0.8) 50%,
+        #535353 50%
+        );
+
+    cursor:pointer;
+}
+
+/* volume thumb */
+
+#volume-slider::-webkit-slider-thumb{
+    appearance:none;
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+    background:white;
+
+    margin-top:-1px;
+
+    cursor:pointer;
+}
+
+.volume-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#b3b3b3;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.volume-icon:hover{
+    color:white;
+    transform:scale(1.1);
+}
+
+
+
+/* ================= PAGE ================= */
+
+.for-you-page{
+    position:relative;
+    height:calc(100vh - 90px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(60,120,180,0.2),
+        rgba(0,0,0,0.95) 60%);
+
+    overflow:hidden;
+}
+
+/* ================= CENTER CARD ================= */
+
+.for-you-card{
+
+    width:360px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    gap:24px;
+
+    padding:40px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,0.02);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.7);
+
+}
+
+/* ================= COVER ================= */
+
+.for-you-cover{
+    position:relative;
+}
+
+.for-you-cover img{
+
+    width:240px;
+    height:240px;
+
+    border-radius:14px;
+
+    object-fit:cover;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.8);
+
+    transition:0.3s;
+}
+
+.for-you-cover img:hover{
+    transform:scale(1.03);
+}
+
+/* ================= INFO ================= */
+
+.for-you-info{
+    text-align:center;
+}
+
+#fyTitle{
+    font-size:26px;
+    font-weight:700;
+    color:white;
+}
+
+#fyArtist{
+    font-size:14px;
+    color:#a0a0a0;
+}
+
+/* ================= CONTROLS ================= */
+
+.for-you-player{
+
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+/* control buttons */
+
+.for-you-player button{
+
+    background:none;
+    border:none;
+
+    color:#b3b3b3;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+.for-you-player button:hover{
+    color:white;
+    transform:scale(1.1);
+}
+
+/* play button */
+
+.btn-play{
+
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:white;
+    color:black;
+
+    font-size:26px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.6);
+}
+
+.btn-play:hover{
+    transform:scale(1.08);
+}
+
+/* ================= FOR YOU PAGE ================= */
+
+.for-you-page{
+
+    position:relative;
+    height:calc(100vh - 90px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(60,120,180,0.2),
+        rgba(0,0,0,0.95) 60%);
+
+}
+
+
+/* ================= PLAYER CARD ================= */
+
+.for-you-card{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    gap:25px;
+
+    padding:40px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,0.03);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.7);
+
+}
+
+
+/* ================= COVER ================= */
+
+.for-you-cover img{
+
+    width:240px;
+    height:240px;
+
+    object-fit:cover;
+
+    border-radius:14px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.8);
+
+    transition:0.3s;
+
+}
+
+
+/* ================= INFO ================= */
+
+.for-you-info{
+
+    text-align:center;
+
+}
+
+#fyTitle{
+
+    font-size:26px;
+    font-weight:700;
+    color:white;
+
+}
+
+#fyArtist{
+
+    font-size:14px;
+    color:#a0a0a0;
+
+}
+
+
+/* ================= PLAYER CONTROLS ================= */
+
+.for-you-player{
+
+    display:flex;
+    align-items:center;
+    gap:30px;
+
+}
+
+.for-you-player button{
+
+    background:none;
+    border:none;
+
+    color:#b3b3b3;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+}
+
+.for-you-player button:hover{
+
+    color:white;
+    transform:scale(1.1);
+
+}
+
+
+/* PLAY BUTTON */
+
+.btn-play{
+
+    width:58px;
+    height:58px;
+
+    border-radius:50%;
+
+    background:white;
+    color:black;
+
+    font-size:26px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.6);
+
+}
+
+.btn-play:hover{
+
+    transform:scale(1.08);
+
+}
+
+
+/* ================= REMIX BEAT EFFECT ================= */
+
+@keyframes beatPulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+
+}
+
+.beat{
+
+    animation:beatPulse 0.8s infinite;
+
+}
+
+
+/* ================= COVER GLOW ================= */
+
+@keyframes glowBeat{
+
+    0%{
+        box-shadow:
+            0 10px 40px rgba(0,0,0,0.7),
+            0 0 0 rgba(0,255,200,0);
+    }
+
+    50%{
+        box-shadow:
+            0 20px 80px rgba(0,0,0,0.9),
+            0 0 60px rgba(0,255,200,0.5);
+    }
+
+    100%{
+        box-shadow:
+            0 10px 40px rgba(0,0,0,0.7),
+            0 0 0 rgba(0,255,200,0);
+    }
+
+}
+
+.beatGlow{
+
+    animation:glowBeat 0.8s infinite;
+
+}
+
+
+/* ================= VISUALIZER ================= */
+
+.visualizer{
+
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+
+    gap:3px;
+
+    height:50px;
+
+    margin-top:10px;
+
+}
+
+
+/* VISUALIZER BARS */
+
+.visualizer span{
+
+    width:4px;
+    height:8px;
+
+    border-radius:2px;
+
+    background:linear-gradient(
+        to top,
+        #1db954,
+        #6affc7
+        );
+
+    transition:height 0.05s linear;
+
+}
+
+
+/* SMALL STYLE VARIATION */
+
+.visualizer span:nth-child(odd){
+
+    opacity:0.9;
+
+}
+
+.visualizer span:nth-child(even){
+
+    opacity:0.7;
+
+}
+
+/* ================= FOOTER ================= */
+
+.home-footer{
+
+    margin-top:80px;
+    padding:60px 80px 30px;
+
+    /* không nền riêng */
+    background:transparent;
+
+}
+
+
+/* CONTAINER */
+
+.footer-container{
+
+    display:flex;
+    justify-content:space-between;
+    gap:60px;
+    flex-wrap:wrap;
+
+}
+
+
+/* COLUMN */
+
+.footer-col{
+
+    flex:1;
+    min-width:200px;
+
+}
+
+
+/* LOGO */
+
+.footer-logo{
+
+    color:white;
+    font-size:22px;
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+
+/* TITLE */
+
+.footer-col h3{
+
+    color:white;
+    font-size:16px;
+
+    margin-bottom:12px;
+
+}
+
+
+/* TEXT */
+
+.footer-col p{
+
+    color:#9ca3af;
+
+    font-size:14px;
+    line-height:1.6;
+
+}
+
+
+/* LIST */
+
+.footer-col ul{
+
+    list-style:none;
+    padding:0;
+    margin:0;
+
+}
+
+.footer-col li{
+
+    color:#9ca3af;
+    font-size:14px;
+
+    margin-bottom:8px;
+
+    transition:0.25s;
+
+}
+
+.footer-col li:hover{
+
+    color:white;
+    transform:translateX(4px);
+    cursor:pointer;
+
+}
+
+
+/* BOTTOM */
+
+.footer-bottom{
+
+    margin-top:40px;
+    text-align:center;
+
+}
+
+
+/* LINE */
+
+.footer-line{
+
+    height:1px;
+
+    background:rgba(255,255,255,0.08);
+
+    margin-bottom:20px;
+
+}
+
+
+/* COPYRIGHT */
+
+.footer-bottom p{
+
+    color:#6b7280;
+    font-size:13px;
+
 }

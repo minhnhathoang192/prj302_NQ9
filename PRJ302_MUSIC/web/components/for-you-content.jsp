@@ -3,40 +3,43 @@
 
 <section class="for-you-page">
 
-    <!-- BACKGROUND BLUR -->
+    <!-- background gradient -->
     <div class="for-you-bg"></div>
 
-    <!-- BACKGROUND COVER -->
-    <div class="for-you-bg-cover">
-        <img id="fyBgCover" src="assets/img/default.png">
-    </div>
-
-    <!-- MAIN CARD -->
+    <!-- center player -->
     <div class="for-you-card">
 
-        <!-- COVER -->
+        <!-- cover -->
         <div class="for-you-cover">
 
-            <img id="fyCover" src="assets/img/default.png" alt="cover">
-
-            <!-- PLAY / PAUSE -->
-            <div class="music-wave" id="fyPlayBtn">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <img id="fyCover" src="assets/img/default.png">
 
         </div>
 
-        <!-- INFO -->
+        <div class="visualizer" id="visualizer">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+        <!-- info -->
         <div class="for-you-info">
             <h1 id="fyTitle">Chưa chọn bài</h1>
             <p id="fyArtist">---</p>
         </div>
 
-        <!-- PLAYER CONTROLS -->
+        <!-- controls -->
         <div class="for-you-player">
             <button onclick="prevSong()">⏮</button>
             <button onclick="togglePlay()" class="btn-play">▶</button>

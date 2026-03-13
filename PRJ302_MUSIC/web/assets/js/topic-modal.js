@@ -129,19 +129,24 @@ function loadPlaylistByTopic(topicID) {
 
 // ================== BUILD PLAYER ==================
 function buildAndLoadPlayer(list) {
+    console.trace("buildAndLoadPlayer called");
+
+    // nếu playlist đang chạy thì KHÔNG rebuild
+    if (window.isPlayerInitialized) return;
 
     let contextPath = document.body.dataset.context;
 
-    // build playlist
     playlist = list.map(song => ({
-            songID: song.songID,
-            audioURL: contextPath + "/StreamServlet?type=audio&file=" + encodeURIComponent(song.audioURL),
-            title: song.title,
-            coverURL: contextPath + "/StreamServlet?type=cover&file=" + encodeURIComponent(song.coverImage)
-        }));
+        songID: song.songID,
+        audioURL: contextPath + "/StreamServlet?type=audio&file=" + song.audioURL,
+        title: song.title,
+        coverURL: contextPath + "/StreamServlet?type=cover&file=" + song.coverImage
+    }));
 
     currentIndex = 0;
 
-    // chạy bài đầu tiên bằng hệ thống playlist
     playPlaylistSong(currentIndex);
+    
+    // đánh dấu player đã khởi tạo
+    window.isPlayerInitialized = true;
 }

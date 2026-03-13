@@ -62,3 +62,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
     startAutoSlide();
 });
+
+
+// ===== AUDIO =====
+
+const audio = document.getElementById("audio-player");
+
+let audioCtx;
+let analyser;
+let dataArray;
+
+
+// ===== PLAY =====
+
+audio.addEventListener("play", () => {
+
+    const cover = document.querySelector(".for-you-cover img");
+
+    if (cover) {
+        cover.classList.add("beat");
+        cover.classList.add("beatGlow");
+    }
+
+    // khởi tạo analyzer
+
+    if (!audioCtx) {
+
+        audioCtx = new AudioContext();
+
+        const source = audioCtx.createMediaElementSource(audio);
+
+        analyser = audioCtx.createAnalyser();
+
+        analyser.fftSize = 64;
+
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
+
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+    }
+
+    animateVisualizer();
+
+});
+
+
+// ===== PAUSE =====
+
+audio.addEventListener("pause", () => {
+
+    const cover = document.querySelector(".for-you-cover img");
+
+    if (cover) {
+        cover.classList.remove("beat");
+        cover.classList.remove("beatGlow");
+    }
+
+});
+
+
+// ===== VISUALIZER =====
+
+function animateVisualizer() {
+
+    const bars = document.querySelectorAll("#visualizer span");
+
+    if (!analyser)
+        return;
+
+    analyser.getByteFrequencyData(dataArray);
+
+    bars.forEach((bar, i) => {
+
+        const value = dataArray[i] || 0;
+
+        bar.style.height = (value / 2) + "px";
+
+    });
+
+    requestAnimationFrame(animateVisualizer);
+
+}
+
