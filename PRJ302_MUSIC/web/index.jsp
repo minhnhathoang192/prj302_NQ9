@@ -74,6 +74,7 @@
         <jsp:include page="components/footer.jsp"/>
         <jsp:include page="components/login-modal.jsp"/>
         <jsp:include page="components/forgot-modal.jsp"/>
+        <jsp:include page="components/create-account-modal.jsp"/>
         <jsp:include page="components/topic-modal.jsp"/>
         <jsp:include page="components/playlist-modal.jsp"/>
         <jsp:include page="components/playlist-addsong-modal.jsp"/>
@@ -92,11 +93,28 @@
         <script src="assets/js/album.js"></script>
         <script src="assets/js/artist.js"></script>
         <script src="assets/js/home.js"></script>
+        <script src="assets/js/create-account.js"></script>
 
         <c:if test="${not empty message}">
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     openLogin();
+                });
+            </script>
+        </c:if>
+
+        <c:if test="${not empty error || not empty msg}">
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    openRegister();
+                });
+            </script>
+        </c:if>
+
+        <c:if test="${not empty errorEmail || not empty msgEmail}">
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    openForgot();
                 });
             </script>
         </c:if>

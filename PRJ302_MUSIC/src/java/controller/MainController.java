@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.TopicDAO;
 import model.TopicDTO;
+import utils.EmailUtils;
+import utils.PasswordUtils;
 
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024,
@@ -171,8 +173,14 @@ public class MainController extends HttpServlet {
             url = "getSongByIDController";
         } else if(action.equals("getMostFavoriteSongs")){
             url = "getMostFavoriteSongsController";
+        } else if(action.equals("registerAccount")){
+            url = "registerAccountController";
+        }else if(action.equals("forgotPassword")){
+            url = "forgotPasswordController";
+        }else  if(action.equals("resetPassword")){
+            url = "resetPasswordController";
         }
-
+        
         RequestDispatcher rd = request.getRequestDispatcher(url);
         rd.forward(request, response);
     }

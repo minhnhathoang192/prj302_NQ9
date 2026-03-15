@@ -19,7 +19,7 @@
         <!-- LIST TOPIC -->
         <div class="tm-grid">
 
-            <c:forEach var="t" items="${topics}">
+            <c:forEach var="t" items="${sessionScope.topics}">
                 <div class="tm-card"
                      data-id="${t.topicID}"
                      onclick="toggleTopic(this)">

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import model.userDAO;
 import model.userDTO;
+import utils.PasswordUtils;
 
 /**
  *
@@ -41,14 +42,20 @@ public class loginController extends HttpServlet {
         if(session.getAttribute("user")==null){
             String txtUserName= request.getParameter("username");
             String txtPassword= request.getParameter("password");
+            String hasspassword = PasswordUtils.hashPassword(txtPassword);
             
             userDAO udao= new userDAO();
-            userDTO user= udao.login(txtUserName, txtPassword);
+            userDTO user= udao.login(txtUserName, hasspassword);
             System.out.println(user);
             if(user!=null){
                 if(user.getStatus()==1){
-                    request.getSession().setAttribute("user", user);
-                    response.sendRedirect("index.jsp");
+                    session.setAttribute("user", user);
+                    if(user.getRoleID()==1){
+                        session.setAttribute("role", "admin");
+                    }else{
+                        session.setAttribute("role", "user");
+                    }
+                    response.sendRedirect("MainController");
                 }else{
                     response.sendRedirect("error.jsp");
                 }
@@ -58,7 +65,7 @@ public class loginController extends HttpServlet {
                 rd.forward(request, response);
             }
         }else{
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("MainController");
         }
     }
 

@@ -3,18 +3,40 @@ let selectedTopics = [];
 
 // ================== INIT ==================
 window.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("topicModal");
 
-    if (!modal) {
-        console.error("❌ Không tìm thấy topicModal");
-        return;
+    const modal = document.getElementById("topicModal");
+    if (!modal) return;
+
+    const isLoggedIn = document.body.dataset.loggedIn === "true";
+
+    
+    if (isLoggedIn) {
+        sessionStorage.removeItem("askedTopic");
+        sessionStorage.removeItem("userTopics");
     }
 
-    // chỉ hiện 1 lần mỗi session
     if (!sessionStorage.getItem("askedTopic")) {
         modal.classList.add("active");
     }
 });
+
+//change MODAL
+function changeTopic() {
+
+    if (!confirm("Bạn muốn chọn lại chủ đề nhạc?")) {
+        return;
+    }
+    //xoa topic da chon
+    selectedTopics = [];
+    //xoa topic da luu
+    sessionStorage.removeItem("userTopics");
+    //reset UI card
+    document.querySelectorAll(".tm-card").forEach(card => {
+        card.classList.remove("active");
+    });
+    //mo lai modal
+    document.getElementById("topicModal").classList.add("active");
+}
 
 // ================== CLOSE MODAL ==================
 function closeTopicModal() {
@@ -109,13 +131,13 @@ function loadPlaylistByTopic(topicID) {
             .then(res => res.json())
             .then(list => {
 
-                console.log("🔥 LIST NHẬN ĐƯỢC:", list);
-
-                if (list) {
-                    console.log("🔥 LIST LENGTH:", list.length);
-                } else {
-                    console.log("🔥 LIST đang là null hoặc undefined");
-                }
+//                console.log("🔥 LIST NHẬN ĐƯỢC:", list);
+//
+//                if (list) {
+//                    console.log("🔥 LIST LENGTH:", list.length);
+//                } else {
+//                    console.log("🔥 LIST đang là null hoặc undefined");
+//                }
 
                 if (!list || list.length === 0) {
                     alert("❌ Không có bài!");
@@ -129,10 +151,9 @@ function loadPlaylistByTopic(topicID) {
 
 // ================== BUILD PLAYER ==================
 function buildAndLoadPlayer(list) {
-    console.trace("buildAndLoadPlayer called");
 
     // nếu playlist đang chạy thì KHÔNG rebuild
-    if (window.isPlayerInitialized) return;
+//    if (window.isPlayerInitialized) return;
 
     let contextPath = document.body.dataset.context;
 

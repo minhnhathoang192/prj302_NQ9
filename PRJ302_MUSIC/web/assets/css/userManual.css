@@ -1,0 +1,275 @@
+/* ================= GUIDE PAGE ROOT ================= */
+
+.guide-page{
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(180deg,#0f0f0f,#141414,#1a1a1a);
+    color:#eaeaea;
+    line-height:1.8;
+}
+
+
+/* ================= CONTAINER ================= */
+
+.guide-page .guide-container{
+
+    max-width:950px;
+
+    margin:auto;
+
+    padding:70px 35px;
+
+    background:rgba(255,255,255,0.02);
+
+    border-radius:14px;
+
+    backdrop-filter: blur(10px);
+
+}
+
+
+/* ================= MAIN TITLE ================= */
+
+.guide-page h1{
+
+    font-size:38px;
+
+    font-weight:700;
+
+    margin-bottom:45px;
+
+    background: linear-gradient(90deg,#1db954,#4dfcff,#b76bff);
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+
+/* ================= SECTION TITLE ================= */
+
+.guide-page h2{
+
+    font-size:27px;
+
+    margin-top:55px;
+
+    margin-bottom:16px;
+
+    color:#ffffff;
+
+    position:relative;
+
+}
+
+
+/* underline effect */
+
+.guide-page h2::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-6px;
+
+    width:60px;
+
+    height:3px;
+
+    background: linear-gradient(90deg,#1db954,#4dfcff);
+
+    border-radius:4px;
+
+}
+
+
+/* ================= SUB TITLE ================= */
+
+.guide-page h3{
+
+    font-size:20px;
+
+    margin-top:30px;
+
+    margin-bottom:10px;
+
+    color:#f3f3f3;
+
+}
+
+
+/* ================= PARAGRAPH ================= */
+
+.guide-page p{
+
+    margin-bottom:18px;
+
+    font-size:16px;
+
+    color:#d3d3d3;
+
+}
+
+
+/* ================= LIST ================= */
+
+.guide-page ul{
+
+    margin-left:25px;
+
+    margin-bottom:25px;
+
+}
+
+
+.guide-page ul li{
+
+    margin-bottom:10px;
+
+    padding-left:5px;
+
+}
+
+
+/* custom bullet */
+
+.guide-page ul li::marker{
+
+    color:#1db954;
+
+}
+
+
+/* ================= HIGHLIGHT TEXT ================= */
+
+.guide-page p b{
+
+    color:#1db954;
+
+    font-weight:600;
+
+}
+
+
+/* ================= SECTION CARD EFFECT ================= */
+
+.guide-page section{
+
+    background: rgba(255,255,255,0.03);
+
+    padding:25px;
+
+    border-radius:12px;
+
+    margin-bottom:35px;
+
+    transition:all 0.25s ease;
+
+}
+
+
+.guide-page section:hover{
+
+    background: rgba(255,255,255,0.05);
+
+    transform:translateY(-3px);
+
+}
+
+
+/* ================= SCROLL BAR ================= */
+
+.guide-page::-webkit-scrollbar{
+    width:10px;
+}
+
+.guide-page::-webkit-scrollbar-track{
+    background:#111;
+}
+
+.guide-page::-webkit-scrollbar-thumb{
+
+    background: linear-gradient(180deg,#1db954,#4dfcff);
+
+    border-radius:10px;
+
+}
+
+
+/* ================= SMOOTH SCROLL ================= */
+
+.guide-page{
+    scroll-behavior:smooth;
+}
+
+
+/* ================= MUSIC GLOW BACKGROUND ================= */
+
+.guide-page::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:600px;
+
+    height:600px;
+
+    background: radial-gradient(circle,#1db95433,transparent);
+
+    top:-200px;
+
+    left:-200px;
+
+    z-index:-1;
+
+}
+
+
+.guide-page::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:600px;
+
+    height:600px;
+
+    background: radial-gradient(circle,#4dfcff22,transparent);
+
+    bottom:-250px;
+
+    right:-200px;
+
+    z-index:-1;
+
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+    .guide-page .guide-container{
+
+        padding:50px 22px;
+
+    }
+
+    .guide-page h1{
+
+        font-size:30px;
+
+    }
+
+    .guide-page h2{
+
+        font-size:22px;
+
+    }
+
+}

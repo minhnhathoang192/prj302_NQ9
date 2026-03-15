@@ -7,19 +7,19 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.userDAO;
 import model.userDTO;
+import utils.PasswordUtils;
 
 /**
  *
  * @author NQ9
  */
-public class addUserController extends HttpServlet {
+public class registerAccountController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,49 +36,48 @@ public class addUserController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        userDAO udao = new userDAO();
-        String url = "";
+        String url = "index.jsp";
         String error = "";
         String msg = "";
-        /*
-                private String userID, userName, email, password, avatar, fullName;
-                private Date birthday;
-                private String gender;
-                private Timestamp createDate, lastLogin;
-                private int status, roleID;
-         */
         try {
             String userName = request.getParameter("userName");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
+            String confirmPassword = request.getParameter("confirmPassword");
             String fullName = request.getParameter("fullName");
             String s_birthday = request.getParameter("birthday");
             String gender = request.getParameter("gender");
 
-            userName = userName.trim();
-            if (userName.isEmpty()) {
-                error += "Chua nhap User name";
+            if (userName == null || userName.trim().isEmpty()) {
+                error += "chua nhap userName";
             }
-            email = email.trim();
-            if (email.isEmpty()) {
-                error += "Chua nhap User email";
+            if (email == null || email.trim().isEmpty()) {
+                error += "chua nhap email";
             }
-            password = password.trim();
-            if (password.isEmpty()) {
-                error += "Chua nhap User password";
+            if (password == null || password.trim().isEmpty()) {
+                error += "chua nhap password";
             }
-            fullName = fullName.trim();
-            if (fullName.isEmpty()) {
-                error += "Chua nhap User fullName";
+            if (confirmPassword == null || confirmPassword.trim().isEmpty()) {
+                error += "chua nhap confirmPassword";
             }
-
+            if (password != null && !password.equals(confirmPassword)) {
+                error += "Mật khẩu không khớp<br>";
+            }
+            if (fullName == null || fullName.trim().isEmpty()) {
+                error += "chua nhap fullName";
+            }
             Date birthday = null;
-
-            if (s_birthday != null && !s_birthday.trim().isEmpty()) {
+            try {
                 birthday = Date.valueOf(s_birthday);
+            } catch (Exception e) {
+                error += "ngay khong hop le";
+            }
+            if (gender == null || gender.trim().isEmpty()) {
+                error += "chua nhap gender";
             }
 
-            userDTO user = new userDTO();
+            String hashPassword = null;
+            userDAO udao = new userDAO();
             if(error.isEmpty()){
                 if(udao.findByUserName(userName)!=null){
                     error+="userName da ton tai<br>";
@@ -87,29 +86,25 @@ public class addUserController extends HttpServlet {
                     error+="Email da ton tai<br>";
                 }
             }
-
             if (error.isEmpty()) {
-                user = new userDTO(null, userName, email, password, null, fullName, birthday, gender, null, null, 1, 2);
-
+                hashPassword = PasswordUtils.hashPassword(password);
+                userDTO user = new userDTO(null, userName, email, hashPassword, null, fullName, birthday, gender, null, null, 1, 2);
+                
                 if (udao.createUser(user)) {
-                    msg += "tao Thanh Cong!";
+                    msg += "tao tai khoan thanh cong!";
                 } else {
-                    error += "tao khong thanh cong!";
-                    request.setAttribute("u", user);
+                    error += "tao tai khoan that bai!";
                 }
                 request.setAttribute("msg", msg);
             }
             request.setAttribute("error", error);
-            url = "User-Form.jsp";
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        RequestDispatcher rd = request.getRequestDispatcher(url);
-        rd.forward(request, response);
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -29,7 +29,7 @@
 
     <!-- RIGHT -->
     <div class="header-right">
-        <button class="vip-btn" onclick="showPage('vip')">FREE VIP</button>
+        <button class="vip-btn" onclick="changeTopic()">CHỌN TOPIC</button>
         <div id="authArea">
 
             <c:choose>
@@ -87,15 +87,13 @@
         <div class="settings-wrapper">
             <button class="header-icon" onclick="toggleSettings()">⚙</button>
 
-            <div class="settings-menu" id="settingsMenu">
-                <div class="settings-item">
-                    🌐 <span>Language</span>
-                    <span class="arrow">›</span>
-                </div>
+            <div class="settings-menu" id="settingsMenu"> 
 
-                <div class="settings-item">
-                    🛟 <span>Hướng dẫn và hỗ trợ</span>
-                </div>
+                <a href="userManual.jsp" class="settings-link">
+                    <div class="settings-item">
+                        🛟 <span >Hướng dẫn và hỗ trợ</span>
+                    </div>
+                </a>
 
                 <div class="settings-item">
                     💬 <span>Góp ý</span>

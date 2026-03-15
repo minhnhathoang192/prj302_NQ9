@@ -80,13 +80,43 @@ public class userDAO {
         return user;
     }
 
-    private userDTO findByUserName(String UserName) {
+    public userDTO findByUserName(String UserName) {
         userDTO user = null;
         try {
             Connection conn = DbUtils.getConnection();
             String sql = "SELECT * FROM USERS WHERE userName=?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, UserName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String userID = rs.getString("userID");
+                String userName = rs.getString("userName");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String avatar = rs.getString("avatar");
+                String fullName = rs.getString("fullName");
+                Date birthday = rs.getDate("birthday");
+                String gender = rs.getString("gender");
+                Timestamp createDate = rs.getTimestamp("createDate");
+                Timestamp lastLogin = rs.getTimestamp("lastLogin");
+                int status = rs.getInt("status");
+                int roleID = rs.getInt("roleID");
+                user = new userDTO(userID, userName, email, password, avatar, fullName, birthday, gender, createDate, lastLogin, status, roleID);
+            }
+            System.out.println(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
+    public userDTO findByEmail(String Email) {
+        userDTO user = null;
+        try {
+            Connection conn = DbUtils.getConnection();
+            String sql = "SELECT * FROM USERS WHERE email=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, Email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String userID = rs.getString("userID");
@@ -246,5 +276,65 @@ public class userDAO {
         }
         
         return result > 0;
+    }
+
+    public boolean saveRestToken(String email, String token) {
+        try {
+            Connection conn= DbUtils.getConnection();
+            String sql = "UPDATE USERS SET resetToken=? WHERE email=?";
+            PreparedStatement ps= conn.prepareStatement(sql);
+            
+            ps.setString(1, token);
+            ps.setString(2, email);
+            
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public userDTO findByResetToken(String tokenEmail) {
+        userDTO user= null;
+        try {
+            Connection conn= DbUtils.getConnection();
+            String sql = "SELECT * FROM USERS WHERE resetToken=?";
+            PreparedStatement ps= conn.prepareStatement(sql);
+            ps.setString(1, tokenEmail);
+            ResultSet rs= ps.executeQuery();
+            if(rs.next()){
+                String userID = rs.getString("userID");
+                String userName = rs.getString("userName");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String avatar = rs.getString("avatar");
+                String fullName = rs.getString("fullName");
+                Date birthday = rs.getDate("birthday");
+                String gender = rs.getString("gender");
+                Timestamp createDate = rs.getTimestamp("createDate");
+                Timestamp lastLogin = rs.getTimestamp("lastLogin");
+                int status = rs.getInt("status");
+                int roleID = rs.getInt("roleID");
+                user = new userDTO(userID, userName, email, password, avatar, fullName, birthday, gender, createDate, lastLogin, status, roleID);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public boolean restPassword(String hashPassword, String tokenEmail) {
+        try {
+            Connection conn= DbUtils.getConnection();
+            String sql = "UPDATE USERS SET password=?, resetToken=NULL WHERE resetToken=?";
+            PreparedStatement ps= conn.prepareStatement(sql);
+            ps.setString(1, hashPassword);
+            ps.setString(2, tokenEmail);
+            
+            return ps.executeUpdate()>0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

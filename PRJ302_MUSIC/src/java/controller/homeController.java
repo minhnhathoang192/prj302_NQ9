@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.TopicDAO;
 import model.TopicDTO;
 
@@ -35,11 +36,15 @@ public class homeController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        HttpSession session= request.getSession();
         
-        TopicDAO tdao= new TopicDAO();
-        List<TopicDTO> topics= tdao.getAllTopic(null);
+        if(session.getAttribute("topics")==null){
+            TopicDAO tdao= new TopicDAO();
+            List<TopicDTO> topics= tdao.getAllTopic(null);
+
+            session.setAttribute("topics", topics);
+        }
         
-        request.setAttribute("topics", topics);
         
         RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
         rd.forward(request, response);

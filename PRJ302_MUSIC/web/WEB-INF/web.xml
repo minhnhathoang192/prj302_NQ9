@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>controller.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>loginController</servlet-name>
         <servlet-class>controller.loginController</servlet-class>
@@ -248,6 +256,18 @@
         <servlet-name>getMostFavoriteSongsController</servlet-name>
         <servlet-class>controller.getMostFavoriteSongsController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>registerAccountController</servlet-name>
+        <servlet-class>controller.registerAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>forgotPasswordController</servlet-name>
+        <servlet-class>controller.forgotPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>resetPasswordController</servlet-name>
+        <servlet-class>controller.resetPasswordController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -495,6 +515,18 @@
     <servlet-mapping>
         <servlet-name>getMostFavoriteSongsController</servlet-name>
         <url-pattern>/getMostFavoriteSongsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registerAccountController</servlet-name>
+        <url-pattern>/registerAccountController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>forgotPasswordController</servlet-name>
+        <url-pattern>/forgotPasswordController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>resetPasswordController</servlet-name>
+        <url-pattern>/resetPasswordController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

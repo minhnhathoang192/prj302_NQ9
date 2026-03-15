@@ -10,13 +10,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import model.userDAO;
+import model.userDTO;
+import utils.PasswordUtils;
 
 /**
  *
  * @author NQ9
  */
-public class logoutController extends HttpServlet {
+public class resetPasswordController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,14 +34,41 @@ public class logoutController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String url="";
-        HttpSession session= request.getSession();
-        if(session.getAttribute("user")!=null){
-            session.invalidate();
-        }  
-        
-        url="index.jsp";
-        response.sendRedirect(url);
+
+        String url = "components/rest-password.jsp";
+        String errorEmail = "";
+        String msgEmail = "";
+        try {
+            String tokenEmail = request.getParameter("tokenEmail");
+            String password = request.getParameter("password");
+            String confirmPassword = request.getParameter("confirmPassword");
+            if (password == null || !password.equals(confirmPassword) || confirmPassword == null) {
+                errorEmail += "confirm Password khong khop";
+            }
+            String hashPassword = null;
+            userDAO udao = new userDAO();
+            if (errorEmail.isEmpty()) {
+
+                userDTO user = udao.findByResetToken(tokenEmail);
+                if (user == null) {
+                    errorEmail += "Link reset không hợp lệ";
+                } else {
+                    hashPassword = PasswordUtils.hashPassword(password);
+                    boolean restSeccess = udao.restPassword(hashPassword, tokenEmail);
+
+                    if (restSeccess) {
+                        msgEmail += "Doi mk thanh cong!";
+                    } else {
+                        errorEmail += "Doi mk that bai!";
+                    }
+                }
+            }
+            request.setAttribute("errorEmail", errorEmail);
+            request.setAttribute("msgEmail", msgEmail);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

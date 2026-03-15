@@ -6,14 +6,31 @@
 
         <h2>Cài đặt lại mật khẩu</h2>
 
-        <form class="login-form">
+        <form action="MainController" method="post" class="login-form">
+
+            <input type="hidden" name="action" value="forgotPassword">
+
             <input type="email"
+                   name="email"
                    placeholder="Nhập email của bạn"
                    required>
+            
+            <c:if test="${not empty errorEmail}">
+                <div style="color:red;">
+                    ${errorEmail}
+                </div>
+            </c:if>
+
+            <c:if test="${not empty msgEmail}">
+                <div style="color:green;">
+                    ${msgEmail}
+                </div>
+            </c:if>
 
             <button type="submit" class="login-submit">
-                Gửi mã
+                Gửi link reset
             </button>
+
         </form>
     </div>
 </div>

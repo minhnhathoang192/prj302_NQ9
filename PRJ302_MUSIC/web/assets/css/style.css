@@ -5851,3 +5851,9 @@ body {
     font-size:13px;
 
 }
+
+.settings-link{
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}

@@ -29,6 +29,8 @@
                         </div>
 
                         <a href="#" class="forgot-link" onclick="openForgot()">Quên mật khẩu?</a>
+                        
+                         <a href="#" class="forgot-link" onclick="openRegister()">Tạo tài khoản</a>
 
                     </div>
 
@@ -46,15 +48,5 @@
                     </div>
                     <button type="submit" class="login-submit">Đăng nhập</button>
                 </form>
-
-
-                <div class="login-divider">Hoặc đăng nhập bằng</div>
-
-                <div class="login-social">
-                    <button>Facebook</button>
-                    <button>Google</button>
-                    <button>SĐT</button>
-                    <button>QR</button>
-                </div>
             </div>
         </div>
