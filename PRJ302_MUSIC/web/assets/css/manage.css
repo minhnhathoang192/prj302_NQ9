@@ -1,0 +1,1972 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 16, 2026, 10:03:44 PM
+    Author     : NQ9
+*/
+
+.user-manage-container{
+    width:95%;
+    margin:auto;
+    font-family:Segoe UI, sans-serif;
+}
+
+/* TITLE */
+
+.user-manage-title{
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+/* ADD BUTTON */
+
+.user-manage-add-btn{
+    background:#1db954;
+    color:white;
+    padding:10px 16px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.user-manage-add-btn:hover{
+    background:#18a74a;
+}
+
+/* SEARCH */
+
+.user-manage-search{
+    margin-top:10px;
+}
+
+.user-manage-search-input{
+    padding:8px 12px;
+    width:250px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.user-manage-search-btn{
+    padding:8px 16px;
+    background:#333;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.user-manage-search-btn:hover{
+    background:#555;
+}
+
+/* TABLE */
+
+.user-manage-table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+.user-manage-table th{
+    background:#111;
+    color:white;
+    padding:12px;
+}
+
+.user-manage-table td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+.user-manage-table tr:hover{
+    background:#f5f5f5;
+}
+
+/* PASSWORD */
+
+.user-manage-password{
+    max-width:150px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+/* ROLE */
+
+.user-manage-role-admin{
+    color:#ff9800;
+    font-weight:600;
+}
+
+.user-manage-role-user{
+    color:#2196f3;
+    font-weight:600;
+}
+
+/* STATUS */
+
+.user-manage-status-active{
+    color:#1db954;
+    font-weight:600;
+}
+
+.user-manage-status-inactive{
+    color:red;
+    font-weight:600;
+}
+
+/* EDIT */
+
+.user-manage-edit{
+    color:#007bff;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.user-manage-edit:hover{
+    text-decoration:underline;
+}
+
+/* DELETE */
+
+.user-manage-delete{
+    background:#dc3545;
+    border:none;
+    color:white;
+    padding:6px 12px;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.user-manage-delete:hover{
+    background:#b52a37;
+}
+
+/* EMPTY */
+
+.user-manage-empty{
+    color:#777;
+    font-style:italic;
+}
+
+
+/* EDIT USER PAGE */
+
+.user-manage-edit-container{
+    width:420px;
+    margin:60px auto;
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.08);
+    font-family:Segoe UI, sans-serif;
+}
+
+.user-manage-edit-title{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:24px;
+}
+
+/* FORM */
+
+.user-manage-edit-group{
+    margin-bottom:15px;
+    display:flex;
+    flex-direction:column;
+}
+
+.user-manage-edit-group label{
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.user-manage-edit-group input,
+.user-manage-edit-group select{
+    padding:8px 10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:14px;
+}
+
+.user-manage-edit-group input:focus,
+.user-manage-edit-group select:focus{
+    outline:none;
+    border-color:#1db954;
+}
+
+/* BUTTON */
+
+.user-manage-edit-actions{
+    text-align:center;
+    margin-top:20px;
+}
+
+.user-manage-edit-btn{
+    background:#1db954;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.user-manage-edit-btn:hover{
+    background:#18a74a;
+}
+
+/* MESSAGE */
+
+.user-manage-edit-msg{
+    text-align:center;
+    color:green;
+    margin-top:10px;
+}
+
+.user-manage-edit-error{
+    text-align:center;
+    color:red;
+    margin-top:10px;
+}
+
+/* REGISTER FORM */
+
+.user-manage-form-container{
+    width:380px;
+    margin:80px auto;
+    padding:30px;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    font-family:Segoe UI, sans-serif;
+}
+
+.user-manage-form-title{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:24px;
+}
+
+/* GROUP */
+
+.user-manage-form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+}
+
+.user-manage-form-group label{
+    margin-bottom:5px;
+    font-weight:600;
+}
+
+.user-manage-form-group input,
+.user-manage-form-group select{
+    padding:8px 10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:14px;
+}
+
+/* focus */
+
+.user-manage-form-group input:focus,
+.user-manage-form-group select:focus{
+    outline:none;
+    border-color:#1db954;
+}
+
+/* button */
+
+.user-manage-form-action{
+    text-align:center;
+    margin-top:20px;
+}
+
+.user-manage-form-btn{
+    padding:10px 20px;
+    background:#1db954;
+    color:white;
+    border:none;
+    border-radius:6px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.user-manage-form-btn:hover{
+    background:#18a74a;
+}
+
+/* message */
+
+.user-manage-form-msg{
+    text-align:center;
+    color:green;
+    margin-top:10px;
+}
+
+.user-manage-form-error{
+    text-align:center;
+    color:red;
+    margin-top:10px;
+}
+/*////////////////////////////////////////////////////*/
+/*song*/
+/*////////////////////////////////////////////////////*/
+
+/* ===== PAGE ===== */
+.manage-song{
+    padding:40px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#f7f9fc;
+    min-height:100vh;
+}
+
+/* ===== TITLE ===== */
+.manage-song h2{
+    font-size:26px;
+    margin-bottom:20px;
+    color:#222;
+}
+
+/* ===== ADD BUTTON ===== */
+.manage-song-add-btn{
+    display:inline-block;
+    background:#1db954;
+    color:white;
+    padding:10px 18px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:500;
+    margin-bottom:20px;
+    transition:0.2s;
+}
+
+.manage-song-add-btn:hover{
+    background:#17a44a;
+}
+
+/* ===== SEARCH ===== */
+.manage-song-search{
+    margin-bottom:20px;
+}
+
+.manage-song-search input{
+    padding:8px 10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    width:220px;
+    outline:none;
+}
+
+.manage-song-search button{
+    padding:8px 14px;
+    border:none;
+    border-radius:5px;
+    background:#4c6ef5;
+    color:white;
+    cursor:pointer;
+    margin-left:5px;
+}
+
+.manage-song-search button:hover{
+    background:#3b5bdb;
+}
+
+/* ===== MESSAGE ===== */
+.manage-song-success{
+    color:#2f9e44;
+    margin-top:10px;
+}
+
+.manage-song-error{
+    color:#e03131;
+    margin-top:10px;
+}
+
+/* ===== TABLE ===== */
+.manage-song-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.manage-song-table th{
+    background:#f1f3f5;
+    padding:12px;
+    font-size:14px;
+    text-align:center;
+}
+
+.manage-song-table td{
+    padding:10px;
+    text-align:center;
+    border-top:1px solid #eee;
+}
+
+.manage-song-table tr:hover{
+    background:#fafafa;
+}
+
+/* ===== AUDIO PLAYER ===== */
+.manage-song-table audio{
+    width:160px;
+}
+
+/* ===== COVER IMAGE ===== */
+.manage-song-table img{
+    border-radius:6px;
+    object-fit:cover;
+}
+
+/* ===== STATUS ===== */
+.manage-song-active{
+    color:#2f9e44;
+    font-weight:600;
+}
+
+.manage-song-inactive{
+    color:#e03131;
+    font-weight:600;
+}
+
+/* ===== INLINE FORM ===== */
+.manage-song-inline-form{
+    display:flex;
+    gap:5px;
+    justify-content:center;
+}
+
+.manage-song-inline-form select{
+    padding:5px;
+    border-radius:4px;
+    border:1px solid #ccc;
+}
+
+.manage-song-inline-form button{
+    background:#4c6ef5;
+    color:white;
+    border:none;
+    padding:5px 10px;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.manage-song-inline-form button:hover{
+    background:#3b5bdb;
+}
+
+/* ===== EDIT BUTTON ===== */
+.manage-song-edit-btn{
+    background:#339af0;
+    color:white;
+    padding:6px 12px;
+    border-radius:5px;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.manage-song-edit-btn:hover{
+    background:#1c7ed6;
+}
+
+/* ===== DELETE BUTTON ===== */
+.manage-song-delete-btn{
+    background:#fa5252;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.manage-song-delete-btn:hover{
+    background:#e03131;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:1200px){
+
+    .manage-song-table{
+        font-size:13px;
+    }
+
+    .manage-song-table audio{
+        width:120px;
+    }
+
+}
+
+
+/* ===== PAGE ===== */
+.song-manage-edit{
+    background:#f6f8fb;
+    min-height:100vh;
+    padding:40px;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+/* ===== CARD ===== */
+.song-manage-edit-card{
+    display:flex;
+    gap:40px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    margin-bottom:30px;
+}
+
+/* ===== LEFT SIDE ===== */
+.song-manage-edit-left{
+    width:260px;
+    text-align:center;
+}
+
+.song-manage-edit-cover-preview{
+    width:220px;
+    height:220px;
+    border:2px dashed #ddd;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    margin:auto;
+    background:#fafafa;
+}
+
+.song-manage-edit-cover-preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* BUTTON CHOOSE COVER */
+.song-manage-edit-cover-btn{
+    margin-top:15px;
+    padding:8px 16px;
+    border:none;
+    border-radius:6px;
+    background:#4c6ef5;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.song-manage-edit-cover-btn:hover{
+    background:#364fc7;
+}
+
+/* ===== RIGHT SIDE ===== */
+.song-manage-edit-right{
+    flex:1;
+}
+
+.song-manage-edit-right h2{
+    margin-bottom:20px;
+    font-size:24px;
+}
+
+/* ===== FORM ===== */
+.song-manage-edit-group{
+    margin-bottom:18px;
+}
+
+.song-manage-edit-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.song-manage-edit-group input,
+.song-manage-edit-group select,
+.song-manage-edit-group textarea{
+    width:100%;
+    padding:8px 10px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    outline:none;
+    font-size:14px;
+}
+
+.song-manage-edit-group textarea{
+    min-height:100px;
+}
+
+/* ROW */
+.song-manage-edit-row{
+    display:flex;
+    gap:20px;
+}
+
+.song-manage-edit-row .song-manage-edit-group{
+    flex:1;
+}
+
+/* NOTE */
+.song-manage-edit-note{
+    font-size:12px;
+    color:#888;
+    margin-top:4px;
+}
+
+/* SAVE BUTTON */
+.song-manage-edit-btn{
+    margin-top:10px;
+    padding:10px 20px;
+    border:none;
+    border-radius:6px;
+    background:#1db954;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.song-manage-edit-btn:hover{
+    background:#17a44a;
+}
+
+/* MESSAGE */
+.song-manage-edit-success{
+    color:#2f9e44;
+    margin-top:10px;
+}
+
+.song-manage-edit-error{
+    color:#e03131;
+    margin-top:10px;
+}
+
+/* ===== TABLE ===== */
+.song-manage-edit-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+    margin-bottom:30px;
+}
+
+.song-manage-edit-table th{
+    background:#f1f3f5;
+    padding:10px;
+    text-align:center;
+}
+
+.song-manage-edit-table td{
+    padding:10px;
+    text-align:center;
+    border-top:1px solid #eee;
+}
+
+.song-manage-edit-table tr:hover{
+    background:#fafafa;
+}
+
+/* REMOVE BUTTON */
+.song-manage-edit-table button{
+    padding:6px 12px;
+    border:none;
+    border-radius:5px;
+    background:#fa5252;
+    color:white;
+    cursor:pointer;
+}
+
+.song-manage-edit-table button:hover{
+    background:#e03131;
+}
+
+/* ===== SECTION TITLE ===== */
+.song-manage-edit h3{
+    margin:20px 0 10px 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:1000px){
+
+    .song-manage-edit-card{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .song-manage-edit-left{
+        width:100%;
+    }
+
+    .song-manage-edit-row{
+        flex-direction:column;
+    }
+
+}
+
+/* ===== PAGE ===== */
+
+.manage-song-upload{
+    min-height:100vh;
+    background:#f6f8fb;
+    padding:40px;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+/* ===== CARD ===== */
+
+.manage-song-upload-card{
+    max-width:900px;
+    margin:auto;
+    display:flex;
+    gap:40px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* ===== LEFT SIDE ===== */
+
+.manage-song-upload-left{
+    width:260px;
+    text-align:center;
+}
+
+.manage-song-upload-cover-preview{
+    width:220px;
+    height:220px;
+    border:2px dashed #dcdcdc;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:#fafafa;
+}
+
+.manage-song-upload-cover-preview span{
+    color:#888;
+}
+
+.manage-song-upload-cover-preview img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* BUTTON */
+
+.manage-song-upload-cover-btn{
+    margin-top:15px;
+    padding:8px 18px;
+    border:none;
+    border-radius:6px;
+    background:#4c6ef5;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.manage-song-upload-cover-btn:hover{
+    background:#364fc7;
+}
+
+/* ===== RIGHT SIDE ===== */
+
+.manage-song-upload-right{
+    flex:1;
+}
+
+.manage-song-upload-right h2{
+    margin-bottom:20px;
+}
+
+/* ===== FORM GROUP ===== */
+
+.manage-song-upload-group{
+    margin-bottom:18px;
+}
+
+.manage-song-upload-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.manage-song-upload-group input,
+.manage-song-upload-group textarea,
+.manage-song-upload-group select{
+    width:100%;
+    padding:9px 10px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    outline:none;
+    font-size:14px;
+}
+
+.manage-song-upload-group textarea{
+    min-height:100px;
+}
+
+/* ROW */
+
+.manage-song-upload-row{
+    display:flex;
+    gap:20px;
+}
+
+.manage-song-upload-row .manage-song-upload-group{
+    flex:1;
+}
+
+/* ===== SUBMIT BUTTON ===== */
+
+.manage-song-upload-btn{
+    margin-top:10px;
+    padding:10px 22px;
+    border:none;
+    border-radius:6px;
+    background:#1db954;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.manage-song-upload-btn:hover{
+    background:#17a44a;
+}
+
+/* ===== MESSAGE ===== */
+
+.manage-song-upload-success{
+    margin-top:10px;
+    color:#2f9e44;
+}
+
+.manage-song-upload-error{
+    margin-top:10px;
+    color:#e03131;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width:900px){
+
+    .manage-song-upload-card{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .manage-song-upload-row{
+        flex-direction:column;
+    }
+
+}
+/*/////////////////////////////////////////////////*/
+/*playlist*/
+/*///////////////////////////////////////////*/
+.manage-playlist{
+    padding:40px;
+    font-family:"Segoe UI", Arial, sans-serif;
+    background:#f6f8fb;
+    min-height:100vh;
+}
+
+/* TITLE */
+.manage-playlist h2{
+    margin-bottom:20px;
+}
+
+/* ADD BUTTON */
+
+.manage-playlist-add-btn{
+    display:inline-block;
+    background:#1db954;
+    color:white;
+    padding:8px 16px;
+    border-radius:6px;
+    text-decoration:none;
+    margin-bottom:15px;
+}
+
+.manage-playlist-add-btn:hover{
+    background:#17a44a;
+}
+
+/* SEARCH */
+
+.manage-playlist-search{
+    margin-bottom:20px;
+}
+
+.manage-playlist-search input{
+    padding:7px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+.manage-playlist-search button{
+    padding:7px 12px;
+    border:none;
+    background:#4c6ef5;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.manage-playlist-search button:hover{
+    background:#364fc7;
+}
+
+/* MESSAGE */
+
+.manage-playlist-success{
+    color:#2f9e44;
+}
+
+.manage-playlist-error{
+    color:#e03131;
+}
+
+/* TABLE */
+
+.manage-playlist-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+
+.manage-playlist-table th{
+    background:#f1f3f5;
+    padding:10px;
+}
+
+.manage-playlist-table td{
+    padding:10px;
+    text-align:center;
+    border-top:1px solid #eee;
+}
+
+.manage-playlist-table tr:hover{
+    background:#fafafa;
+}
+
+/* PUBLIC / PRIVATE */
+
+.manage-playlist-public{
+    color:#2f9e44;
+    font-weight:bold;
+}
+
+.manage-playlist-private{
+    color:#e03131;
+    font-weight:bold;
+}
+
+/* FORM */
+
+.manage-playlist-inline-form{
+    display:flex;
+    gap:5px;
+    justify-content:center;
+}
+
+.manage-playlist-inline-form select{
+    padding:4px;
+}
+
+/* VIEW */
+
+.manage-playlist-view-btn{
+    background:#339af0;
+    color:white;
+    padding:6px 12px;
+    border-radius:5px;
+    text-decoration:none;
+}
+
+.manage-playlist-view-btn:hover{
+    background:#1c7ed6;
+}
+
+/* DELETE */
+
+.manage-playlist-delete-btn{
+    background:#fa5252;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.manage-playlist-delete-btn:hover{
+    background:#e03131;
+}
+
+/* PAGE */
+
+.manage-playlist-form{
+    background:#f6f8fb;
+    min-height:100vh;
+    padding:40px;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+/* CARD */
+
+.manage-playlist-form-card{
+    max-width:800px;
+    margin:auto;
+    display:flex;
+    gap:40px;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* LEFT */
+
+.manage-playlist-form-left{
+    width:200px;
+    text-align:center;
+}
+
+.manage-playlist-form-cover-preview{
+    width:180px;
+    height:180px;
+    border:2px dashed #ddd;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fafafa;
+}
+
+/* RIGHT */
+
+.manage-playlist-form-right{
+    flex:1;
+}
+
+.manage-playlist-form-right h2{
+    margin-bottom:20px;
+}
+
+/* FORM GROUP */
+
+.manage-playlist-form-group{
+    margin-bottom:16px;
+}
+
+.manage-playlist-form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.manage-playlist-form-group input,
+.manage-playlist-form-group select{
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+/* BUTTON */
+
+.manage-playlist-form-btn{
+    padding:10px 18px;
+    border:none;
+    border-radius:6px;
+    background:#1db954;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.manage-playlist-form-btn:hover{
+    background:#17a44a;
+}
+
+/* MESSAGE */
+
+.manage-playlist-form-success{
+    color:#2f9e44;
+    margin-top:10px;
+}
+
+.manage-playlist-form-error{
+    color:#e03131;
+    margin-top:10px;
+}
+
+/* TABLE */
+
+.manage-playlist-form-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    margin-top:20px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+
+.manage-playlist-form-table th{
+    background:#f1f3f5;
+    padding:10px;
+}
+
+.manage-playlist-form-table td{
+    padding:10px;
+    text-align:center;
+    border-top:1px solid #eee;
+}
+
+.manage-playlist-form-table tr:hover{
+    background:#fafafa;
+}
+
+/* REMOVE */
+
+.manage-playlist-form-remove-btn{
+    background:#fa5252;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.manage-playlist-form-remove-btn:hover{
+    background:#e03131;
+}
+
+/*/////////////////////////////////////////////*/
+/*topic*/
+/*///////////////////////////////*/
+.manage-topic{
+    padding:40px;
+    background:#f6f8fb;
+    font-family:"Segoe UI", Arial, sans-serif;
+    min-height:100vh;
+}
+
+/* TITLE */
+
+.manage-topic h2{
+    margin-bottom:20px;
+}
+
+/* ADD BUTTON */
+
+.manage-topic-add-btn{
+    display:inline-block;
+    background:#1db954;
+    color:white;
+    padding:8px 16px;
+    border-radius:6px;
+    text-decoration:none;
+    margin-bottom:15px;
+}
+
+.manage-topic-add-btn:hover{
+    background:#17a44a;
+}
+
+/* SEARCH */
+
+.manage-topic-search{
+    margin-bottom:20px;
+}
+
+.manage-topic-search input{
+    padding:7px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+.manage-topic-search button{
+    padding:7px 12px;
+    border:none;
+    background:#4c6ef5;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.manage-topic-search button:hover{
+    background:#364fc7;
+}
+
+/* MESSAGE */
+
+.manage-topic-success{
+    color:#2f9e44;
+}
+
+.manage-topic-error{
+    color:#e03131;
+}
+
+/* TABLE */
+
+.manage-topic-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.manage-topic-table th{
+    background:#f1f3f5;
+    padding:10px;
+}
+
+.manage-topic-table td{
+    padding:10px;
+    border-top:1px solid #eee;
+    text-align:center;
+}
+
+.manage-topic-table tr:hover{
+    background:#fafafa;
+}
+
+/* STATUS */
+
+.manage-topic-active{
+    color:#2f9e44;
+    font-weight:bold;
+}
+
+.manage-topic-inactive{
+    color:#e03131;
+    font-weight:bold;
+}
+
+/* INLINE FORM */
+
+.manage-topic-inline-form{
+    display:flex;
+    gap:5px;
+    justify-content:center;
+}
+
+.manage-topic-inline-form select{
+    padding:4px;
+}
+
+/* EDIT */
+
+.manage-topic-edit-btn{
+    background:#339af0;
+    color:white;
+    padding:6px 12px;
+    border-radius:5px;
+    text-decoration:none;
+}
+
+.manage-topic-edit-btn:hover{
+    background:#1c7ed6;
+}
+
+/* DELETE */
+
+.manage-topic-delete-btn{
+    background:#fa5252;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.manage-topic-delete-btn:hover{
+    background:#e03131;
+}
+
+
+/* PAGE */
+
+.manage-topic-form{
+    background:#f6f8fb;
+    font-family:"Segoe UI", Arial, sans-serif;
+    padding:40px;
+    min-height:100vh;
+}
+
+/* CONTAINER */
+
+.manage-topic-form-container{
+    max-width:900px;
+    margin:auto;
+}
+
+/* FORM CARD */
+
+.manage-topic-form-card{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    margin-bottom:30px;
+}
+
+/* GROUP */
+
+.manage-topic-form-group{
+    margin-bottom:18px;
+}
+
+.manage-topic-form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.manage-topic-form-group input,
+.manage-topic-form-group textarea,
+.manage-topic-form-group select{
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.manage-topic-form-group textarea{
+    min-height:80px;
+}
+
+/* COVER */
+
+.manage-topic-form-cover{
+    width:160px;
+    height:160px;
+    border:2px dashed #ddd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:8px;
+    margin-bottom:10px;
+    overflow:hidden;
+    background:#fafafa;
+}
+
+.manage-topic-form-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* BUTTON */
+
+.manage-topic-form-btn{
+    background:#1db954;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.manage-topic-form-btn:hover{
+    background:#17a44a;
+}
+
+/* TABLE */
+
+.manage-topic-form-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+}
+
+.manage-topic-form-table th{
+    background:#f1f3f5;
+    padding:10px;
+}
+
+.manage-topic-form-table td{
+    padding:10px;
+    text-align:center;
+    border-top:1px solid #eee;
+}
+
+.manage-topic-form-table tr:hover{
+    background:#fafafa;
+}
+
+/* REMOVE BUTTON */
+
+.manage-topic-form-remove-btn{
+    background:#fa5252;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.manage-topic-form-remove-btn:hover{
+    background:#e03131;
+}
+
+/* MESSAGE */
+
+.manage-topic-form-error{
+    color:#e03131;
+    margin-top:10px;
+}
+
+.manage-topic-form-success{
+    color:#2f9e44;
+    margin-top:10px;
+}
+
+/*////////////////////////////////////////////////////////*/
+/*album*/
+/*////////////////////////*/
+.manage-album{
+    padding:40px;
+    background:#f6f8fb;
+    font-family:"Segoe UI", Arial, sans-serif;
+    min-height:100vh;
+}
+
+/* TITLE */
+
+.manage-album h2{
+    margin-bottom:20px;
+}
+
+/* ADD BUTTON */
+
+.manage-album-add-btn{
+    display:inline-block;
+    background:#1db954;
+    color:white;
+    padding:8px 16px;
+    border-radius:6px;
+    text-decoration:none;
+    margin-bottom:15px;
+}
+
+.manage-album-add-btn:hover{
+    background:#17a44a;
+}
+
+/* SEARCH */
+
+.manage-album-search{
+    margin-bottom:20px;
+}
+
+.manage-album-search input{
+    padding:7px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+.manage-album-search button{
+    padding:7px 12px;
+    border:none;
+    background:#4c6ef5;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.manage-album-search button:hover{
+    background:#364fc7;
+}
+
+/* TABLE */
+
+.manage-album-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.manage-album-table th{
+    background:#f1f3f5;
+    padding:10px;
+}
+
+.manage-album-table td{
+    padding:10px;
+    border-top:1px solid #eee;
+    text-align:center;
+}
+
+.manage-album-table tr:hover{
+    background:#fafafa;
+}
+
+/* STATUS */
+
+.manage-album-active{
+    color:#2f9e44;
+    font-weight:bold;
+}
+
+.manage-album-inactive{
+    color:#e03131;
+    font-weight:bold;
+}
+
+.manage-album-deleted{
+    color:#888;
+}
+
+/* EDIT */
+
+.manage-album-edit-btn{
+    background:#339af0;
+    color:white;
+    padding:6px 12px;
+    border-radius:5px;
+    text-decoration:none;
+}
+
+.manage-album-edit-btn:hover{
+    background:#1c7ed6;
+}
+
+/* DELETE */
+
+.manage-album-delete-btn{
+    background:#fa5252;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.manage-album-delete-btn:hover{
+    background:#e03131;
+}
+
+.manage-album-form{
+    background:#f6f8fb;
+    font-family:"Segoe UI", Arial, sans-serif;
+    min-height:100vh;
+    padding:40px;
+}
+
+.manage-album-form-container{
+    max-width:900px;
+    margin:auto;
+}
+
+.manage-album-form-card{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+.manage-album-form-layout{
+    display:flex;
+    gap:40px;
+}
+
+.manage-album-form-left{
+    width:220px;
+    text-align:center;
+}
+
+.manage-album-form-cover{
+    width:200px;
+    height:200px;
+    border:2px dashed #ddd;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:#fafafa;
+}
+
+.manage-album-form-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.manage-album-form-cover-btn{
+    margin-top:10px;
+    background:#4c6ef5;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.manage-album-form-cover-btn:hover{
+    background:#364fc7;
+}
+
+.manage-album-form-right{
+    flex:1;
+}
+
+.manage-album-form-right h2{
+    margin-bottom:20px;
+}
+
+.manage-album-form-group{
+    margin-bottom:16px;
+}
+
+.manage-album-form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.manage-album-form-group input,
+.manage-album-form-group select{
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.manage-album-form-btn{
+    background:#1db954;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.manage-album-form-btn:hover{
+    background:#17a44a;
+}
+
+.manage-album-form-success{
+    color:#2f9e44;
+    margin-top:10px;
+}
+
+.manage-album-form-error{
+    color:#e03131;
+    margin-top:10px;
+}
+
+/*/////////////////////////////////////////////////////////////////*/
+/*artist*/
+/*///////////////////////////////////////////////////////*/
+.manage-artist{
+    padding:40px;
+    background:#f6f8fb;
+    font-family:"Segoe UI", Arial, sans-serif;
+    min-height:100vh;
+}
+
+/* TITLE */
+
+.manage-artist h2{
+    margin-bottom:20px;
+}
+
+/* ADD BUTTON */
+
+.manage-artist-add-btn{
+    display:inline-block;
+    background:#1db954;
+    color:white;
+    padding:8px 16px;
+    border-radius:6px;
+    text-decoration:none;
+    margin-bottom:15px;
+}
+
+.manage-artist-add-btn:hover{
+    background:#17a44a;
+}
+
+/* SEARCH */
+
+.manage-artist-search{
+    margin-bottom:20px;
+}
+
+.manage-artist-search input{
+    padding:7px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+.manage-artist-search button{
+    padding:7px 12px;
+    border:none;
+    background:#4c6ef5;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.manage-artist-search button:hover{
+    background:#364fc7;
+}
+
+/* TABLE */
+
+.manage-artist-table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.manage-artist-table th{
+    background:#f1f3f5;
+    padding:10px;
+}
+
+.manage-artist-table td{
+    padding:10px;
+    border-top:1px solid #eee;
+    text-align:center;
+}
+
+.manage-artist-table tr:hover{
+    background:#fafafa;
+}
+
+/* STATUS */
+
+.manage-artist-active{
+    color:#2f9e44;
+    font-weight:bold;
+}
+
+.manage-artist-hidden{
+    color:#e03131;
+    font-weight:bold;
+}
+
+.manage-artist-deleted{
+    color:#888;
+}
+
+/* EDIT */
+
+.manage-artist-edit-btn{
+    background:#339af0;
+    color:white;
+    padding:6px 12px;
+    border-radius:5px;
+    text-decoration:none;
+}
+
+.manage-artist-edit-btn:hover{
+    background:#1c7ed6;
+}
+
+/* DELETE */
+
+.manage-artist-delete-btn{
+    background:#fa5252;
+    color:white;
+    border:none;
+    padding:6px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.manage-artist-delete-btn:hover{
+    background:#e03131;
+}
+
+.manage-artist-form{
+    background:#f6f8fb;
+    padding:40px;
+    font-family:"Segoe UI", Arial, sans-serif;
+}
+
+.manage-artist-form-container{
+    max-width:900px;
+    margin:auto;
+}
+
+.manage-artist-form-card{
+    display:flex;
+    gap:40px;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* LEFT */
+
+.manage-artist-form-left{
+    width:220px;
+    text-align:center;
+}
+
+.manage-artist-form-avatar{
+    width:200px;
+    height:200px;
+    border:2px dashed #ddd;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:#fafafa;
+}
+
+.manage-artist-form-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.manage-artist-form-avatar-btn{
+    margin-top:12px;
+    background:#4c6ef5;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.manage-artist-form-avatar-btn:hover{
+    background:#364fc7;
+}
+
+/* RIGHT */
+
+.manage-artist-form-right{
+    flex:1;
+}
+
+.manage-artist-form-right h2{
+    margin-bottom:20px;
+}
+
+/* FORM */
+
+.manage-artist-form-group{
+    margin-bottom:16px;
+}
+
+.manage-artist-form-group label{
+    display:block;
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.manage-artist-form-group input,
+.manage-artist-form-group textarea,
+.manage-artist-form-group select{
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.manage-artist-form-group textarea{
+    min-height:90px;
+}
+
+/* BUTTON */
+
+.manage-artist-form-btn{
+    background:#1db954;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.manage-artist-form-btn:hover{
+    background:#17a44a;
+}
+
+/* MESSAGE */
+
+.manage-artist-form-success{
+    color:#2f9e44;
+    margin-top:10px;
+}
+
+.manage-artist-form-error{
+    color:#e03131;
+    margin-top:10px;
+}
+
+
+/*////////////////////*/
+.admin-back-btn{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#4c6ef5;
+    color:white;
+    padding:10px 16px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:500;
+    box-shadow:0 4px 10px rgba(0,0,0,0.15);
+    z-index:999;
+}
+
+.admin-back-btn:hover{
+    background:#364fc7;
+}
+
+.back-manage-album{
+    display:inline-block;
+    margin-bottom:15px;
+    background:#4c6ef5;
+    color:white;
+    padding:8px 16px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:500;
+    transition:0.2s;
+}
+
+.back-manage-album:hover{
+    background:#364fc7;
+    color:white;
+}
+
+.admin-back-btn{
+    display:inline-block;
+    margin-bottom:15px;
+    background:#4c6ef5;
+    color:white;
+    padding:8px 16px;
+    border-radius:6px;
+    text-decoration:none;
+    font-weight:500;
+    transition:0.2s;
+}
+
+.admin-back-btn:hover{
+    background:#364fc7;
+    color:white;
+}

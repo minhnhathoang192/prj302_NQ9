@@ -270,10 +270,18 @@ public class SongDAO {
         int result = 0;
         try {
             Connection conn = DbUtils.getConnection();
-
+            /*
+                private int songID;
+                private String title;
+                private int duration;
+                private String audioURL, lyric;
+                private Date releaseDate;
+                private String coverImage;
+                private boolean isActive;
+             */
             String sql = "UPDATE SONG SET "
                     + "title=?, duration=?, audioURL=?, lyric=?, "
-                    + "releaseDate=?, coverImage=? "
+                    + "releaseDate=?, coverImage=?, isActive=? "
                     + "WHERE songID=?";
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -284,7 +292,8 @@ public class SongDAO {
             ps.setString(4, s.getLyric());
             ps.setDate(5, s.getReleaseDate());
             ps.setString(6, s.getCoverImage());
-            ps.setInt(7, s.getSongID());
+            ps.setBoolean(7, s.isIsActive());
+            ps.setInt(8, s.getSongID());
 
             result = ps.executeUpdate();
 
@@ -375,5 +384,35 @@ public class SongDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public boolean removeArtistFromSong(int artistID, int songID) {
+        try {
+            Connection conn= DbUtils.getConnection();
+            PreparedStatement ps=  conn.prepareStatement(
+                    "DELETE FROM SONG_ARTIST WHERE artistID=? AND songID=?");
+            ps.setInt(1, artistID);
+            ps.setInt(2, songID);
+            
+            return ps.executeUpdate()>0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean removeSongFromAlbum(int albumID, int songID) {
+        try {
+            Connection conn= DbUtils.getConnection();
+            PreparedStatement ps=  conn.prepareStatement(
+                    "DELETE FROM ALBUM_SONG WHERE albumID=? AND songID=?");
+            ps.setInt(1, albumID);
+            ps.setInt(2, songID);
+            
+            return ps.executeUpdate()>0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -7,6 +7,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,8 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import model.SongDAO;
+import model.SongDTO;
 import model.TopicDAO;
 import model.TopicDTO;
+import model.TopicSongDAO;
 
 /**
  *
@@ -50,13 +54,16 @@ public class EditTopicController extends HttpServlet {
         int topicID = Integer.parseInt(s_topicID);
 
         TopicDAO tdao = new TopicDAO();
+        TopicSongDAO tsdao= new TopicSongDAO();
         TopicDTO topic = tdao.getTopicByID(topicID);
+        List<SongDTO> songs= tsdao.getSongsByTopic(topicID);
 
         String url = "";
 
         if (action.equals("editTopic")) {
             request.setAttribute("mode", "edit");
             request.setAttribute("t", topic);
+            request.setAttribute("songs", songs);
             url = "Topic-From.jsp";
         } else if (action.equals("saveTopic")) {
 
@@ -123,6 +130,7 @@ public class EditTopicController extends HttpServlet {
 
                 request.setAttribute("mode", "edit");
                 request.setAttribute("error", error);
+                request.setAttribute("songs", songs);
 
                 url = "Topic-From.jsp";
 

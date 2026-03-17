@@ -1,140 +1,188 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h2>Manage Playlists</h2>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manage Playlists</title>
+        <link rel="stylesheet" href="assets/css/manage.css">
+    </head>
 
-<!-- ADD PLAYLIST -->
-<a href="playList-form.jsp">➕ Add Playlist</a>
+    <body>
 
-<!-- SEARCH -->
-<form action="MainController" method="get">
-    <input type="hidden" name="action" value="manage_playlist"/>
+        <div class="manage-playlist">
 
-    <input type="text"
-           name="keyword"
-           value="${keyword}"
-           placeholder="Search by playlist name or ID"/>
+            <h2>Manage Playlists</h2>
 
-    <button type="submit">Search</button>
-</form>
+            <!-- ADD PLAYLIST -->
+            <a href="playList-form.jsp" class="manage-playlist-add-btn">
+                ➕ Add Playlist
+            </a>
+            <a href="admin.jsp" class="admin-back-btn">
+                ⬅ Back to Admin
+            </a>
 
-<p style="color: green">${sessionScope.msg}</p>
-<p style="color: red">${sessionScope.error}</p>
+            <!-- SEARCH -->
+            <form action="MainController" method="get" class="manage-playlist-search">
 
-<c:remove var="msg" scope="session"/>
-<c:remove var="error" scope="session"/>
+                <input type="hidden" name="action" value="manage_playlist"/>
 
-<hr/>
+                <input type="text"
+                       name="keyword"
+                       value="${keyword}"
+                       placeholder="Search by playlist name or ID"/>
 
-<c:choose>
+                <button type="submit">Search</button>
 
-    <c:when test="${empty playlists}">
-        <p>No playlist found!</p>
-    </c:when>
+            </form>
 
-    <c:otherwise>
+            <p class="manage-playlist-success">${sessionScope.msg}</p>
+            <p class="manage-playlist-error">${sessionScope.error}</p>
 
-        <table border="1" cellpadding="8">
+            <c:remove var="msg" scope="session"/>
+            <c:remove var="error" scope="session"/>
 
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>UserID</th>
-                <th>Public</th>
-                <th>Create Date</th>
-                <th>Songs</th>
-                <th>Add Song</th>
-                <th>View</th>
-                <th>Delete</th>
-            </tr>
+            <hr/>
 
-            <c:forEach var="p" items="${playlists}">
+            <c:choose>
 
-                <tr>
+                <c:when test="${empty playlists}">
+                    <p>No playlist found!</p>
+                </c:when>
 
-                    <!-- ID -->
-                    <td>${p.playListID}</td>
+                <c:otherwise>
 
-                    <!-- NAME -->
-                    <td>${p.playListName}</td>
+                    <table class="manage-playlist-table">
 
-                    <!-- USER -->
-                    <td>${p.userID}</td>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>UserID</th>
+                            <th>Public</th>
+                            <th>Create Date</th>
+                            <th>Songs</th>
+                            <th>Add Song</th>
+                            <th>View</th>
+                            <th>Delete</th>
+                        </tr>
 
-                    <!-- PUBLIC -->
-                    <td>
-                <c:choose>
-                    <c:when test="${p.isPublic}">
-                        Public
-                    </c:when>
-                    <c:otherwise>
-                        Private
-                    </c:otherwise>
-                </c:choose>
-                </td>
+                        <c:forEach var="p" items="${playlists}">
 
-                <!-- DATE -->
-                <td>${p.createDate}</td>
+                            <tr>
 
-                <!-- SONG LIST -->
-                <td>${songCountByPlaylist[p.playListID]}</td>
+                                <!-- ID -->
+                                <td>${p.playListID}</td>
 
-                <!-- ADD SONG -->
-                <td>
+                                <!-- NAME -->
+                                <td>${p.playListName}</td>
 
-                    <form action="MainController" method="post">
+                                <!-- USER -->
+                                <td>${p.userID}</td>
 
-                        <input type="hidden" name="action" value="addSongToPlaylist"/>
-                        <input type="hidden" name="playlistID" value="${p.playListID}"/>
+                                <!-- PUBLIC -->
+                                <td>
 
-                        <select name="songID">
+                                    <c:choose>
+                                        <c:when test="${p.isPublic}">
+                                            <span class="manage-playlist-public">
+                                                Public
+                                            </span>
+                                        </c:when>
 
-                            <c:forEach var="s" items="${allSongs}">
-                                <option value="${s.songID}">
-                                    ${s.title}
-                                </option>
-                            </c:forEach>
+                                        <c:otherwise>
+                                            <span class="manage-playlist-private">
+                                                Private
+                                            </span>
+                                        </c:otherwise>
+                                    </c:choose>
 
-                        </select>
+                                </td>
 
-                        <button type="submit">Add</button>
+                                <!-- DATE -->
+                                <td>${p.createDate}</td>
 
-                    </form>
+                                <!-- SONG COUNT -->
+                                <td>${songCountByPlaylist[p.playListID]}</td>
 
-                </td>
+                                <!-- ADD SONG -->
+                                <td>
 
-                <!-- VIEW -->
-                <td>
+                                    <form action="MainController"
+                                          method="post"
+                                          class="manage-playlist-inline-form">
 
-                    <a href="MainController?action=viewPlaylist&playListID=${p.playListID}">
-                        View
-                    </a>
+                                        <input type="hidden"
+                                               name="action"
+                                               value="addSongToPlaylist"/>
 
-                </td>
+                                        <input type="hidden"
+                                               name="playlistID"
+                                               value="${p.playListID}"/>
 
-                <!-- DELETE -->
-                <td>
+                                        <select name="songID">
 
-                    <form action="MainController"
-                          method="post"
-                          onsubmit="return confirm('Delete this playlist?');">
+                                            <c:forEach var="s" items="${allSongs}">
+                                                <option value="${s.songID}">
+                                                    ${s.title}
+                                                </option>
+                                            </c:forEach>
 
-                        <input type="hidden" name="action" value="deletePlaylist"/>
-                        <input type="hidden" name="id" value="${p.userID}"/>
-                        <input type="hidden" name="playListID" value="${p.playListID}"/>
+                                        </select>
 
-                        <input type="submit" value="Delete"/>
+                                        <button type="submit">Add</button>
 
-                    </form>
+                                    </form>
 
-                </td>
+                                </td>
 
-                </tr>
+                                <!-- VIEW -->
+                                <td>
 
-            </c:forEach>
+                                    <a class="manage-playlist-view-btn"
+                                       href="MainController?action=viewPlaylist&playListID=${p.playListID}">
+                                        View
+                                    </a>
 
-        </table>
+                                </td>
 
-    </c:otherwise>
+                                <!-- DELETE -->
+                                <td>
 
-</c:choose>
+                                    <form action="MainController"
+                                          method="post"
+                                          onsubmit="return confirm('Delete this playlist?');">
+
+                                        <input type="hidden"
+                                               name="action"
+                                               value="deletePlaylist"/>
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="${p.userID}"/>
+
+                                        <input type="hidden"
+                                               name="playListID"
+                                               value="${p.playListID}"/>
+
+                                        <input type="submit"
+                                               class="manage-playlist-delete-btn"
+                                               value="Delete"/>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+
+                        </c:forEach>
+
+                    </table>
+
+                </c:otherwise>
+
+            </c:choose>
+
+        </div>
+
+    </body>
+</html>

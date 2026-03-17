@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.userDAO;
 import model.userDTO;
+import utils.PasswordUtils;
 
 /**
  *
@@ -87,9 +88,12 @@ public class addUserController extends HttpServlet {
                     error+="Email da ton tai<br>";
                 }
             }
+            
+            String hashpass= null;
 
             if (error.isEmpty()) {
-                user = new userDTO(null, userName, email, password, null, fullName, birthday, gender, null, null, 1, 2);
+                hashpass =  PasswordUtils.hashPassword(password);
+                user = new userDTO(null, userName, email, hashpass, null, fullName, birthday, gender, null, null, 1, 2);
 
                 if (udao.createUser(user)) {
                     msg += "tao Thanh Cong!";

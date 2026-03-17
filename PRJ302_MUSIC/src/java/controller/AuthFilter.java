@@ -102,13 +102,12 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-
+        
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
         String uri = req.getRequestURI();
-        String action = req.getParameter("action");
-        HttpSession session = req.getSession(false);
+        
 
         // ===== 1. STATIC FILE =====
         if (uri.contains("assets")
@@ -124,7 +123,12 @@ public class AuthFilter implements Filter {
             return;
         }
         
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         
+        String action = req.getParameter("action");
+        HttpSession session = req.getSession(false);
+
         // ===== 2. CHẶN JSP TRỰC TIẾP KHI CHƯA LOGIN =====
         if (uri.endsWith(".jsp")) {
             if (session == null || session.getAttribute("user") == null) {

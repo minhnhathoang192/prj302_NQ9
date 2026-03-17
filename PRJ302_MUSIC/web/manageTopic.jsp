@@ -1,117 +1,151 @@
-<%-- 
-    Document   : manageTopic
-    Created on : Mar 1, 2026, 9:41:07 PM
-    Author     : NQ9
---%>
-
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<h2>Manage Topics</h2>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manage Topics</title>
+        <link rel="stylesheet" href="assets/css/manage.css">
+    </head>
 
-<!-- ADD TOPIC -->
-<a href="Topic-From.jsp">Add Topic</a>
+    <body>
 
+        <div class="manage-topic">
 
-<!-- SEARCH -->
-<form action="MainController" method="get">
-    <input type="hidden" name="action" value="manage_topic"/>
+            <h2>Manage Topics</h2>
 
-    <input type="text" name="keyword"
-           value="${keyword}"
-           placeholder="Search by title or ID"/>
+            <!-- ADD TOPIC -->
+            <a href="Topic-From.jsp" class="manage-topic-add-btn">Add Topic</a>
+            <a href="admin.jsp" class="admin-back-btn">
+                ⬅ Back to Admin
+            </a>
 
-    <button type="submit">Search</button>
-</form>
+            <!-- SEARCH -->
+            <form action="MainController" method="get" class="manage-topic-search">
 
-<p style="color: green">${sessionScope.msg}</p>
-<p style="color: red">${sessionScope.error}</p>
+                <input type="hidden" name="action" value="manage_topic"/>
 
-<c:remove var="msg" scope="session"/>
-<c:remove var="error" scope="session"/>
+                <input type="text" name="keyword"
+                       value="${keyword}"
+                       placeholder="Search by title or ID"/>
 
-<hr/>
+                <button type="submit">Search</button>
 
-<c:choose>
-    <c:when test="${empty topic}">
-        <p>No topic found!</p>
-    </c:when>
+            </form>
 
-    <c:otherwise>
-        <table border="1" cellpadding="8">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>description</th>
-                <th>Cover</th>
-                <th>Status</th>
-                <th>Add Song</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
+            <p class="manage-topic-success">${sessionScope.msg}</p>
+            <p class="manage-topic-error">${sessionScope.error}</p>
 
-            <c:forEach var="t" items="${topic}">
-                <tr>
+            <c:remove var="msg" scope="session"/>
+            <c:remove var="error" scope="session"/>
 
-                    <td>${t.topicID}</td>
+            <hr/>
 
-                    <td>${t.topicName}</td>
+            <c:choose>
 
-                    <td>${t.description}</td>
+                <c:when test="${empty topic}">
+                    <p>No topic found!</p>
+                </c:when>
 
-                    <td>
-                        <img src="${t.coverImage}" width="60"/>
-                    </td>
+                <c:otherwise>
 
-                    <td>
-                        <c:choose>
-                            <c:when test="${t.isActive}">
-                                Active
-                            </c:when>
-                            <c:otherwise>
-                                Inactive
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
+                    <table class="manage-topic-table">
 
-                    <!-- ? ADD SONG TO TOPIC -->
-                    <td>
-                        <form action="MainController" method="post">
-                            <input type="hidden" name="action" value="addSongToTopic"/>
-                            <input type="hidden" name="topicID" value="${t.topicID}"/>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Cover</th>
+                            <th>Status</th>
+                            <th>Add Song</th>
+                            <th>Update</th>
+                            <th>Delete</th>
+                        </tr>
 
-                            <select name="songID">
-                                <c:forEach var="s" items="${allSongs}">
-                                    <option value="${s.songID}">
-                                        ${s.title}
-                                    </option>
-                                </c:forEach>
-                            </select>
+                        <c:forEach var="t" items="${topic}">
 
-                            <button type="submit">Add</button>
-                        </form>
-                    </td>
+                            <tr>
 
-                    <!-- UPDATE -->
-                    <td>
-                        <a href="MainController?action=editTopic&topicID=${t.topicID}">
-                            Edit
-                        </a>
-                    </td>
+                                <td>${t.topicID}</td>
 
-                    <!-- DELETE -->
-                    <td>
-                        <form action="MainController" method="post"
-                              onsubmit="return confirm('Delete this topic?');">
+                                <td>${t.topicName}</td>
 
-                            <input type="hidden" name="action" value="deleteTopic"/>
-                            <input type="hidden" name="topicID" value="${t.topicID}"/>
+                                <td>${t.description}</td>
 
-                            <input type="submit" value="Delete"/>
-                        </form>
-                    </td>
+                                <td>
+                                    <img src="${pageContext.request.contextPath}/StreamServlet?type=topic&file=${t.coverImage}" width="60"/>
+                                </td>
 
-                </tr>
-            </c:forEach>
-        </table>
-    </c:otherwise>
-</c:choose>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${t.isActive}">
+                                            <span class="manage-topic-active">Active</span>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <span class="manage-topic-inactive">Inactive</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
+
+                                <td>
+
+                                    <form action="MainController" method="post" class="manage-topic-inline-form">
+
+                                        <input type="hidden" name="action" value="addSongToTopic"/>
+                                        <input type="hidden" name="topicID" value="${t.topicID}"/>
+
+                                        <select name="songID">
+
+                                            <c:forEach var="s" items="${allSongs}">
+                                                <option value="${s.songID}">
+                                                    ${s.title}
+                                                </option>
+                                            </c:forEach>
+
+                                        </select>
+
+                                        <button type="submit">Add</button>
+
+                                    </form>
+
+                                </td>
+
+                                <td>
+                                    <a class="manage-topic-edit-btn"
+                                       href="MainController?action=editTopic&topicID=${t.topicID}">
+                                        Edit
+                                    </a>
+                                </td>
+
+                                <td>
+
+                                    <form action="MainController"
+                                          method="post"
+                                          onsubmit="return confirm('Delete this topic?');">
+
+                                        <input type="hidden" name="action" value="deleteTopic"/>
+                                        <input type="hidden" name="topicID" value="${t.topicID}"/>
+
+                                        <input type="submit"
+                                               class="manage-topic-delete-btn"
+                                               value="Delete"/>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+
+                        </c:forEach>
+
+                    </table>
+
+                </c:otherwise>
+
+            </c:choose>
+
+        </div>
+
+    </body>
+</html>

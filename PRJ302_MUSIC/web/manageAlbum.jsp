@@ -1,100 +1,154 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<h2>Manage Album</h2>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manage Album</title>
+        <link rel="stylesheet" href="assets/css/manage.css">
+    </head>
 
-<!-- ADD -->
-<a href="album-form.jsp"> Add Album</a>
+    <body>
 
-<!-- SEARCH -->
-<form action="MainController" method="get">
-    <input type="hidden" name="action" value="manage_album"/>
+        <div class="manage-album">
 
-    <input type="text" name="keyword"
-           value="${keyword}"
-           placeholder="Search by name or ID"/>
+            <h2>Manage Album</h2>
 
-    <button type="submit">Search</button>
-</form>
+            <!-- ADD -->
+            <a href="album-form.jsp" class="manage-album-add-btn">Add Album</a>
+            <a href="admin.jsp" class="admin-back-btn">
+                ⬅ Back to Admin
+            </a>
 
-<hr/>
+            <!-- SEARCH -->
+            <form action="MainController" method="get" class="manage-album-search">
 
-<c:choose>
-    <c:when test="${empty album}">
-        <p>No album found!</p>
-    </c:when>
+                <input type="hidden" name="action" value="manage_album"/>
 
-    <c:otherwise>
-        <table border="1" cellpadding="8">
-            <tr>
-                <th>ID</th>
-                <th>Album Name</th>
-                <th>Cover</th>
-                <th>Release Date</th>
-                <th>Status</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
+                <input type="text"
+                       name="keyword"
+                       value="${keyword}"
+                       placeholder="Search by name or ID"/>
 
-            <c:forEach var="a" items="${album}">
-                <tr>
+                <button type="submit">Search</button>
 
-                    <td>${a.albumID}</td>
+            </form>
 
-                    <td>${a.albumName}</td>
+            <hr/>
 
-                    <!-- ? Cover -->
-                    <td>
-                        <c:choose>
-                            <c:when test="${empty a.coverImage}">
-                                <span>No Image</span>
-                            </c:when>
-                            <c:otherwise>
-                                <img src="${pageContext.request.contextPath}/StreamServlet?type=album&file=${a.coverImage}" width="60"/>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
+            <c:choose>
 
-                    <td>${a.releaseDate}</td>
+                <c:when test="${empty album}">
+                    <p>No album found!</p>
+                </c:when>
 
-                    <!-- ? Status -->
-                    <td>
-                        <c:choose>
-                            <c:when test="${a.isActive}">
-                                Active
-                            </c:when>
-                            <c:otherwise>
-                                Hidden
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
+                <c:otherwise>
 
-                    <!-- EDIT -->
-                    <td>
-                        <a href="MainController?action=editAlbum&albumID=${a.albumID}">
-                            Edit
-                        </a>
-                    </td>
+                    <table class="manage-album-table">
 
-                    <!-- DELETE -->
-                    <td>
-                        <c:if test="${a.isActive}">
-                            <form action="MainController" method="post"
-                                  onsubmit="return confirm('Delete this album?');">
+                        <tr>
+                            <th>ID</th>
+                            <th>Album Name</th>
+                            <th>Cover</th>
+                            <th>Release Date</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
 
-                                <input type="hidden" name="action" value="deleteAlbum"/>
-                                <input type="hidden" name="albumID" value="${a.albumID}"/>
+                        <c:forEach var="a" items="${album}">
 
-                                <input type="submit" value="Delete"/>
-                            </form>
-                        </c:if>
+                            <tr>
 
-                        <c:if test="${!a.isActive}">
-                            <span>Deleted</span>
-                        </c:if>
-                    </td>
+                                <td>${a.albumID}</td>
 
-                </tr>
-            </c:forEach>
-        </table>
-    </c:otherwise>
-</c:choose>
+                                <td>${a.albumName}</td>
+
+                                <!-- COVER -->
+                                <td>
+
+                                    <c:choose>
+
+                                        <c:when test="${empty a.coverImage}">
+                                            <span>No Image</span>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <img src="${pageContext.request.contextPath}/StreamServlet?type=album&file=${a.coverImage}" width="60"/>
+                                        </c:otherwise>
+
+                                    </c:choose>
+
+                                </td>
+
+                                <td>${a.releaseDate}</td>
+
+                                <td>
+
+                                    <c:choose>
+
+                                        <c:when test="${a.isActive}">
+                                            <span class="manage-album-active">Active</span>
+                                        </c:when>
+
+                                        <c:otherwise>
+                                            <span class="manage-album-inactive">Hidden</span>
+                                        </c:otherwise>
+
+                                    </c:choose>
+
+                                </td>
+
+                                <td>
+
+                                    <a class="manage-album-edit-btn"
+                                       href="MainController?action=editAlbum&albumID=${a.albumID}">
+                                        Edit
+                                    </a>
+
+                                </td>
+
+                                <td>
+
+                                    <c:if test="${a.isActive}">
+
+                                        <form action="MainController"
+                                              method="post"
+                                              onsubmit="return confirm('Delete this album?');">
+
+                                            <input type="hidden"
+                                                   name="action"
+                                                   value="deleteAlbum"/>
+
+                                            <input type="hidden"
+                                                   name="albumID"
+                                                   value="${a.albumID}"/>
+
+                                            <input type="submit"
+                                                   class="manage-album-delete-btn"
+                                                   value="Delete"/>
+
+                                        </form>
+
+                                    </c:if>
+
+                                    <c:if test="${!a.isActive}">
+                                        <span class="manage-album-deleted">Deleted</span>
+                                    </c:if>
+
+                                </td>
+
+                            </tr>
+
+                        </c:forEach>
+
+                    </table>
+
+                </c:otherwise>
+
+            </c:choose>
+
+        </div>
+
+    </body>
+</html>

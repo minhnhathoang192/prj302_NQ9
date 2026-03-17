@@ -14,7 +14,7 @@
 
         <!-- Bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="assets/css/manage.css"/>
         <style>
             body {
                 display: flex;
@@ -38,6 +38,9 @@
     </head>
 
     <body>
+        <a href="index.jsp"  class="admin-back-btn">
+            ⬅ Back to Home
+        </a>
 
         <!-- SIDEBAR -->
         <!-- SIDEBAR -->
@@ -50,7 +53,6 @@
             <div onclick="loadPage('topic')">📂 Topics</div>
             <div onclick="loadPage('album')">💿 Albums</div>
             <div onclick="loadPage('artist')">🎤 Artists</div>
-            <div onclick="loadPage('comment')">💬 Comments</div>
         </div>
 
         <!-- CONTENT -->

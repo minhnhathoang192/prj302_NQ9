@@ -3,50 +3,77 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Register</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Register</title>
 
-<h2>Register Account</h2>
+        <link rel="stylesheet"
+              href="${pageContext.request.contextPath}/assets/css/manage.css">
 
-<form action="MainController" method="post">
+    </head>
 
-    <input type="hidden" name="action" value="registerUser"/>
+    <body>
+        <a href="MainController?action=manage_user" class="admin-back-btn">
+            ⬅ Back to Users
+        </a>
 
-    <!-- Username -->
-    Username:
-    <input type="text" name="userName" required/> <br/>
+        <div class="user-manage-form-container">
 
-    <!-- Email -->
-    Email:
-    <input type="email" name="email" required/> <br/>
+            <h2 class="user-manage-form-title">Create Account</h2>
 
-    <!-- Password -->
-    Password:
-    <input type="password" name="password" required/> <br/>
+            <form action="MainController" method="post"
+                  class="user-manage-form">
 
-    <!-- Full Name -->
-    Full Name:
-    <input type="text" name="fullName"/> <br/>
-    
-    Birthday:
-    <input type="date" name="birthday" required/> <br/>
+                <input type="hidden" name="action" value="registerUser"/>
 
-    <!-- Gender -->
-    Gender:
-    <select name="gender">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
-    </select> <br/><br/>
+                <div class="user-manage-form-group">
+                    <label>Username</label>
+                    <input type="text" name="userName" required/>
+                </div>
 
-    <input type="submit" value="Register"/>
+                <div class="user-manage-form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required/>
+                </div>
 
-</form>
+                <div class="user-manage-form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required/>
+                </div>
 
-<p style="color: green">${msg}</p>
-<p style="color: red">${error}</p>
+                <div class="user-manage-form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="fullName"/>
+                </div>
 
-</body>
+                <div class="user-manage-form-group">
+                    <label>Birthday</label>
+                    <input type="date" name="birthday" required/>
+                </div>
+
+                <div class="user-manage-form-group">
+                    <label>Gender</label>
+
+                    <select name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                </div>
+
+                <div class="user-manage-form-action">
+                    <input type="submit"
+                           value="Register"
+                           class="user-manage-form-btn"/>
+                </div>
+
+            </form>
+
+            <p class="user-manage-form-msg">${msg}</p>
+            <p class="user-manage-form-error">${error}</p>
+
+        </div>
+
+    </body>
 </html>

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.userDAO;
 import model.userDTO;
+import utils.PasswordUtils;
 
 /**
  *
@@ -62,6 +63,7 @@ public class EditUserController extends HttpServlet {
                 String userName= request.getParameter("userName");
                 String email= request.getParameter("email");
                 String password= request.getParameter("password");
+                String finalPassword = user.getPassword();
                 String avatar= request.getParameter("avatar");
                 String fullName= request.getParameter("fullName");
                 String s_birthday= request.getParameter("birthday");
@@ -78,8 +80,8 @@ public class EditUserController extends HttpServlet {
                     error+="Chua nhap User email";
                 }
                 password = password.trim();
-                if(password.isEmpty()){
-                    error+="Chua nhap User password";
+                if(password!=null && !password.isEmpty()){
+                    finalPassword =  PasswordUtils.hashPassword(password);
                 }
                 fullName = fullName.trim();
                 if(fullName.isEmpty()){
@@ -107,7 +109,7 @@ public class EditUserController extends HttpServlet {
                 int roleID= Integer.parseInt(s_roleID);
                 
                 if(error.isEmpty()){
-                    user = new userDTO(userID, userName, email, password, avatar, fullName, birthday, gender, null, null, status, roleID);
+                    user = new userDTO(userID, userName, email, finalPassword, avatar, fullName, birthday, gender, null, null, status, roleID);
                     
                     if(udao.updateUser(user)){
                         msg+="Update Thanh Cong!";

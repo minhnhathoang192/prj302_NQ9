@@ -179,6 +179,12 @@ public class MainController extends HttpServlet {
             url = "forgotPasswordController";
         }else  if(action.equals("resetPassword")){
             url = "resetPasswordController";
+        }else if(action.equals("removeArtistFromSong")){
+            url = "removeArtistFromSongController";
+        }else if(action.equals("removeSongFromAlbum")){
+            url = "removeSongFromAlbumController";
+        }else if(action.equals("removeSongFromTopic")){
+            url = "removeSongFromTopicController";
         }
         
         RequestDispatcher rd = request.getRequestDispatcher(url);

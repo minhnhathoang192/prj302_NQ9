@@ -268,6 +268,18 @@
         <servlet-name>resetPasswordController</servlet-name>
         <servlet-class>controller.resetPasswordController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>removeArtistFromSongController</servlet-name>
+        <servlet-class>controller.removeArtistFromSongController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>removeSongFromAlbumController</servlet-name>
+        <servlet-class>controller.removeSongFromAlbumController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>removeSongFromTopicController</servlet-name>
+        <servlet-class>controller.removeSongFromTopicController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/loginController</url-pattern>
@@ -527,6 +539,18 @@
     <servlet-mapping>
         <servlet-name>resetPasswordController</servlet-name>
         <url-pattern>/resetPasswordController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>removeArtistFromSongController</servlet-name>
+        <url-pattern>/removeArtistFromSongController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>removeSongFromAlbumController</servlet-name>
+        <url-pattern>/removeSongFromAlbumController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>removeSongFromTopicController</servlet-name>
+        <url-pattern>/removeSongFromTopicController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

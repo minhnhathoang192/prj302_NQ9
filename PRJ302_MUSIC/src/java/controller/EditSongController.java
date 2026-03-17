@@ -4,14 +4,19 @@
  */
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import model.AlbumDTO;
+import model.ArtistDTO;
 import model.SongDAO;
 import model.SongDTO;
 
@@ -42,13 +47,24 @@ public class EditSongController extends HttpServlet {
 
         SongDAO dao = new SongDAO();
         SongDTO song = dao.getSongByID(songID);
+        List<ArtistDTO> artists = dao.getArtistsBySong(songID);
+        List<AlbumDTO> albums = dao.getAlbumBySong(songID);
 
         String url = "";
+
+        String uploadPath = getServletContext().getRealPath("")
+                + File.separator + "assets";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
 
         if (action.equals("editSong")) {
 
             request.setAttribute("s", song);
             request.setAttribute("mode", "edit");
+            request.setAttribute("artists", artists);
+            request.setAttribute("albums", albums);
             url = "editSong.jsp";
 
         } else if (action.equals("saveSong")) {
@@ -58,25 +74,63 @@ public class EditSongController extends HttpServlet {
 
             try {
                 String title = request.getParameter("title");
-                String audioURL = request.getParameter("audioURL");
                 String lyric = request.getParameter("lyric");
-                String coverImage = request.getParameter("coverImage");
                 String s_duration = request.getParameter("duration");
                 String s_release = request.getParameter("releaseDate");
+                String s_isActive = request.getParameter("isActive");
+                boolean isActive = "1".equals(s_isActive);
 
                 int duration = Integer.parseInt(s_duration);
                 Date releaseDate = Date.valueOf(s_release);
+
+                String basePath = "C:/Users/NQ9/Documents/GitHub/PRJ302_MUSIC/music_uploads";
+
+                File audioDir = new File(basePath + "/audio");
+                if (!audioDir.exists()) {
+                    audioDir.mkdirs();
+                }
+
+                File coverDir = new File(basePath + "/cover");
+                if (!coverDir.exists()) {
+                    coverDir.mkdirs();
+                }
+
+                // ===== AUDIO =====
+                Part audioPart = request.getPart("audioURL");
+                String audioFileName = song.getAudioURL(); // giua file cu
+
+                if (audioPart != null && audioPart.getSize() > 0) {
+                    String originalName = audioPart.getSubmittedFileName();
+
+                    if (!originalName.toLowerCase().endsWith(".mp3")
+                            && !originalName.toLowerCase().endsWith(".m4a")) {
+                        error += "Chỉ chấp nhận file .mp3 hoặc .m4a<br/>";
+                    } else {
+                        audioFileName = System.currentTimeMillis() + "_" + originalName;
+                        audioPart.write(basePath + "/audio/" + audioFileName);
+                    }
+                }
+
+                // ===== COVER =====
+                Part coverPart = request.getPart("coverImage");
+                String coverFileName = song.getCoverImage(); // giua anh cu
+
+                if (coverPart != null && coverPart.getSize() > 0) {
+                    String coverName = coverPart.getSubmittedFileName();
+                    coverFileName = System.currentTimeMillis() + "_" + coverName;
+                    coverPart.write(basePath + "/cover/" + coverFileName);
+                }
 
                 if (error.isEmpty()) {
                     song = new SongDTO(
                             songID,
                             title,
                             duration,
-                            audioURL,
+                            audioFileName,
                             lyric,
                             releaseDate,
-                            coverImage,
-                            true
+                            coverFileName,
+                            isActive
                     );
                     if (dao.updateSong(song)) {
                         msg += "update Thanh Cong";

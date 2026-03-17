@@ -5,39 +5,46 @@
 <html>
     <head>
         <title>Playlist Form</title>
-        <link rel="stylesheet" href="assets/css/style.css"/>
+        <link rel="stylesheet" href="assets/css/manage.css"/>
     </head>
 
     <body>
+        <a href="MainController?action=manage_playlist" class="admin-back-btn">
+            ⬅ Back to Playlist
+        </a>
 
-        <div class="upload-page">
+        <div class="manage-playlist-form">
 
             <form action="MainController"
                   method="post"
-                  class="upload-form">
+                  class="manage-playlist-form-container">
 
                 <input type="hidden"
                        name="action"
                        value="${mode == 'edit' ? 'savePlaylist' : 'addPlaylist'}"/>
-                <input type="hidden" name="source" value="admin"/>
 
-                <div class="upload-card">
+                <input type="hidden"
+                       name="source"
+                       value="admin"/>
+
+                <div class="manage-playlist-form-card">
 
                     <!-- LEFT -->
-                    <div class="upload-left">
+                    <div class="manage-playlist-form-left">
 
-                        <div class="cover-preview">
+                        <div class="manage-playlist-form-cover-preview">
                             <span>Playlist</span>
                         </div>
 
                     </div>
 
                     <!-- RIGHT -->
-                    <div class="upload-right">
+                    <div class="manage-playlist-form-right">
 
                         <h2>
 
                             <c:choose>
+
                                 <c:when test="${mode == 'edit'}">
                                     📃 Edit Playlist
                                 </c:when>
@@ -45,6 +52,7 @@
                                 <c:otherwise>
                                     📃 Add Playlist
                                 </c:otherwise>
+
                             </c:choose>
 
                         </h2>
@@ -52,7 +60,7 @@
                         <!-- ID -->
                         <c:if test="${mode == 'edit'}">
 
-                            <div class="form-group">
+                            <div class="manage-playlist-form-group">
 
                                 <label>ID</label>
 
@@ -68,8 +76,8 @@
 
                         </c:if>
 
-                        <!-- PLAYLIST NAME -->
-                        <div class="form-group">
+                        <!-- NAME -->
+                        <div class="manage-playlist-form-group">
 
                             <label>Playlist Name</label>
 
@@ -80,8 +88,8 @@
 
                         </div>
 
-                        <!-- PUBLIC / PRIVATE -->
-                        <div class="form-group">
+                        <!-- VISIBILITY -->
+                        <div class="manage-playlist-form-group">
 
                             <label>Visibility</label>
 
@@ -101,7 +109,8 @@
 
                         </div>
 
-                        <button type="submit" class="upload-btn">
+                        <button type="submit"
+                                class="manage-playlist-form-btn">
 
                             <c:choose>
 
@@ -117,8 +126,8 @@
 
                         </button>
 
-                        <p class="success-msg">${msg}</p>
-                        <p class="error-msg">${error}</p>
+                        <p class="manage-playlist-form-success">${msg}</p>
+                        <p class="manage-playlist-form-error">${error}</p>
 
                     </div>
 
@@ -126,7 +135,7 @@
 
             </form>
 
-            <!-- SONG LIST (ONLY EDIT MODE) -->
+            <!-- SONG LIST -->
 
             <c:if test="${mode == 'edit'}">
 
@@ -142,7 +151,7 @@
 
                     <c:otherwise>
 
-                        <table border="1" cellpadding="8">
+                        <table class="manage-playlist-form-table">
 
                             <tr>
                                 <th>ID</th>
@@ -165,7 +174,7 @@
                                     <td>
 
                                         <audio controls width="200">
-                                            <source src="${s.audioURL}" type="audio/mpeg">
+                                            <source src="${pageContext.request.contextPath}/StreamServlet?type=audio&file=${s.audioURL}" type="audio/mpeg">
                                         </audio>
 
                                     </td>
@@ -186,7 +195,10 @@
                                                    name="songID"
                                                    value="${s.songID}">
 
-                                            <button type="submit">Remove</button>
+                                            <button type="submit"
+                                                    class="manage-playlist-form-remove-btn">
+                                                Remove
+                                            </button>
 
                                         </form>
 

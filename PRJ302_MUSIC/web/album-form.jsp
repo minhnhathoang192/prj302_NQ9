@@ -5,37 +5,44 @@
 <html>
     <head>
         <title>Album Form</title>
-        <link rel="stylesheet" href="assets/css/style.css"/>
+        <link rel="stylesheet" href="assets/css/manage.css"/>
     </head>
-    <body>
 
-        <div class="upload-page">
+    <body class="manage-album-form">
+
+        <a href="MainController?action=manage_album"  class="admin-back-btn">
+            ⬅ Back to Album
+        </a>
+
+        <div class="manage-album-form-container">
 
             <form action="MainController"
                   method="post"
                   enctype="multipart/form-data"
-                  class="upload-form">
+                  class="manage-album-form-card">
 
-                <!-- ACTION -->
                 <input type="hidden"
                        name="action"
                        value="${mode == 'edit' ? 'saveAlbum' : 'addAlbum'}"/>
 
-                <div class="upload-card">
+                <div class="manage-album-form-layout">
 
-                    <!-- LEFT : COVER PREVIEW -->
-                    <div class="upload-left">
+                    <!-- LEFT -->
 
-                        <div class="cover-preview" id="coverPreview">
+                    <div class="manage-album-form-left">
+
+                        <div class="manage-album-form-cover" id="coverPreview">
 
                             <c:choose>
+
                                 <c:when test="${not empty a.coverImage}">
-                                    <img src="${pageContext.request.contextPath}/StreamServlet?type=cover&file=${a.coverImage}">
+                                    <img src="${pageContext.request.contextPath}/StreamServlet?type=album&file=${a.coverImage}">
                                 </c:when>
 
                                 <c:otherwise>
-                                    <span>Chọn ảnh album</span>
+                                    <span>Choose album cover</span>
                                 </c:otherwise>
+
                             </c:choose>
 
                         </div>
@@ -47,30 +54,37 @@
                                hidden>
 
                         <button type="button"
-                                class="cover-btn"
+                                class="manage-album-form-cover-btn"
                                 onclick="document.getElementById('coverInput').click()">
-                            Chọn ảnh
+                            Choose Image
                         </button>
 
                     </div>
 
-                    <!-- RIGHT : INFO -->
-                    <div class="upload-right">
+                    <!-- RIGHT -->
+
+                    <div class="manage-album-form-right">
 
                         <h2>
+
                             <c:choose>
+
                                 <c:when test="${mode == 'edit'}">
                                     💿 Edit Album
                                 </c:when>
+
                                 <c:otherwise>
                                     💿 Add Album
                                 </c:otherwise>
+
                             </c:choose>
+
                         </h2>
 
-                        <!-- ID chỉ hiện khi edit -->
                         <c:if test="${mode == 'edit'}">
-                            <div class="form-group">
+
+                            <div class="manage-album-form-group">
+
                                 <label>ID</label>
 
                                 <input type="text"
@@ -80,54 +94,60 @@
                                 <input type="hidden"
                                        name="albumID"
                                        value="${a.albumID}">
+
                             </div>
+
                         </c:if>
 
-                        <!-- ALBUM NAME -->
-                        <div class="form-group">
+                        <div class="manage-album-form-group">
+
                             <label>Album Name</label>
 
                             <input type="text"
                                    name="albumName"
                                    value="${a.albumName}"
                                    required>
+
                         </div>
 
-                        <!-- RELEASE DATE -->
-                        <div class="form-group">
+                        <div class="manage-album-form-group">
+
                             <label>Release Date</label>
 
                             <input type="date"
                                    name="releaseDate"
                                    value="${a.releaseDate}"
                                    required>
+
                         </div>
 
-                        <!-- STATUS -->
                         <c:if test="${mode == 'edit'}">
-                            <div class="form-group">
+
+                            <div class="manage-album-form-group">
+
                                 <label>Status</label>
 
                                 <select name="isActive">
 
-                                    <option value="1"
-                                            ${a.isActive ? 'selected' : ''}>
+                                    <option value="1" ${a.isActive ? 'selected' : ''}>
                                         Active
                                     </option>
 
-                                    <option value="0"
-                                            ${!a.isActive ? 'selected' : ''}>
+                                    <option value="0" ${!a.isActive ? 'selected' : ''}>
                                         Hidden
                                     </option>
 
                                 </select>
+
                             </div>
+
                         </c:if>
 
-                        <!-- SUBMIT -->
-                        <button type="submit" class="upload-btn">
+                        <button type="submit"
+                                class="manage-album-form-btn">
 
                             <c:choose>
+
                                 <c:when test="${mode == 'edit'}">
                                     💾 Update Album
                                 </c:when>
@@ -135,12 +155,13 @@
                                 <c:otherwise>
                                     ➕ Add Album
                                 </c:otherwise>
+
                             </c:choose>
 
                         </button>
 
-                        <p class="success-msg">${msg}</p>
-                        <p class="error-msg">${error}</p>
+                        <p class="manage-album-form-success">${msg}</p>
+                        <p class="manage-album-form-error">${error}</p>
 
                     </div>
 
@@ -162,11 +183,14 @@
                 const reader = new FileReader();
 
                 reader.onload = function (event) {
+
                     document.getElementById("coverPreview").innerHTML =
                             "<img src='" + event.target.result + "'>";
+
                 };
 
                 reader.readAsDataURL(file);
+
             });
 
         </script>
