@@ -481,22 +481,23 @@ function renderArtists(list) {
 
 function renderAlbums(list) {
 
-const containerAll = document.getElementById("searchAlbumContainer");
-        const containerAlbum = document.getElementById("searchAlbumOnly");
-        if (!containerAll || !containerAlbum) return;
-        containerAll.innerHTML = "";
-        containerAlbum.innerHTML = "";
-        if (!list || list.length === 0) {
-containerAll.innerHTML = "<p>Không có album</p>";
+    const containerAll = document.getElementById("searchAlbumContainer");
+    const containerAlbum = document.getElementById("searchAlbumOnly");
+    if (!containerAll || !containerAlbum)
+        return;
+    containerAll.innerHTML = "";
+    containerAlbum.innerHTML = "";
+    if (!list || list.length === 0) {
+        containerAll.innerHTML = "<p>Không có album</p>";
         containerAlbum.innerHTML = "<p>Không có album</p>";
         return;
-        }
+    }
 
-list.forEach((al, index) => {
+    list.forEach((al, index) => {
 
-const coverURL =
-        contextPath + "/StreamServlet?type=album&file=" +
-        encodeURIComponent(al.coverImage || "");
+        const coverURL =
+                contextPath + "/StreamServlet?type=album&file=" +
+                encodeURIComponent(al.coverImage || "");
         const html = `
         <div class="album-card" data-id="${al.albumID}">
 
@@ -511,57 +512,60 @@ const coverURL =
         </div>
         `;
         /* TAB ALL → 6 album */
-        if (index < 6){
-containerAll.insertAdjacentHTML("beforeend", html);
+        if (index < 6) {
+            containerAll.insertAdjacentHTML("beforeend", html);
         }
 
-/* TAB ALBUM → tất cả */
-containerAlbum.insertAdjacentHTML("beforeend", html);
-        });
+        /* TAB ALBUM → tất cả */
+        containerAlbum.insertAdjacentHTML("beforeend", html);
+    });
 }
 
 function renderPlaylists(list) {
 
-const containerAll = document.getElementById("searchPlaylistContainer");
-        const containerOnly = document.getElementById("searchPlaylistOnly");
-        if (!containerAll) return;
-        containerAll.innerHTML = "";
-        if (containerOnly) containerOnly.innerHTML = "";
-        if (!list || list.length === 0) {
-containerAll.innerHTML = "<p>Không có playlist</p>";
-        if (containerOnly) containerOnly.innerHTML = "<p>Không có playlist</p>";
+    const containerAll = document.getElementById("searchPlaylistContainer");
+    const containerOnly = document.getElementById("searchPlaylistOnly");
+    if (!containerAll)
         return;
-        }
+    containerAll.innerHTML = "";
+    if (containerOnly)
+        containerOnly.innerHTML = "";
+    if (!list || list.length === 0) {
+        containerAll.innerHTML = "<p>Không có playlist</p>";
+        if (containerOnly)
+            containerOnly.innerHTML = "<p>Không có playlist</p>";
+        return;
+    }
 
-list.forEach((p, index) => {
+    list.forEach((p, index) => {
 
-const coverURL =
-        contextPath + "/StreamServlet?type=playlist&file=" +
-        encodeURIComponent(p.coverImage || "");
+        const coverURL =
+                contextPath + "/StreamServlet?type=playlist&file=" +
+                encodeURIComponent(p.coverImage || "");
         const html = `
-        <div class="playlist-card" data-id="${p.playListID}">
+        <div class="search-playlist-card" data-id="${p.playListID}">
 
-            <div class="playlist-cover">
-                <img src="${coverURL}">
+            <div class="search-playlist-cover">
+                <img src="assets/img/default-playlist.png">
             </div>
 
-            <div class="playlist-title">
+            <div class="search-playlist-title">
                 ${p.playListName}
             </div>
 
         </div>
         `;
         /* TAB ALL → chỉ 6 playlist */
-        if (index < 6){
-containerAll.insertAdjacentHTML("beforeend", html);
+        if (index < 6) {
+            containerAll.insertAdjacentHTML("beforeend", html);
         }
 
-/* TAB PLAYLIST → tất cả */
-if (containerOnly) {
-containerOnly.insertAdjacentHTML("beforeend", html);
+        /* TAB PLAYLIST → tất cả */
+        if (containerOnly) {
+            containerOnly.insertAdjacentHTML("beforeend", html);
         }
 
-});
+    });
 }
 
 

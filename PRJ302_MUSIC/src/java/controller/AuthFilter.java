@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -102,12 +105,11 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain) throws IOException, ServletException {
-        
+
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
         String uri = req.getRequestURI();
-        
 
         // ===== 1. STATIC FILE =====
         if (uri.contains("assets")
@@ -122,10 +124,10 @@ public class AuthFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+
         String action = req.getParameter("action");
         HttpSession session = req.getSession(false);
 
@@ -150,28 +152,43 @@ public class AuthFilter implements Filter {
             return;
         }
 
+        boolean isAjax = "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
+
+        Set<String> publicActions = new HashSet<>(Arrays.asList(
+                "login",
+                "registerAccount",
+                "forgotPassword",
+                "resetPassword",
+                // ===== LOAD DATA =====
+                "searchAjax",
+                "getRandomPlaylist",
+                "getSongsByTopic",
+                "getRandomTopic",
+                "getSongsByMultipleTopics",
+                "getTrendingArtists",
+                "getMostFavoriteSongs",
+                "getSongByID",
+                "getAlbumInfo",
+                "getSongsInAlbum",
+                "getArtistInfo",
+                "getSongsByArtist",
+                "loadTopic",
+                "loadMore",
+                "loadProfile",
+                "getPlaylistInfo",
+                "getSongsInPlaylist"
+        ));
+
         // ===== 4. CHƯA LOGIN =====
         if (session == null || session.getAttribute("user") == null) {
 
-            if (action == null
-                    || action.equals("login")
-                    || action.equals("registerAccount")
-                    || action.equals("forgotPassword")
-                    || action.equals("resetPassword")
-                    || action.equals("searchAjax")
-                    || action.equals("getRandomPlaylist")
-                    || action.equals("getSongsByTopic")
-                    || action.equals("getRandomTopic")
-                    || action.equals("getSongsByMultipleTopics")
-                    || action.equals("getTrendingArtists")
-                    || action.equals("getMostFavoriteSongs")
-                    || action.equals("getSongByID")
-                    || action.equals("getAlbumInfo")
-                    || action.equals("getSongsInAlbum")
-                    || action.equals("getArtistInfo")
-                    || action.equals("getSongsByArtist")) {
-
+            if (action == null || publicActions.contains(action)) {
                 chain.doFilter(request, response);
+                return;
+            }
+
+            if (isAjax) {
+                res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
 
@@ -179,17 +196,30 @@ public class AuthFilter implements Filter {
             return;
         }
 
+        Set<String> userActions = new HashSet<>(Arrays.asList(
+                "addListeningHistory",
+                "getListeningHistory",
+                "addSongToPlaylistFromUser",
+                "removeSongFromPlaylistFromUser",
+                "editPlaylistFromUser",
+                "deletePlaylistFromUser",
+                "addPlaylist"
+        ));
+
         // ===== 5. CHECK ROLE ADMIN =====
         String role = (String) session.getAttribute("role");
 
-        if (action != null && (action.startsWith("delete")
-                || action.startsWith("add")
-                || action.startsWith("edit")
-                || action.startsWith("manage"))) {
+        if (action != null) {
+            if (!userActions.contains(action)
+                    && (action.startsWith("delete")
+                    || action.startsWith("add")
+                    || action.startsWith("edit")
+                    || action.startsWith("manage"))) {
 
-            if (role == null || !role.equals("admin")) {
-                res.sendRedirect(req.getContextPath() + "/index.jsp");
-                return;
+                if (role == null || !role.equals("admin")) {
+                    res.sendRedirect(req.getContextPath() + "/index.jsp");
+                    return;
+                }
             }
         }
 

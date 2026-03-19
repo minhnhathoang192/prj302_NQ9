@@ -58,7 +58,7 @@ function loadUserPlaylists() {
 /////////////////////////////////// ===== CLICK PLAYLIST =====///////////////////////////////////////
 document.addEventListener("click", function (e) {
 
-    const card = e.target.closest(".playlist-card");
+    const card = e.target.closest(".playlist-card, .search-playlist-card");
     if (!card)
         return;
     const id = card.dataset.id;
@@ -112,13 +112,13 @@ function loadPlaylistSongs(id) {
                 if (data.length === 0) {
 
                     container.innerHTML = `
-<div class="pl-empty">
-<div class="pl-empty-icon">📦</div>
-<h3>Playlist trống</h3>
-<p>Hãy thêm bài hát vào playlist</p>
-<button class="pl-add-song-btn">Thêm bài hát</button>
-</div>
-`;
+                        <div class="pl-empty">
+                        <div class="pl-empty-icon">📦</div>
+                        <h3>Playlist trống</h3>
+                        <p>Hãy thêm bài hát vào playlist</p>
+                        <button class="pl-add-song-btn">Thêm bài hát</button>
+                        </div>
+                        `;
                     return;
                 }
 
@@ -137,49 +137,49 @@ function loadPlaylistSongs(id) {
                         coverURL: coverURL
                     });
                     html += `
-<div class="pl-song-row">
+                        <div class="pl-song-row">
 
-    <div class="song-index">${i + 1}</div>
+                            <div class="song-index">${i + 1}</div>
 
-    <div class="pl-song-title">
+                            <div class="pl-song-title">
 
-        <div class="pl-cover-box">
+                                <div class="pl-cover-box">
 
-            <img class="pl-song-cover" src="${coverURL}">
+                                    <img class="pl-song-cover" src="${coverURL}">
 
-            <div class="pl-play-btn" onclick="togglePlaylistSong(${i}, event)">
+                                    <div class="pl-play-btn" onclick="togglePlaylistSong(${i}, event)">
 
-                <div class="play-icon">▶</div>
+                                        <div class="play-icon">▶</div>
 
-                <div class="wave">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                                        <div class="wave">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
 
-            </div>
+                                    </div>
 
-        </div>
+                                </div>
 
-        <div class="pl-song-info">
-            <div class="pl-song-name">${s.title}</div>
-        </div>
+                                <div class="pl-song-info">
+                                    <div class="pl-song-name">${s.title}</div>
+                                </div>
 
-    </div>
+                            </div>
 
-    <div class="song-artist">${s.artistName ?? ""}</div>
+                            <div class="song-artist">${s.artistName ?? ""}</div>
 
-    <div class="song-duration">${formatDuration(s.duration)}</div>
+                            <div class="song-duration">${formatDuration(s.duration)}</div>
 
-    <div class="pl-delete"
-        onclick="removeSongFromPlaylist(${s.songID}, event)">
-        🗑
-    </div>
+                            <div class="pl-delete"
+                                onclick="removeSongFromPlaylist(${s.songID}, event)">
+                                🗑
+                            </div>
 
-</div>
-`;
+                        </div>
+                        `;
                 });
                 container.innerHTML = html;
                 const btn = document.querySelector(".pl-play");

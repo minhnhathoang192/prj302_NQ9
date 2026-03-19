@@ -5857,3 +5857,71 @@ body {
     color: inherit;
     display: block;
 }
+
+/* ===== GRID ===== */
+#searchPlaylistContainer,
+#searchPlaylistOnly {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+/* ===== CARD ===== */
+.search-playlist-card {
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== COVER ===== */
+.search-playlist-cover {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    transition: all 0.25s ease;
+}
+
+.search-playlist-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ===== HOVER EFFECT ===== */
+.search-playlist-card:hover .search-playlist-cover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.7);
+}
+
+/* ===== TITLE ===== */
+.search-playlist-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* ===== SUB TEXT (0 bài hát) ===== */
+.search-playlist-sub {
+    color: #aaa;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+/* ===== EMPTY TEXT ===== */
+#searchPlaylistContainer p,
+#searchPlaylistOnly p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+
+.search-playlist-card:hover::after {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}

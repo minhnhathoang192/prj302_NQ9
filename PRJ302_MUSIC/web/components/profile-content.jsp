@@ -61,14 +61,14 @@
             </div>
         </div>
 
-        <!-- ĐÃ TẢI LÊN -->
+<!--         ĐÃ TẢI LÊN 
         <div class="action-card">
             <div class="action-icon upload">⬆</div>
             <div>
                 <div class="action-title">Đã tải lên</div>
                 <div class="action-sub"></div>
             </div>
-        </div>
+        </div>-->
 
     </div>
 
