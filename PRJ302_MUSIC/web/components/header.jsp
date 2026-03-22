@@ -38,6 +38,7 @@
                     <div class="avatar-header" onclick="toggleUserMenu()">
 
                         <c:choose>
+
                             <c:when test="${not empty sessionScope.user.avatar}">
                                 <img src="assets/avatar/${sessionScope.user.avatar}" alt="avatar">
                             </c:when>
@@ -74,9 +75,10 @@
 
 
                 </c:when>
-
+                <%-- chua login sessionScope.user = null --%>
+                <%-- Buoc 1 --%>
                 <c:otherwise>
-                    <button onclick="openLogin()" class="login-btn-header">
+                    <button onclick="openLogin()" class="login-btn-header"> 
                         Đăng nhập
                     </button>
                 </c:otherwise>
@@ -91,13 +93,9 @@
 
                 <a href="userManual.jsp" class="settings-link">
                     <div class="settings-item">
-                        🛟 <span >Hướng dẫn và hỗ trợ</span>
+                       <span >Hướng dẫn và hỗ trợ</span>
                     </div>
                 </a>
-
-                <div class="settings-item">
-                    💬 <span>Góp ý</span>
-                </div>
             </div>
         </div>
 

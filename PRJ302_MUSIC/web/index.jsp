@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="assets/css/search.css"/>
     </head>
     <body data-logged-in="${not empty sessionScope.user}" data-context="${pageContext.request.contextPath}">
+        
         <jsp:include page="components/header.jsp"/>
 
         <div class="app">
@@ -62,7 +63,7 @@
                     <div id="page-home-artist-more" class="page">
                         <jsp:include page="components/home-artist-more-content.jsp"/>
                     </div>
-
+     
 
                     <div id="page-more" class="page">
                     </div>
@@ -96,6 +97,7 @@
         <script src="assets/js/create-account.js"></script>
 
         <c:if test="${not empty message}">
+            <!--auto mo lai modal neu co loi-->
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     openLogin();
@@ -104,6 +106,7 @@
         </c:if>
 
         <c:if test="${not empty error || not empty msg}">
+            <!--auto mo lai modal neu co loi-->
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     openRegister();
@@ -112,6 +115,7 @@
         </c:if>
 
         <c:if test="${not empty errorEmail || not empty msgEmail}">
+            <!--auto mo lai modal neu co loi-->
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     openForgot();

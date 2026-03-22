@@ -4,9 +4,9 @@
     Author     : NQ9
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+    
         <div id="loginModal" class="login-modal">
             <div class="login-box">
                 <button class="close-btn" onclick="closeLogin()">✕</button>

@@ -18,8 +18,10 @@
 
         <!-- LIST TOPIC -->
         <div class="tm-grid">
-
+            
+            <!--sever render topic-->
             <c:forEach var="t" items="${sessionScope.topics}">
+                <!--user chon topic-->
                 <div class="tm-card"
                      data-id="${t.topicID}"
                      onclick="toggleTopic(this)">
@@ -44,6 +46,7 @@
         </div>
 
         <!-- ACTION -->
+        
         <div class="tm-actions">
             <button class="tm-submit" onclick="submitTopics()">Tiếp tục →</button>
         </div>

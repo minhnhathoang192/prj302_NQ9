@@ -2,23 +2,26 @@ function getAudio() {
     return document.getElementById("audio-player");
 }
 
+//function dieu kien audio
 function playSong(url, title, cover, songID) {
-    console.trace("playSong called");
+    /// lay audio element (HTML5 audio)
     let audio = getAudio();
-
-    // nếu đang phát đúng bài này thì KHÔNG reload
+    
+    // neu dang phat bai nay - chi play lai khong reload
     if (window.currentSongID === songID) {
         audio.play();
         return;
     }
-
+    
+    // load file audio + play
     audio.src = url;
     audio.play();
-
+    
+    // luu bai dang phat
     window.currentSongID = songID;
 
     //luu listent_History
-    fetch("MainController?action=addListeningHistory&songID=" + songID)
+    fetch("MainController?action=addListeningHistory&songID=" + songID) // AJAX gui lich su len sever 
             .catch(err => console.log("History error:", err));
 
 
@@ -30,22 +33,24 @@ function playSong(url, title, cover, songID) {
         coverURL: cover
     };
 
-    // footer
-    document.getElementById("player-title").innerText = title;
-    document.getElementById("player-cover").src = cover;
+    // Update UI footer 
+    document.getElementById("player-title").innerText = title; // cap nhat ten bai
+    document.getElementById("player-cover").src = cover; // cap nhat hinh anh bai hat o footer
 
     // update for-you
     updateForYouUI();
 
-    fetch("MainController?action=isFavorite&songID=" + songID)
-            .then(res => res.json())
-            .then(data => {
-
-                const btn = document.getElementById("btn-like");
+    fetch("MainController?action=isFavorite&songID=" + songID) // check bai hat da like 
+            .then(res => res.json()) // resqone - json object  
+            .then(data => { // data = { liked: true/false }
+                
+                //  lay nut like 
+                const btn = document.getElementById("btn-like"); 
 
                 if (!btn)
                     return;
-
+                
+                // update UI like / un like 
                 if (data.liked) {
                     btn.classList.add("liked");
                 } else {
@@ -53,6 +58,26 @@ function playSong(url, title, cover, songID) {
                 }
 
             });
+            
+            /*
+             * 
+             *  playSong()
+                    ↓
+                check bài cũ
+                    ↓
+                set audio + play
+                    ↓
+                lưu currentSong
+                    ↓
+                update UI (title + cover)
+                    ↓
+                gửi history (AJAX)
+                    ↓
+                check favorite (AJAX)
+                    ↓
+                update like button
+             * 
+             */
 }
 
 function togglePlay() {

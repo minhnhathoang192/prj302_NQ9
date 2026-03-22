@@ -29,18 +29,42 @@ public class getRandomTopicController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    // xu ly request tu js
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // tra ve json 
         response.setContentType("application/json;charset=UTF-8");
+        // set encoding 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+        //goi dao 
         TopicDAO tdao= new TopicDAO();
-        TopicDTO topic= tdao.getRamdomTopic();
+        TopicDTO topic= tdao.getRamdomTopic(); // query bai DB bai ngau nhien 
         
+        // convert object java - json - tra ve client
+        /*
+        {
+            "topicID": 5,
+            "topicName": "Pop"
+        }
+        */
         Gson gson= new Gson();
         response.getWriter().write(gson.toJson(topic));
     }
+    
+    /*
+    JS gọi API
+        =
+    MainController
+        =
+    getRandomTopicController
+        =
+    DAO lấy topic random
+        =
+    Gson → JSON
+        =
+    trả về JS
+    */
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

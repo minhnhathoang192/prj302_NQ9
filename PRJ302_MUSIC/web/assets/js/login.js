@@ -1,9 +1,9 @@
-function openLogin() {
-    document.getElementById('loginModal').classList.add('active');
+function openLogin() { // buoc 2 modal
+    document.getElementById('loginModal').classList.add('active'); //DOM thêm class active modal hien ra 
 }
 
 function closeLogin() {
-    document.getElementById('loginModal').classList.remove('active');
+    document.getElementById('loginModal').classList.remove('active'); //DOM xoa class active 
 }
 
 

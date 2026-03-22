@@ -39,6 +39,7 @@ public class homeController extends HttpServlet {
         HttpSession session= request.getSession();
         
         if(session.getAttribute("topics")==null){
+            //load ds topic tu DB va luu vao session
             TopicDAO tdao= new TopicDAO();
             List<TopicDTO> topics= tdao.getAllTopic(null);
 

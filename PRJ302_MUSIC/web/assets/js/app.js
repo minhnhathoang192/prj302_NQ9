@@ -1,6 +1,7 @@
 /* =========================
  SIMPLE SPA NAVIGATION
  ========================= */
+// 
 const contextPath = document.body.dataset.context;
 
 function showPage(page, el, addToHistory) {
@@ -10,6 +11,7 @@ function showPage(page, el, addToHistory) {
         addToHistory = true;
     }
 
+    // lay hash hien tai
     var currentHash = window.location.hash.replace("#", "");
 
     // Nếu khác page hiện tại thì mới đổi hash
@@ -17,26 +19,41 @@ function showPage(page, el, addToHistory) {
         window.location.hash = page;
     }
 
-    // Ẩn tất cả page
-    var pages = document.querySelectorAll(".page");
+    // buoc 1: Ẩn tất cả page
+    /*
+     * xoa class active cua tat ca page
+     * 
+     */
+    var pages = document.querySelectorAll(".page"); // l?y tât ca div co class <div id="page-home" class="page">
     for (var i = 0; i < pages.length; i++) {
-        pages[i].classList.remove("active");
+        pages[i].classList.remove("active"); //xoa active page 
     }
 
-    // Hiện page cần
-    var target = document.getElementById("page-" + page);
+    /* CSS
+     * 
+     * @.page {
+     display: none;
+     }
+     
+     .page.active {
+     display: block;
+     }
+     */
+
+    // Buoc 2: Hiện page cần
+    var target = document.getElementById("page-" + page); // timg các element có id chuan bi truoc id="page-playlist"
     if (target) {
-        target.classList.add("active");
+        target.classList.add("active"); // them clas active 
     }
 
-    // Bỏ active menu
-    var navItems = document.querySelectorAll(".nav-item");
+    // xoa toan bo active menu
+    var navItems = document.querySelectorAll(".nav-item"); // lay tat ca node trong DOM 
     for (var j = 0; j < navItems.length; j++) {
-        navItems[j].classList.remove("active");
+        navItems[j].classList.remove("active"); // bo hightlight menu cu 
     }
 
     if (el) {
-        el.classList.add("active");
+        el.classList.add("active"); // higlid moi 
     }
 }
 
@@ -64,7 +81,8 @@ window.onhashchange = function () {
 window.onload = function () {
 
     var page = window.location.hash.replace("#", "");
-
+//     lan chay dau tien http:/localhost:8080/
+// page = "" false -> page = home
     if (!page) {
         page = "home";
     }
@@ -271,54 +289,91 @@ function loadForYou(el) {
 
 //Topic-Page
 
-function showTopicPage(el) {
-
+function showTopicPage(el) { // nhan element el = the div topic card vua click
+    
+    // lay id tu html 
     const topicID = el.getAttribute("data-topic-id");
-
-    console.log("CLICK topicID:", topicID); // 👈 check
-
+    
+    //check loi
     if (!topicID) {
         alert("Thiếu topicID!");
         return;
     }
-
+    // tao ten page 
+    // topicID = 5 - page = "topic-5"
     const page = "topic-" + topicID;
 
-    showPage(page, el);
-
+    showPage(page, el); // goi function showpage
+    
+    // tim contant page 
     let container = document.getElementById("page-" + page);
-
+    
+    // neu chua co tao moi 
     if (!container) {
-        container = document.createElement("div");
+        container = document.createElement("div"); // tao div moi 
         container.id = "page-" + page;
         container.className = "page";
-        document.getElementById("mainContent").appendChild(container);
+        document.getElementById("mainContent").appendChild(container); // them page vao he thong
     }
-
-    const context = document.body.dataset.context;
+    
+    // lay project name
+    const context = document.body.dataset.context; 
 
     container.innerHTML = "Loading...";
 
-    fetch(context + "/MainController?action=loadTopic&topicID=" + topicID)
-            .then(res => res.text())
-            .then(html => {
+    fetch(context + "/MainController?action=loadTopic&topicID=" + topicID) // goi controller GET MainController?action=loadTopic&topicID=5
+            .then(res => res.text()) // nhan html 
+            .then(html => { // inject html vao page
                 container.innerHTML = html;
             });
+            
+            /*
+             * 
+             * @param {type} el
+             * @returns {undefined}
+             * 
+             *  User click topic
+                        ↓
+                showTopicPage()
+                        ↓
+                showPage() (SPA)
+                        ↓
+                tạo container nếu chưa có
+                        ↓
+                fetch HTML từ server
+                        ↓
+                inject vào container
+                        ↓
+                hiển thị page topic
+             */
 }
 
+//click them o home 
 function showMorePage(el) {
+    //goi function showpage 
     showPage('more', el);
 
-    const container = document.getElementById("page-more");
+    const container = document.getElementById("page-more"); // lay content co san 
     const context = document.body.dataset.context;
 
-    container.innerHTML = "Loading...";
+    container.innerHTML = "Loading..."; //loading 
 
-    fetch(context + "/MainController?action=loadMore")
+    fetch(context + "/MainController?action=loadMore") // goi sever lay html 
             .then(res => res.text())
-            .then(html => {
+            .then(html => { // inject html 
                 container.innerHTML = html;
             });
+            /*
+             *  Click "Thêm"
+                    ↓
+                showPage("more")
+                    ↓
+                fetch HTML
+                    ↓
+                inject vào page-more
+                    ↓
+                hiển thị nội dung
+             */
 }
 
 //search song

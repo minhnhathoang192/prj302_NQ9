@@ -31,7 +31,10 @@
         </div>
 
         <div class="topic-grid">
-
+            
+<!--            data-topic-id="1" luu ID topic 
+                onclick="showTopicPage(this)" - click goi JS
+                User click card - goi JS - truyen element do-->
             <div class="topic-card" data-topic-id="1" onclick="showTopicPage(this)">
 
                 <img src="${pageContext.request.contextPath}/StreamServlet?type=topic&file=1772400913421_Chill.png">

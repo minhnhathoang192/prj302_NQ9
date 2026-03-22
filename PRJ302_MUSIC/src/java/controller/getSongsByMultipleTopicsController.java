@@ -30,21 +30,33 @@ public class getSongsByMultipleTopicsController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    // Xu lý Get request tu js
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // tra ve json 
         response.setContentType("application/json;charset=UTF-8");
+        //set encoding
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         try {
+            // lay tu URL topicIds=1,2,3
             String ids = request.getParameter("topicIds");
-            System.out.println("👉 IDS nhận được: " + ids);
-
-            TopicSongDAO dao = new TopicSongDAO();
-            List<SongDTO> list = dao.getSongsByMultipleTopics(ids);
             
-            System.out.println("👉 LIST SIZE: " + list.size());
-
+            //Goi DAO
+            TopicSongDAO dao = new TopicSongDAO();
+            List<SongDTO> list = dao.getSongsByMultipleTopics(ids); //query DB theo nhieu topic 
+            
+            //Convert JSON Java object => JSON string => gửi về client
+            /*
+            [
+                {
+                  "songID": 1,
+                  "title": "Song A",
+                  "audioURL": "a.mp3"
+                }
+              ]
+            */
             Gson gson = new Gson();
             response.getWriter().write(gson.toJson(list));
 
@@ -53,6 +65,22 @@ public class getSongsByMultipleTopicsController extends HttpServlet {
             response.getWriter().write("[]");
         }
     }
+    
+    /*
+            JS gửi request
+                =
+            MainController
+                =
+            getSongsByMultipleTopicsController
+                =
+            DAO query DB
+                =
+            List<SongDTO>
+                =
+            Gson = JSON
+                =
+            trả về JS
+    */
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

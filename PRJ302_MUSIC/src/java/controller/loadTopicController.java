@@ -32,33 +32,62 @@ public class loadTopicController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    // xu ly request tu js
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //set encoding tra ve html 
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
+        
+        // lay parameter MainController?action=loadTopic&topicID=5
         String s_topicID = request.getParameter("topicID");
-
+            
+        // kiem tra rong 
         if (s_topicID == null || s_topicID.trim().isEmpty()) {
-            response.sendError(400, "topicID is missing!");
+            response.sendError(400, "topicID is missing!"); // tra loi HTTP 404 
             return;
         }
-
+        
+        // chuyen String sang int "5" -> 5
         int topicID = Integer.parseInt(s_topicID);
-
+        
+        // Goi dao 
         TopicSongDAO tsdao = new TopicSongDAO();
-        List<SongDTO> song = tsdao.getSongsByTopic(topicID);
-
+        List<SongDTO> song = tsdao.getSongsByTopic(topicID); // query DB lay bai hat trong topic do 
+        
+        // goi dao 
         TopicDAO tdao = new TopicDAO();
-        TopicDTO topic = tdao.getTopicByID(topicID);
+        TopicDTO topic = tdao.getTopicByID(topicID);// lay ds ten topic 
 
-        request.setAttribute("songs", song);
+        // gui list bai hat sang jsp
+        request.setAttribute("songs", song);   // topic-content.jsp 
+        // gui ten topic sang jsp
         request.setAttribute("topicName", topic.getTopicName());
+//        request scope:
+//            - songs
+//            - topicName
 
+        //render jsp - tra html fragment ve client
         request.getRequestDispatcher("components/ChuDe/topic-content.jsp")
-                .forward(request, response);
+                .forward(request, response); // sever render html roi gui ve 
     }
+    
+    /*
+      JS fetch loadTopic
+            =
+    MainController
+            =
+    loadTopicController
+            =
+    DAO lấy data
+            =
+    setAttribute
+            =
+    forward JSP
+            =
+    HTML trả về client
+    */
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

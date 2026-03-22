@@ -258,23 +258,39 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
     });
 });
-function playPlaylistSong(index) {
+function playPlaylistSong(index) { // play theo index
     
+    //check index 
     if (!playlist[index]) return;
-
+    //cap nhat bai hat hien tai
     currentIndex = index;
+    // lat object bai hat
     const s = playlist[index];
+    // goi func playSong
     playSong(
             s.audioURL,
             s.title,
             s.coverURL,
             s.songID
             );
+    // update UI playlist
     const rows = document.querySelectorAll(".pl-song-row");
+    //remove highlight 
     rows.forEach(r => r.classList.remove("playing"));
+    // highlight bai dang phat
     if (rows[index]) {
-        rows[index].classList.add("playing");
+        rows[index].classList.add("playing"); 
     }
+    
+    /*
+    click / auto play
+        ↓
+    playPlaylistSong()
+        ↓
+    playSong()
+        ↓
+    update UI (highlight)
+     */
 
 }
 

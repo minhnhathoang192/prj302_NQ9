@@ -30,19 +30,23 @@ public class loadMoreController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    // xu ly request tu js 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //set encoding html 
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        
+        // goi dao 
         TopicDAO tdao= new TopicDAO();
-        List<TopicDTO> topic= tdao.getAllTopic(null);
+        List<TopicDTO> topic= tdao.getAllTopic(null); // lay tat ca topic trong DB
         
-        request.setAttribute("topics", topic);
+        // gui list topiic sang jsp
+        request.setAttribute("topics", topic); 
         
+        // render jsp tra ve html 
         RequestDispatcher rd= request.getRequestDispatcher("components/ChuDe/more-content.jsp");
-        rd.forward(request, response);
+        rd.forward(request, response); // sever render html roi gui ve 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

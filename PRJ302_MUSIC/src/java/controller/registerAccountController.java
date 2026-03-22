@@ -30,16 +30,19 @@ public class registerAccountController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    // Ham xu ly Request (POST)
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //set Encoding
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-        String url = "index.jsp";
-        String error = "";
+        String url = "index.jsp"; // trang tra ve 
+        String error = ""; // 
         String msg = "";
         try {
+            //Lay input user Nhâp
             String userName = request.getParameter("userName");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
@@ -60,6 +63,8 @@ public class registerAccountController extends HttpServlet {
             if (confirmPassword == null || confirmPassword.trim().isEmpty()) {
                 error += "chua nhap confirmPassword";
             }
+            
+            //check confim password
             if (password != null && !password.equals(confirmPassword)) {
                 error += "Mật khẩu không khớp<br>";
             }
@@ -77,32 +82,68 @@ public class registerAccountController extends HttpServlet {
             }
 
             String hashPassword = null;
+            //Goi DB
             userDAO udao = new userDAO();
-            if(error.isEmpty()){
+            if(error.isEmpty()){ //check loi
+                //chek user
                 if(udao.findByUserName(userName)!=null){
                     error+="userName da ton tai<br>";
                 }
+                //check email
                 if(udao.findByEmail(email)!=null){
                     error+="Email da ton tai<br>";
                 }
             }
+            
             if (error.isEmpty()) {
+                //bao mat password
                 hashPassword = PasswordUtils.hashPassword(password);
+                //tao object user
                 userDTO user = new userDTO(null, userName, email, hashPassword, null, fullName, birthday, gender, null, null, 1, 2);
                 
+                //insert DB
                 if (udao.createUser(user)) {
                     msg += "tao tai khoan thanh cong!";
                 } else {
                     error += "tao tai khoan that bai!";
                 }
-                request.setAttribute("msg", msg);
+                
+                request.setAttribute("msg", msg); // bao thanh cong
             }
-            request.setAttribute("error", error);
+            request.setAttribute("error", error); // bao loi
         } catch (Exception e) {
             e.printStackTrace();
         }
+        // forward giu request giua error
         request.getRequestDispatcher(url).forward(request, response);
     }
+    
+    /*
+            User submit form
+                    =
+            registerAccountController
+                    =
+            Lấy dữ liệu
+                    =
+            Validate (null, password, date)
+                    =
+            Check trùng DB
+                    =
+            Nếu OK:
+                hash password
+                    =
+                insert DB
+                    =
+                set msg
+            Nếu lỗi:
+                set error
+                    =
+            forward index.jsp
+                    =
+            JSP hiển thị error/msg
+                    =
+            JS mở lại modal
+    */
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

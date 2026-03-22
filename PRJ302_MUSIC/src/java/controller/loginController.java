@@ -32,41 +32,88 @@ public class loginController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //ham xu ly request(GET + POST)
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Cau hinh encoding: fix loi tieng viet
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        String url="";
-        HttpSession session= request.getSession();
-        if(session.getAttribute("user")==null){
-            String txtUserName= request.getParameter("username");
-            String txtPassword= request.getParameter("password");
+
+        String url = "";
+        HttpSession session = request.getSession(); //khai bao bien luu trang thai login
+
+        if (session.getAttribute("user") == null) { //check trang thai login
+            // lay du lieu tu form MainController?action=login tu login-modal.jsp
+            String txtUserName = request.getParameter("username");
+            String txtPassword = request.getParameter("password");
+            // hashpasword
             String hasspassword = PasswordUtils.hashPassword(txtPassword);
-            
-            userDAO udao= new userDAO();
-            userDTO user= udao.login(txtUserName, hasspassword);
-            System.out.println(user);
-            if(user!=null){
-                if(user.getStatus()==1){
+
+            //Goi DAO
+            //check Db user co ton tai hay khong 
+            userDAO udao = new userDAO();
+            userDTO user = udao.login(txtUserName, hasspassword);
+
+            if (user != null) {
+                //account avtice moi duoc login
+                if (user.getStatus() == 1) {
+                    // luu session user
                     session.setAttribute("user", user);
-                    if(user.getRoleID()==1){
+
+                    //phan quyen luu role 
+                    if (user.getRoleID() == 1) {
                         session.setAttribute("role", "admin");
-                    }else{
+                    } else {
                         session.setAttribute("role", "user");
                     }
+                    //tro lai home tao request moi loginController -> redirect -> MainController
                     response.sendRedirect("MainController");
-                }else{
+                } else {
+                    //status!=1 khong cho login
                     response.sendRedirect("error.jsp");
                 }
-            }else{
+            } else {
+                //neu login sai gui loi ve jsp 
                 request.setAttribute("message", "Invalid username or incorrect password!");
-                RequestDispatcher rd= request.getRequestDispatcher("index.jsp");
+                //khong tao request moi 
+                //giu message
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             }
-        }else{
+        } else {
+            //Neu da login roi không cho login n?a
             response.sendRedirect("MainController");
         }
+        
+        
+        
+        /*
+                User nhập form
+                        =
+                POST MainController?action=login
+                        =
+                loginController
+                        =
+                Lấy username/password
+                        =
+                Hash password
+                        =
+                DAO check DB
+                        =
+                IF đúng:
+                    session.setAttribute(user)
+                        =
+                    redirect MainController
+                        =
+                    JSP render avatar
+                ELSE:
+                    set message
+                        =
+                    forward index.jsp
+                        =
+                    hiển thị lỗi
+         */
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
